@@ -4,9 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {
+  RelayEnvironmentProvider
+} from 'react-relay/hooks';
+
+import RelayEnvironment from './RelayEnvironment';
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RelayEnvironmentProvider environment={RelayEnvironment}>
+      <React.Suspense fallback={'Loading...'}><App /></React.Suspense>
+    </RelayEnvironmentProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
