@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 
 import { useFragment, useMutation } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
