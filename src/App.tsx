@@ -1,24 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+
+import { getCredentials } from './authentication';
+import LoginScreen from './screens/LoginScreen';
+import LogoutButton from './components/LogoutButton';
+import IndexScreen from './screens/IndexScreen';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => !!getCredentials());
+  const refreshLogin = () => {
+    setIsAuthenticated(!!getCredentials());
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <LoginScreen onLogin={refreshLogin} />
+    );
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+    <div className="container">
+      <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          Criipto Signatures Demo
         </a>
+
+        {/* <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" className="nav-link px-2 link-secondary">Home</a></li>
+          <li><a href="#" className="nav-link px-2 link-dark">Features</a></li>
+          <li><a href="#" className="nav-link px-2 link-dark">Pricing</a></li>
+          <li><a href="#" className="nav-link px-2 link-dark">FAQs</a></li>
+          <li><a href="#" className="nav-link px-2 link-dark">About</a></li>
+        </ul> */}
+
+        <div className="col-md-3 text-end">
+          <LogoutButton onLogout={refreshLogin} />
+        </div>
       </header>
+      <React.Suspense fallback={'Loading...'}>
+        <IndexScreen />
+      </React.Suspense>
     </div>
   );
 }

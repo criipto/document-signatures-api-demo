@@ -1,3 +1,5 @@
+import {getCredentials} from './authentication';
+
 async function fetchGraphQL(text : string, variables : any) {
     if (!process.env.REACT_APP_GRAPHQL_URI) throw new Error('REACT_APP_GRAPHQL_URI not configured');
   
@@ -5,6 +7,7 @@ async function fetchGraphQL(text : string, variables : any) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Basic ${getCredentials()}`
       },
       body: JSON.stringify({
         query: text,
