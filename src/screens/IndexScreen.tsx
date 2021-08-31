@@ -4,6 +4,10 @@ import graphql from 'babel-plugin-relay/macro';
 
 import {IndexScreenQuery} from './__generated__/IndexScreenQuery.graphql';
 
+import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
+import CreateSignatureOrderScreen from './CreateSignatureOrderScreen';
+import SignatureOrdersScreen from './SignatureOrdersScreen';
+
 export default function IndexScreen() {
   const data = useLazyLoadQuery<IndexScreenQuery>(
     graphql`
@@ -12,6 +16,8 @@ export default function IndexScreen() {
           __typename
           ... on Application {
             id
+
+            ... CreateSignatureOrderScreen_application
           }
           ... on AnonymousViewer {
             authenticated
@@ -33,10 +39,19 @@ export default function IndexScreen() {
     )
   }
 
-  console.log(data);
   return (
-    <div>
-    
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/signatureorders/create">
+          <CreateSignatureOrderScreen application={data.viewer} />
+        </Route>
+        <Route path="/signatureorders">
+          <SignatureOrdersScreen />
+        </Route>
+        <Route>
+          <Redirect to="/signatureorders" />
+        </Route>
+      </Switch>
+    </Router>
   )
 }

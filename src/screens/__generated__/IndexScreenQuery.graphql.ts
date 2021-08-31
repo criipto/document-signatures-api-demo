@@ -4,11 +4,13 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
+import { FragmentRefs } from "relay-runtime";
 export type IndexScreenQueryVariables = {};
 export type IndexScreenQueryResponse = {
     readonly viewer: {
         readonly __typename: "Application";
         readonly id: string;
+        readonly " $fragmentRefs": FragmentRefs<"CreateSignatureOrderScreen_application">;
     } | {
         readonly __typename: "AnonymousViewer";
         readonly authenticated: boolean;
@@ -31,70 +33,82 @@ query IndexScreenQuery {
     __typename
     ... on Application {
       id
+      ...CreateSignatureOrderScreen_application
     }
     ... on AnonymousViewer {
       authenticated
     }
   }
 }
+
+fragment CreateSignatureOrderScreen_application on Application {
+  id
+}
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": null,
-    "kind": "LinkedField",
-    "name": "viewer",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "__typename",
-        "storageKey": null
-      },
-      {
-        "kind": "InlineFragment",
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          }
-        ],
-        "type": "Application",
-        "abstractKey": null
-      },
-      {
-        "kind": "InlineFragment",
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "authenticated",
-            "storageKey": null
-          }
-        ],
-        "type": "AnonymousViewer",
-        "abstractKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "authenticated",
+      "storageKey": null
+    }
+  ],
+  "type": "AnonymousViewer",
+  "abstractKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "IndexScreenQuery",
-    "selections": (v0/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v1/*: any*/),
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "CreateSignatureOrderScreen_application"
+              }
+            ],
+            "type": "Application",
+            "abstractKey": null
+          },
+          (v2/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -103,17 +117,39 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "IndexScreenQuery",
-    "selections": (v0/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v1/*: any*/)
+            ],
+            "type": "Application",
+            "abstractKey": null
+          },
+          (v2/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "b417beb708baae9b7718c8a2d515a7a4",
+    "cacheID": "aed0be44c3a56454de1d94c7333f61c7",
     "id": null,
     "metadata": {},
     "name": "IndexScreenQuery",
     "operationKind": "query",
-    "text": "query IndexScreenQuery {\n  viewer {\n    __typename\n    ... on Application {\n      id\n    }\n    ... on AnonymousViewer {\n      authenticated\n    }\n  }\n}\n"
+    "text": "query IndexScreenQuery {\n  viewer {\n    __typename\n    ... on Application {\n      id\n      ...CreateSignatureOrderScreen_application\n    }\n    ... on AnonymousViewer {\n      authenticated\n    }\n  }\n}\n\nfragment CreateSignatureOrderScreen_application on Application {\n  id\n}\n"
   }
 };
 })();
-(node as any).hash = 'e47b05799ef415ec9519644174daf82e';
+(node as any).hash = 'bd09ce3e516e3a40bb3667fd100aa5a8';
 export default node;
