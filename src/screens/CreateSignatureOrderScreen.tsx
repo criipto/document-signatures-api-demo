@@ -1,16 +1,12 @@
 import React, {useState} from 'react';
 
-import { useFragment, useMutation } from 'react-relay';
+import { useLazyLoadQuery, useMutation } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
 import { useHistory } from 'react-router-dom';
 
 import {CreateSignatureOrderScreenMutation, DocumentInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
-import {CreateSignatureOrderScreen_application$key} from './__generated__/CreateSignatureOrderScreen_application.graphql';
-
-interface Props {
-  application: CreateSignatureOrderScreen_application$key
-}
+import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOrderScreenQuery.graphql';
 
 const toBase64 = (file : File) : Promise<string> => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -27,18 +23,27 @@ type LocalDocumentInput = DocumentInput & {
   fileName: string
 }
 
-export default function CreateSignatureOrderScreen(props : Props) {
+export default function CreateSignatureOrderScreen() {
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
   const [error, setError] = useState('');
   const history = useHistory();
 
-  const application = useFragment(
+  const data = useLazyLoadQuery<CreateSignatureOrderScreenQuery>(
     graphql`
-      fragment CreateSignatureOrderScreen_application on Application {
-        id
+      query CreateSignatureOrderScreenQuery {
+        viewer {
+          __typename
+          ... on Application {
+            id
+          }
+        }
       }
-    `
-  , props.application)
+    `,
+    {},
+    {fetchPolicy: 'store-and-network'}
+  );
+
+  const application = data.viewer;
 
   const handleAddDocument = async (event : React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
@@ -86,6 +91,8 @@ export default function CreateSignatureOrderScreen(props : Props) {
       }
     `
   );
+
+  if (application.__typename !== 'Application') return null;
 
   const handleSubmit = (event : React.FormEvent) => {
     event.preventDefault();

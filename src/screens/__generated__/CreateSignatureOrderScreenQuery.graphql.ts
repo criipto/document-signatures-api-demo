@@ -4,36 +4,30 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
-export type IndexScreenQueryVariables = {};
-export type IndexScreenQueryResponse = {
+export type CreateSignatureOrderScreenQueryVariables = {};
+export type CreateSignatureOrderScreenQueryResponse = {
     readonly viewer: {
         readonly __typename: "Application";
         readonly id: string;
-    } | {
-        readonly __typename: "AnonymousViewer";
-        readonly authenticated: boolean;
     } | {
         /*This will never be '%other', but we need some
         value in case none of the concrete values match.*/
         readonly __typename: "%other";
     };
 };
-export type IndexScreenQuery = {
-    readonly response: IndexScreenQueryResponse;
-    readonly variables: IndexScreenQueryVariables;
+export type CreateSignatureOrderScreenQuery = {
+    readonly response: CreateSignatureOrderScreenQueryResponse;
+    readonly variables: CreateSignatureOrderScreenQueryVariables;
 };
 
 
 
 /*
-query IndexScreenQuery {
+query CreateSignatureOrderScreenQuery {
   viewer {
     __typename
     ... on Application {
       id
-    }
-    ... on AnonymousViewer {
-      authenticated
     }
   }
 }
@@ -69,20 +63,6 @@ var v0 = [
         ],
         "type": "Application",
         "abstractKey": null
-      },
-      {
-        "kind": "InlineFragment",
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "authenticated",
-            "storageKey": null
-          }
-        ],
-        "type": "AnonymousViewer",
-        "abstractKey": null
       }
     ],
     "storageKey": null
@@ -93,7 +73,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "IndexScreenQuery",
+    "name": "CreateSignatureOrderScreenQuery",
     "selections": (v0/*: any*/),
     "type": "Query",
     "abstractKey": null
@@ -102,18 +82,18 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "IndexScreenQuery",
+    "name": "CreateSignatureOrderScreenQuery",
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "b417beb708baae9b7718c8a2d515a7a4",
+    "cacheID": "f9d599d96e5e6e6d6d7b08e59dcbb053",
     "id": null,
     "metadata": {},
-    "name": "IndexScreenQuery",
+    "name": "CreateSignatureOrderScreenQuery",
     "operationKind": "query",
-    "text": "query IndexScreenQuery {\n  viewer {\n    __typename\n    ... on Application {\n      id\n    }\n    ... on AnonymousViewer {\n      authenticated\n    }\n  }\n}\n"
+    "text": "query CreateSignatureOrderScreenQuery {\n  viewer {\n    __typename\n    ... on Application {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e47b05799ef415ec9519644174daf82e';
+(node as any).hash = '7565598f9fb9689f7c8505bf44f2f904';
 export default node;

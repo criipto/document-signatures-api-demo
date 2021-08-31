@@ -16,8 +16,6 @@ export default function IndexScreen() {
           __typename
           ... on Application {
             id
-
-            ... CreateSignatureOrderScreen_application
           }
           ... on AnonymousViewer {
             authenticated
@@ -27,7 +25,7 @@ export default function IndexScreen() {
     `,
     {},
     {
-      fetchPolicy: 'network-only'
+      fetchPolicy: 'store-and-network'
     }
   );
   
@@ -43,7 +41,7 @@ export default function IndexScreen() {
     <Router>
       <Switch>
         <Route path="/signatureorders/create">
-          <CreateSignatureOrderScreen application={data.viewer} />
+          <CreateSignatureOrderScreen  />
         </Route>
         <Route path="/signatureorders">
           <SignatureOrdersScreen />
