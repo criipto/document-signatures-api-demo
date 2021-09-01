@@ -7,6 +7,7 @@ import {IndexScreenQuery} from './__generated__/IndexScreenQuery.graphql';
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import CreateSignatureOrderScreen from './CreateSignatureOrderScreen';
 import SignatureOrdersScreen from './SignatureOrdersScreen';
+import SignatureOrderScreen from './SignatureOrderScreen';
 
 export default function IndexScreen() {
   const data = useLazyLoadQuery<IndexScreenQuery>(
@@ -42,6 +43,9 @@ export default function IndexScreen() {
       <Switch>
         <Route path="/signatureorders/create">
           <CreateSignatureOrderScreen  />
+        </Route>
+        <Route path="/signatureorders/:signatureOrderId">
+          <SignatureOrderScreen  />
         </Route>
         <Route path="/signatureorders">
           <SignatureOrdersScreen />

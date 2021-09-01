@@ -5,8 +5,9 @@
 import { ConcreteRequest } from "relay-runtime";
 
 export type DocumentStorageMode = "Temporary" | "%future added value";
+export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future added value";
 export type CreateSignatureOrderInput = {
-    applicationId: string;
+    title?: string | null;
     disableVerifyEvidenceProvider?: boolean | null;
     documents: Array<DocumentInput>;
     evidenceProviders?: Array<EvidenceProviderInput> | null;
@@ -36,6 +37,17 @@ export type CreateSignatureOrderScreenMutationResponse = {
         readonly signatureOrder: {
             readonly id: string;
         };
+        readonly application: {
+            readonly signatureOrders: {
+                readonly edges: ReadonlyArray<{
+                    readonly node: {
+                        readonly id: string;
+                        readonly title: string | null;
+                        readonly status: SignatureOrderStatus;
+                    };
+                }>;
+            };
+        };
     } | null;
 };
 export type CreateSignatureOrderScreenMutation = {
@@ -53,6 +65,18 @@ mutation CreateSignatureOrderScreenMutation(
     signatureOrder {
       id
     }
+    application {
+      signatureOrders(status: OPEN) {
+        edges {
+          node {
+            id
+            title
+            status
+          }
+        }
+      }
+      id
+    }
   }
 }
 */
@@ -67,48 +91,116 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "CreateSignatureOrderOutput",
-    "kind": "LinkedField",
-    "name": "createSignatureOrder",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "SignatureOrder",
-        "kind": "LinkedField",
-        "name": "signatureOrder",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "SignatureOrder",
+  "kind": "LinkedField",
+  "name": "signatureOrder",
+  "plural": false,
+  "selections": [
+    (v2/*: any*/)
+  ],
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": [
+    {
+      "kind": "Literal",
+      "name": "status",
+      "value": "OPEN"
+    }
+  ],
+  "concreteType": "SignatureOrderConnection",
+  "kind": "LinkedField",
+  "name": "signatureOrders",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SignatureOrderEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SignatureOrder",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            (v2/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "title",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "status",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": "signatureOrders(status:\"OPEN\")"
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "CreateSignatureOrderScreenMutation",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CreateSignatureOrderOutput",
+        "kind": "LinkedField",
+        "name": "createSignatureOrder",
+        "plural": false,
+        "selections": [
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Application",
+            "kind": "LinkedField",
+            "name": "application",
+            "plural": false,
+            "selections": [
+              (v4/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Mutation",
     "abstractKey": null
   },
@@ -117,17 +209,43 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateSignatureOrderScreenMutation",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CreateSignatureOrderOutput",
+        "kind": "LinkedField",
+        "name": "createSignatureOrder",
+        "plural": false,
+        "selections": [
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Application",
+            "kind": "LinkedField",
+            "name": "application",
+            "plural": false,
+            "selections": [
+              (v4/*: any*/),
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "33a5119de46a1f7c49b84f57b63280b3",
+    "cacheID": "3b4d963d9bbfd83610f5fb8202058070",
     "id": null,
     "metadata": {},
     "name": "CreateSignatureOrderScreenMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateSignatureOrderScreenMutation(\n  $input: CreateSignatureOrderInput!\n) {\n  createSignatureOrder(input: $input) {\n    signatureOrder {\n      id\n    }\n  }\n}\n"
+    "text": "mutation CreateSignatureOrderScreenMutation(\n  $input: CreateSignatureOrderInput!\n) {\n  createSignatureOrder(input: $input) {\n    signatureOrder {\n      id\n    }\n    application {\n      signatureOrders(status: OPEN) {\n        edges {\n          node {\n            id\n            title\n            status\n          }\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e3da875326b93d740ae960978a4fca30';
+(node as any).hash = '653606ac4c787446f41daa1ec3500880';
 export default node;

@@ -5,13 +5,16 @@
 import { ConcreteRequest } from "relay-runtime";
 
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future added value";
-export type SignatureOrdersScreenQueryVariables = {};
+export type SignatureOrdersScreenQueryVariables = {
+    status?: SignatureOrderStatus | null;
+};
 export type SignatureOrdersScreenQueryResponse = {
     readonly viewer: {
         readonly signatureOrders?: {
             readonly edges: ReadonlyArray<{
                 readonly node: {
                     readonly id: string;
+                    readonly title: string | null;
                     readonly status: SignatureOrderStatus;
                 };
             }>;
@@ -26,30 +29,54 @@ export type SignatureOrdersScreenQuery = {
 
 
 /*
-query SignatureOrdersScreenQuery {
+query SignatureOrdersScreenQuery(
+  $status: SignatureOrderStatus
+) {
   viewer {
     __typename
     ... on Application {
-      signatureOrders {
+      signatureOrders(status: $status) {
         edges {
           node {
             id
+            title
             status
           }
         }
       }
     }
+    id
   }
 }
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = {
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "status"
+  }
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = {
   "kind": "InlineFragment",
   "selections": [
     {
       "alias": null,
-      "args": null,
+      "args": [
+        {
+          "kind": "Variable",
+          "name": "status",
+          "variableName": "status"
+        }
+      ],
       "concreteType": "SignatureOrderConnection",
       "kind": "LinkedField",
       "name": "signatureOrders",
@@ -71,11 +98,12 @@ var v0 = {
               "name": "node",
               "plural": false,
               "selections": [
+                (v1/*: any*/),
                 {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
-                  "name": "id",
+                  "name": "title",
                   "storageKey": null
                 },
                 {
@@ -100,7 +128,7 @@ var v0 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "SignatureOrdersScreenQuery",
@@ -113,7 +141,7 @@ return {
         "name": "viewer",
         "plural": false,
         "selections": [
-          (v0/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
@@ -123,7 +151,7 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "SignatureOrdersScreenQuery",
     "selections": [
@@ -142,21 +170,22 @@ return {
             "name": "__typename",
             "storageKey": null
           },
-          (v0/*: any*/)
+          (v1/*: any*/),
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "62bcde8dbf815d17389cab213a8cd609",
+    "cacheID": "dd8d44d10d3f68aeebf4d97e1c8c69e0",
     "id": null,
     "metadata": {},
     "name": "SignatureOrdersScreenQuery",
     "operationKind": "query",
-    "text": "query SignatureOrdersScreenQuery {\n  viewer {\n    __typename\n    ... on Application {\n      signatureOrders {\n        edges {\n          node {\n            id\n            status\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query SignatureOrdersScreenQuery(\n  $status: SignatureOrderStatus\n) {\n  viewer {\n    __typename\n    ... on Application {\n      signatureOrders(status: $status) {\n        edges {\n          node {\n            id\n            title\n            status\n          }\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'dcb826cb2043ae0c7e2157c04a4e49bc';
+(node as any).hash = '515657c797c19e01500536288bc7901a';
 export default node;

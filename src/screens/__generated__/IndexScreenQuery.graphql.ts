@@ -35,66 +35,69 @@ query IndexScreenQuery {
     ... on AnonymousViewer {
       authenticated
     }
+    id
   }
 }
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": null,
-    "kind": "LinkedField",
-    "name": "viewer",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "__typename",
-        "storageKey": null
-      },
-      {
-        "kind": "InlineFragment",
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          }
-        ],
-        "type": "Application",
-        "abstractKey": null
-      },
-      {
-        "kind": "InlineFragment",
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "authenticated",
-            "storageKey": null
-          }
-        ],
-        "type": "AnonymousViewer",
-        "abstractKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "authenticated",
+      "storageKey": null
+    }
+  ],
+  "type": "AnonymousViewer",
+  "abstractKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "IndexScreenQuery",
-    "selections": (v0/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v1/*: any*/)
+            ],
+            "type": "Application",
+            "abstractKey": null
+          },
+          (v2/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -103,15 +106,30 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "IndexScreenQuery",
-    "selections": (v0/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/),
+          (v1/*: any*/),
+          (v2/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "b417beb708baae9b7718c8a2d515a7a4",
+    "cacheID": "ac2dd76b24f89c6d93234199583b1d1e",
     "id": null,
     "metadata": {},
     "name": "IndexScreenQuery",
     "operationKind": "query",
-    "text": "query IndexScreenQuery {\n  viewer {\n    __typename\n    ... on Application {\n      id\n    }\n    ... on AnonymousViewer {\n      authenticated\n    }\n  }\n}\n"
+    "text": "query IndexScreenQuery {\n  viewer {\n    __typename\n    ... on Application {\n      id\n    }\n    ... on AnonymousViewer {\n      authenticated\n    }\n    id\n  }\n}\n"
   }
 };
 })();

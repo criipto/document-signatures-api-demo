@@ -24,6 +24,7 @@ type LocalDocumentInput = DocumentInput & {
 }
 
 export default function CreateSignatureOrderScreen() {
+  const [title, setTitle] = useState<string | null>(null);
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
   const [error, setError] = useState('');
   const history = useHistory();
@@ -39,8 +40,7 @@ export default function CreateSignatureOrderScreen() {
         }
       }
     `,
-    {},
-    {fetchPolicy: 'store-and-network'}
+    {}
   );
 
   const application = data.viewer;
@@ -87,6 +87,16 @@ export default function CreateSignatureOrderScreen() {
           signatureOrder {
             id
           }
+
+          application {
+            signatureOrders(status: OPEN) {
+              edges {
+                node {
+                  ... SignatureOrdersScreenSignatureOrder @relay(mask: false)
+                }
+              }
+            }
+          }
         }
       }
     `
@@ -102,7 +112,7 @@ export default function CreateSignatureOrderScreen() {
     commit({
       variables: {
         input: {
-          applicationId: application.id,
+          title,
           documents
         }
       },
@@ -119,6 +129,17 @@ export default function CreateSignatureOrderScreen() {
 
   return (
     <form onSubmit={handleSubmit}>
+       <div className="mb-3 form-floating">
+          <input
+            className="form-control"
+            type="text"
+            onChange={(event) => setTitle(event.target.value)}
+            value={title || ''}
+            placeholder="Signature order title"
+            required
+          />
+          <label className="form-label">Signature order title</label>
+        </div>
       {documents.length ? (
         <div className="row">
           {documents.map((document, index) => (
@@ -133,7 +154,7 @@ export default function CreateSignatureOrderScreen() {
                   placeholder="Document title"
                   required
                 />
-                <label className="form-label">Title</label>
+                <label className="form-label">Document title</label>
               </div>
             </div>
           ))}
