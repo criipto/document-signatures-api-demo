@@ -42,7 +42,6 @@ export type CreateSignatureOrderScreenMutationResponse = {
                 readonly edges: ReadonlyArray<{
                     readonly node: {
                         readonly id: string;
-                        readonly title: string | null;
                         readonly status: SignatureOrderStatus;
                     };
                 }>;
@@ -70,7 +69,6 @@ mutation CreateSignatureOrderScreenMutation(
         edges {
           node {
             id
-            title
             status
           }
         }
@@ -146,13 +144,6 @@ v4 = {
           "plural": false,
           "selections": [
             (v2/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "title",
-              "storageKey": null
-            },
             {
               "alias": null,
               "args": null,
@@ -238,12 +229,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3b4d963d9bbfd83610f5fb8202058070",
+    "cacheID": "de491606c62f5f2ebf2547c44ec7cda4",
     "id": null,
     "metadata": {},
     "name": "CreateSignatureOrderScreenMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateSignatureOrderScreenMutation(\n  $input: CreateSignatureOrderInput!\n) {\n  createSignatureOrder(input: $input) {\n    signatureOrder {\n      id\n    }\n    application {\n      signatureOrders(status: OPEN) {\n        edges {\n          node {\n            id\n            title\n            status\n          }\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "mutation CreateSignatureOrderScreenMutation(\n  $input: CreateSignatureOrderInput!\n) {\n  createSignatureOrder(input: $input) {\n    signatureOrder {\n      id\n    }\n    application {\n      signatureOrders(status: OPEN) {\n        edges {\n          node {\n            id\n            status\n          }\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

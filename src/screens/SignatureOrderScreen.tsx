@@ -6,6 +6,8 @@ import graphql from 'babel-plugin-relay/macro';
 
 import {SignatureOrderScreenQuery} from './__generated__/SignatureOrderScreenQuery.graphql';
 
+import CancelSignatureOrderButton from '../components/CancelSignatureOrderButton';
+
 export default function SignatureOrdersScreen() {
   const params = useParams<{signatureOrderId: string}>();
   const data = useLazyLoadQuery<SignatureOrderScreenQuery>(
@@ -13,6 +15,8 @@ export default function SignatureOrdersScreen() {
       query SignatureOrderScreenQuery($id: ID!) {
         signatureOrder(id: $id) {
           status
+
+          ...CancelSignatureOrderButtonQuery_signatureOrder
         }
       }
     `
@@ -20,12 +24,12 @@ export default function SignatureOrdersScreen() {
     id: params.signatureOrderId
   });
 
-  console.log(data);
   if (!params.signatureOrderId || !data.signatureOrder) return null;
 
   return (
     <div>
-      
+      Status: {data.signatureOrder.status}
+      <CancelSignatureOrderButton signatureOrder={data.signatureOrder} />
     </div>
   )
 }

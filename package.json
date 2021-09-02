@@ -27,6 +27,7 @@
   },
   "scripts": {
     "schema": "curl -s https://signatures-api-test.azurewebsites.net/v1/graphql > schema.json",
+    "schema:local": "curl -s http://localhost:7071/v1/graphql > schema.json",
     "relay": "relay-compiler",
     "start": "react-scripts start",
     "build": "react-scripts build && cp netlify/_redirects build/_redirects",
