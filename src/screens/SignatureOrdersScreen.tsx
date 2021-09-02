@@ -10,7 +10,7 @@ import {SignatureOrdersScreenQuery, SignatureOrderStatus} from './__generated__/
 graphql`
   fragment SignatureOrdersScreenSignatureOrder on SignatureOrder {
     id
-    #title
+    title
     status
   }
 `
@@ -59,7 +59,7 @@ export default function SignatureOrdersScreen() {
           {data.viewer.signatureOrders?.edges.map((edge, index) => (
             <tr key={edge.node.id}>
               <th scope="row" >#{index + 1}</th>
-              {/* <td>{edge.node.title}</td> */}
+              <td>{edge.node.title}</td>
               <td>{edge.node.status}</td>
               <td className="d-flex justify-content-end">
                 <Link className="btn btn-primary btn-sm" to={`/signatureorders/${edge.node.id}`}>

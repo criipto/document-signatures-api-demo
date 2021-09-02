@@ -14,6 +14,7 @@ export type SignatureOrdersScreenQueryResponse = {
             readonly edges: ReadonlyArray<{
                 readonly node: {
                     readonly id: string;
+                    readonly title: string | null;
                     readonly status: SignatureOrderStatus;
                 };
             }>;
@@ -38,6 +39,7 @@ query SignatureOrdersScreenQuery(
         edges {
           node {
             id
+            title
             status
           }
         }
@@ -97,6 +99,13 @@ v2 = {
               "plural": false,
               "selections": [
                 (v1/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "title",
+                  "storageKey": null
+                },
                 {
                   "alias": null,
                   "args": null,
@@ -169,12 +178,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c11e548afbb523812e8f9d92917c14cb",
+    "cacheID": "dd8d44d10d3f68aeebf4d97e1c8c69e0",
     "id": null,
     "metadata": {},
     "name": "SignatureOrdersScreenQuery",
     "operationKind": "query",
-    "text": "query SignatureOrdersScreenQuery(\n  $status: SignatureOrderStatus\n) {\n  viewer {\n    __typename\n    ... on Application {\n      signatureOrders(status: $status) {\n        edges {\n          node {\n            id\n            status\n          }\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query SignatureOrdersScreenQuery(\n  $status: SignatureOrderStatus\n) {\n  viewer {\n    __typename\n    ... on Application {\n      signatureOrders(status: $status) {\n        edges {\n          node {\n            id\n            title\n            status\n          }\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();

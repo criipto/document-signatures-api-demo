@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future added value";
 export type SignatureOrdersScreenSignatureOrder = {
     readonly id: string;
+    readonly title: string | null;
     readonly status: SignatureOrderStatus;
     readonly " $refType": "SignatureOrdersScreenSignatureOrder";
 };
@@ -36,6 +37,13 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "title",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "status",
       "storageKey": null
     }
@@ -43,5 +51,5 @@ const node: ReaderFragment = {
   "type": "SignatureOrder",
   "abstractKey": null
 };
-(node as any).hash = '6d7fe7e1d4d9afa8f33238a679575eaa';
+(node as any).hash = 'ed894dc28b05390dc671fc6bb72e2385';
 export default node;
