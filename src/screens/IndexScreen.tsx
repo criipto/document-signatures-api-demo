@@ -38,6 +38,8 @@ export default function IndexScreen() {
     )
   }
 
+  console.log(data);
+
   return (
     <Router>
       <Switch>

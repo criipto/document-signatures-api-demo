@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 
-import { useLazyLoadQuery, useMutation } from 'react-relay';
+import { useLazyLoadQuery } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
 import { useHistory } from 'react-router-dom';
 
 import {CreateSignatureOrderScreenMutation, DocumentInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
 import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOrderScreenQuery.graphql';
+
+import useMutation from '../hooks/useMutation';
 
 const toBase64 = (file : File) : Promise<string> => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -26,7 +28,6 @@ type LocalDocumentInput = DocumentInput & {
 export default function CreateSignatureOrderScreen() {
   const [title, setTitle] = useState<string | null>(null);
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
-  const [error, setError] = useState('');
   const history = useHistory();
 
   const data = useLazyLoadQuery<CreateSignatureOrderScreenQuery>(
@@ -80,7 +81,7 @@ export default function CreateSignatureOrderScreen() {
 
   const formValid = documents?.length;
 
-  const [commit, inFlight] = useMutation<CreateSignatureOrderScreenMutation>(
+  const [executor, status] = useMutation<CreateSignatureOrderScreenMutation>(
     graphql`
       mutation CreateSignatureOrderScreenMutation($input: CreateSignatureOrderInput!) {
         createSignatureOrder(input: $input) {
@@ -104,27 +105,23 @@ export default function CreateSignatureOrderScreen() {
 
   if (application.__typename !== 'Application') return null;
 
+  console.log(application);
+
   const handleSubmit = (event : React.FormEvent) => {
     event.preventDefault();
     if (!formValid) return;
-    if (inFlight) return;
+    if (status.pending) return;
 
-    commit({
-      variables: {
-        input: {
-          title,
-          documents
-        }
-      },
-      onCompleted: (response, errors) => {
-        if (errors) {
-          setError(errors[0].message);
-          return;
-        }
-
-        history.push(`/signatureorders/${response.createSignatureOrder?.signatureOrder.id}`);
+    executor.executePromise({
+      input: {
+        //title,
+        documents
       }
-    });
+    })
+    .then((response) => {
+      history.push(`/signatureorders/${response.createSignatureOrder?.signatureOrder.id}`);
+    })
+    .catch(console.error)
   }
 
   return (
@@ -164,12 +161,12 @@ export default function CreateSignatureOrderScreen() {
         <label htmlFor="pdf_file_select" className="form-label">Add document</label>
         <input className="form-control" type="file" id="pdf_file_select" multiple onChange={handleAddDocument} />
       </div>
-      {error && (
+      {status.error && (
         <div className="alert alert-danger">
-          {error}
+          {status.error}
         </div>
       )}
-      <button type="submit" className="btn btn-primary" disabled={!formValid || inFlight}>Create signature order</button>
+      <button type="submit" className="btn btn-primary" disabled={!formValid || status.pending}>Create signature order</button>
     </form>
   )
 }

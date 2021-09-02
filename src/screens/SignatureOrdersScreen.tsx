@@ -10,13 +10,13 @@ import {SignatureOrdersScreenQuery, SignatureOrderStatus} from './__generated__/
 graphql`
   fragment SignatureOrdersScreenSignatureOrder on SignatureOrder {
     id
-    title
+    #title
     status
   }
 `
 
 export default function SignatureOrdersScreen() {
-  const [status, setStatus] = useState<SignatureOrderStatus | null>(null);
+  const [status, setStatus] = useState<SignatureOrderStatus | undefined>("OPEN");
   const data = useLazyLoadQuery<SignatureOrdersScreenQuery>(
     graphql`
       query SignatureOrdersScreenQuery($status: SignatureOrderStatus) {
@@ -45,8 +45,8 @@ export default function SignatureOrdersScreen() {
             <th scope="col">Signature orders</th>
             <th scope="col">Title</th>
             <th scope="col">
-              <select value={status || undefined} onChange={(event) => setStatus(event.target.value as SignatureOrderStatus)}>
-                <option value="">Status</option>
+              <select value={status} onChange={(event) => setStatus(event.target.value as SignatureOrderStatus)}>
+                <option value="">All</option>
                 <option value="OPEN">Open</option>
                 <option value="CLOSED">Closed</option>
                 <option value="CANCELLED">Cancelled</option>
@@ -59,7 +59,7 @@ export default function SignatureOrdersScreen() {
           {data.viewer.signatureOrders?.edges.map((edge, index) => (
             <tr key={edge.node.id}>
               <th scope="row" >#{index + 1}</th>
-              <td>{edge.node.title}</td>
+              {/* <td>{edge.node.title}</td> */}
               <td>{edge.node.status}</td>
               <td className="d-flex justify-content-end">
                 <Link className="btn btn-primary btn-sm" to={`/signatureorders/${edge.node.id}`}>
