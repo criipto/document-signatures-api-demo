@@ -27,7 +27,6 @@ export default function CancelSignatureOrderButton(props : Props) {
       mutation CancelSignatureOrderButtonMutation($input: CancelSignatureOrderInput!) {
         cancelSignatureOrder(input: $input) {
           signatureOrder {
-            id
             status
           }
         }

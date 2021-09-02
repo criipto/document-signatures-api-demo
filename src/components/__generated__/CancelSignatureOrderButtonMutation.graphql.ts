@@ -14,7 +14,6 @@ export type CancelSignatureOrderButtonMutationVariables = {
 export type CancelSignatureOrderButtonMutationResponse = {
     readonly cancelSignatureOrder: {
         readonly signatureOrder: {
-            readonly id: string;
             readonly status: SignatureOrderStatus;
         };
     } | null;
@@ -32,8 +31,8 @@ mutation CancelSignatureOrderButtonMutation(
 ) {
   cancelSignatureOrder(input: $input) {
     signatureOrder {
-      id
       status
+      id
     }
   }
 }
@@ -49,55 +48,49 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "CancelSignatureOrderOutput",
-    "kind": "LinkedField",
-    "name": "cancelSignatureOrder",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "SignatureOrder",
-        "kind": "LinkedField",
-        "name": "signatureOrder",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "status",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "status",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "CancelSignatureOrderButtonMutation",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CancelSignatureOrderOutput",
+        "kind": "LinkedField",
+        "name": "cancelSignatureOrder",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "SignatureOrder",
+            "kind": "LinkedField",
+            "name": "signatureOrder",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Mutation",
     "abstractKey": null
   },
@@ -106,17 +99,48 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CancelSignatureOrderButtonMutation",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CancelSignatureOrderOutput",
+        "kind": "LinkedField",
+        "name": "cancelSignatureOrder",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "SignatureOrder",
+            "kind": "LinkedField",
+            "name": "signatureOrder",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "id",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "18d0c6a68aa25083cc46055c563c5690",
+    "cacheID": "17809f12209ecf1bb4c443c874d0c1bb",
     "id": null,
     "metadata": {},
     "name": "CancelSignatureOrderButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation CancelSignatureOrderButtonMutation(\n  $input: CancelSignatureOrderInput!\n) {\n  cancelSignatureOrder(input: $input) {\n    signatureOrder {\n      id\n      status\n    }\n  }\n}\n"
+    "text": "mutation CancelSignatureOrderButtonMutation(\n  $input: CancelSignatureOrderInput!\n) {\n  cancelSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '0824e673e82dc5045b20324da62e93e0';
+(node as any).hash = '7d1313da23d305f7cb7c493228d5d91b';
 export default node;
