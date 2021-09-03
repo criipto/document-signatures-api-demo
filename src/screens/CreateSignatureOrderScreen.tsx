@@ -28,6 +28,7 @@ type LocalDocumentInput = DocumentInput & {
 export default function CreateSignatureOrderScreen() {
   const [title, setTitle] = useState<string | null>(null);
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
+  const [disableVerifyEvidenceProvider, setDisableVerifyEvidenceProvider] = useState(false);
   const history = useHistory();
 
   const data = useLazyLoadQuery<CreateSignatureOrderScreenQuery>(
@@ -105,8 +106,6 @@ export default function CreateSignatureOrderScreen() {
 
   if (application.__typename !== 'Application') return null;
 
-  console.log(application);
-
   const handleSubmit = (event : React.FormEvent) => {
     event.preventDefault();
     if (!formValid) return;
@@ -115,6 +114,7 @@ export default function CreateSignatureOrderScreen() {
     executor.executePromise({
       input: {
         title,
+        disableVerifyEvidenceProvider,
         documents
       }
     })
@@ -126,17 +126,30 @@ export default function CreateSignatureOrderScreen() {
 
   return (
     <form onSubmit={handleSubmit}>
-       <div className="mb-3 form-floating">
-          <input
-            className="form-control"
-            type="text"
-            onChange={(event) => setTitle(event.target.value)}
-            value={title || ''}
-            placeholder="Signature order title"
-            required
-          />
-          <label className="form-label">Signature order title</label>
-        </div>
+      <h4>Settings</h4>
+      <div className="mb-3 form-floating">
+        <input
+          className="form-control"
+          type="text"
+          onChange={(event) => setTitle(event.target.value)}
+          value={title || ''}
+          placeholder="Signature order title"
+          required
+        />
+        <label className="form-label">Signature order title</label>
+      </div>
+      <div className="form-check mb-3">
+        <input
+          className="form-check-input"
+          id="disableVerifyEvidenceProvider" type="checkbox"
+          checked={!disableVerifyEvidenceProvider}
+          onChange={(event) => setDisableVerifyEvidenceProvider(!event.target.checked)}
+        />
+        <label className="form-check-label" htmlFor="disableVerifyEvidenceProvider" >
+          Include Criipto Verify as an evidence provider
+        </label>
+      </div>
+      <h4>Documents</h4>
       {documents.length ? (
         <div className="row">
           {documents.map((document, index) => (
@@ -163,7 +176,7 @@ export default function CreateSignatureOrderScreen() {
       </div>
       {status.error && (
         <div className="alert alert-danger">
-          {status.error}
+          {status.error.message}
         </div>
       )}
       <button type="submit" className="btn btn-primary" disabled={!formValid || status.pending}>Create signature order</button>

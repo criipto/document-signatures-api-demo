@@ -38,8 +38,6 @@ export default function IndexScreen() {
     )
   }
 
-  console.log(data);
-
   return (
     <Switch>
       <Route path="/signatureorders/create">
