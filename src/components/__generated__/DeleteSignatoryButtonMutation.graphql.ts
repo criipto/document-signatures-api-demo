@@ -6,14 +6,15 @@ import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SignatoryStatus = "ERROR" | "OPEN" | "SIGNED" | "%future added value";
-export type AddSignatoryInput = {
+export type DeleteSignatoryInput = {
     signatureOrderId: string;
+    signatoryId: string;
 };
-export type AddSignatoryButtonMutationVariables = {
-    input: AddSignatoryInput;
+export type DeleteSignatoryButtonMutationVariables = {
+    input: DeleteSignatoryInput;
 };
-export type AddSignatoryButtonMutationResponse = {
-    readonly addSignatory: {
+export type DeleteSignatoryButtonMutationResponse = {
+    readonly deleteSignatory: {
         readonly signatureOrder: {
             readonly signatories: ReadonlyArray<{
                 readonly id: string;
@@ -24,18 +25,18 @@ export type AddSignatoryButtonMutationResponse = {
         };
     } | null;
 };
-export type AddSignatoryButtonMutation = {
-    readonly response: AddSignatoryButtonMutationResponse;
-    readonly variables: AddSignatoryButtonMutationVariables;
+export type DeleteSignatoryButtonMutation = {
+    readonly response: DeleteSignatoryButtonMutationResponse;
+    readonly variables: DeleteSignatoryButtonMutationVariables;
 };
 
 
 
 /*
-mutation AddSignatoryButtonMutation(
-  $input: AddSignatoryInput!
+mutation DeleteSignatoryButtonMutation(
+  $input: DeleteSignatoryInput!
 ) {
-  addSignatory(input: $input) {
+  deleteSignatory(input: $input) {
     signatureOrder {
       ...AddSignatoryButton_signatureOrder
       signatories {
@@ -111,14 +112,14 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "AddSignatoryButtonMutation",
+    "name": "DeleteSignatoryButtonMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "AddSignatoryOutput",
+        "concreteType": "DeleteSignatoryOutput",
         "kind": "LinkedField",
-        "name": "addSignatory",
+        "name": "deleteSignatory",
         "plural": false,
         "selections": [
           {
@@ -149,14 +150,14 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "AddSignatoryButtonMutation",
+    "name": "DeleteSignatoryButtonMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "AddSignatoryOutput",
+        "concreteType": "DeleteSignatoryOutput",
         "kind": "LinkedField",
-        "name": "addSignatory",
+        "name": "deleteSignatory",
         "plural": false,
         "selections": [
           {
@@ -191,14 +192,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5722d992a0d3976c14cb90f0609fb55a",
+    "cacheID": "26f520bab611c5ff4d79c6dd225c39d8",
     "id": null,
     "metadata": {},
-    "name": "AddSignatoryButtonMutation",
+    "name": "DeleteSignatoryButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation AddSignatoryButtonMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        token\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n"
+    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        token\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '6ff01b549c607268730f72896796e183';
+(node as any).hash = 'dddc6a5c868815bed1dc3b4e87ddfb86';
 export default node;

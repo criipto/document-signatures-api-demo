@@ -31,6 +31,7 @@ export default function AddSignatoryButton(props : Props) {
       mutation AddSignatoryButtonMutation($input: AddSignatoryInput!) {
         addSignatory(input: $input) {
           signatureOrder {
+            ...AddSignatoryButton_signatureOrder
             signatories {
               ...SignatureOrderScreenSignatory @relay(mask: false)
             }
