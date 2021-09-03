@@ -7,6 +7,15 @@ import graphql from 'babel-plugin-relay/macro';
 import {SignatureOrderScreenQuery} from './__generated__/SignatureOrderScreenQuery.graphql';
 
 import CancelSignatureOrderButton from '../components/CancelSignatureOrderButton';
+import AddSignatoryButton from '../components/AddSignatoryButton';
+
+graphql`
+  fragment SignatureOrderScreenSignatory on Signatory {
+    id
+    status
+    token
+  }
+`
 
 export default function SignatureOrdersScreen() {
   const params = useParams<{signatureOrderId: string}>();
@@ -16,7 +25,12 @@ export default function SignatureOrdersScreen() {
         signatureOrder(id: $id) {
           status
 
-          ...CancelSignatureOrderButtonQuery_signatureOrder
+          signatories {
+            ...SignatureOrderScreenSignatory @relay(mask: false)
+          }
+
+          ...CancelSignatureOrderButton_signatureOrder
+          ...AddSignatoryButton_signatureOrder
         }
       }
     `
@@ -29,7 +43,30 @@ export default function SignatureOrdersScreen() {
   return (
     <div>
       Status: {data.signatureOrder.status}
-      <CancelSignatureOrderButton signatureOrder={data.signatureOrder} />
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Signatories</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.signatureOrder.signatories.map((signatory, index) => (
+            <tr key={signatory.id}>
+              <th scope="row" >#{index + 1}</th>
+              <td>{signatory.status}</td>
+              <td>
+                <a href={`https://signatures-frontend-test.netlify.app/?token=${signatory.token}`}>Sign link (right click and copy link)</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="d-flex justify-content-between">
+        <AddSignatoryButton signatureOrder={data.signatureOrder} />
+        <CancelSignatureOrderButton signatureOrder={data.signatureOrder} />
+      </div>
     </div>
   )
 }
