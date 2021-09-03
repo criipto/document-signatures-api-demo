@@ -3,19 +3,19 @@ import React from 'react';
 import { useFragment } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
-import {CancelSignatureOrderButtonQuery_signatureOrder$key} from './__generated__/CancelSignatureOrderButtonQuery_signatureOrder.graphql';
+import {CancelSignatureOrderButton_signatureOrder$key} from './__generated__/CancelSignatureOrderButton_signatureOrder.graphql';
 import {CancelSignatureOrderButtonMutation} from './__generated__/CancelSignatureOrderButtonMutation.graphql';
 
 import useMutation from '../hooks/useMutation';
 
 interface Props {
-  signatureOrder: CancelSignatureOrderButtonQuery_signatureOrder$key
+  signatureOrder: CancelSignatureOrderButton_signatureOrder$key
 }
 
 export default function CancelSignatureOrderButton(props : Props) {
   const data = useFragment(
     graphql`
-      fragment CancelSignatureOrderButtonQuery_signatureOrder on SignatureOrder {
+      fragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {
         id
         status
       }
