@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import {
   RelayEnvironmentProvider
@@ -14,9 +15,11 @@ import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <RelayEnvironmentProvider environment={RelayEnvironment}>
-      <React.Suspense fallback={'Loading...'}><App /></React.Suspense>
-    </RelayEnvironmentProvider>
+    <Router>
+      <RelayEnvironmentProvider environment={RelayEnvironment}>
+        <React.Suspense fallback={'Loading...'}><App /></React.Suspense>
+      </RelayEnvironmentProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

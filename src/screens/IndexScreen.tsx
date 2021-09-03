@@ -4,7 +4,7 @@ import graphql from 'babel-plugin-relay/macro';
 
 import {IndexScreenQuery} from './__generated__/IndexScreenQuery.graphql';
 
-import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import CreateSignatureOrderScreen from './CreateSignatureOrderScreen';
 import SignatureOrdersScreen from './SignatureOrdersScreen';
 import SignatureOrderScreen from './SignatureOrderScreen';
@@ -41,21 +41,19 @@ export default function IndexScreen() {
   console.log(data);
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/signatureorders/create">
-          <CreateSignatureOrderScreen  />
-        </Route>
-        <Route path="/signatureorders/:signatureOrderId">
-          <SignatureOrderScreen  />
-        </Route>
-        <Route path="/signatureorders">
-          <SignatureOrdersScreen />
-        </Route>
-        <Route>
-          <Redirect to="/signatureorders" />
-        </Route>
-      </Switch>
-    </Router>
+    <Switch>
+      <Route path="/signatureorders/create">
+        <CreateSignatureOrderScreen  />
+      </Route>
+      <Route path="/signatureorders/:signatureOrderId">
+        <SignatureOrderScreen  />
+      </Route>
+      <Route path="/signatureorders">
+        <SignatureOrdersScreen />
+      </Route>
+      <Route>
+        <Redirect to="/signatureorders" />
+      </Route>
+    </Switch>
   )
 }
