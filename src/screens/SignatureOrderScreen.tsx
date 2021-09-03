@@ -8,6 +8,7 @@ import {SignatureOrderScreenQuery} from './__generated__/SignatureOrderScreenQue
 
 import CancelSignatureOrderButton from '../components/CancelSignatureOrderButton';
 import AddSignatoryButton from '../components/AddSignatoryButton';
+import DeleteSignatoryButton from '../components/DeleteSignatoryButton';
 
 graphql`
   fragment SignatureOrderScreenSignatory on Signatory {
@@ -27,10 +28,12 @@ export default function SignatureOrdersScreen() {
 
           signatories {
             ...SignatureOrderScreenSignatory @relay(mask: false)
+            ...DeleteSignatoryButton_signatory
           }
 
           ...CancelSignatureOrderButton_signatureOrder
           ...AddSignatoryButton_signatureOrder
+          ...DeleteSignatoryButton_signatureOrder
         }
       }
     `
@@ -49,6 +52,7 @@ export default function SignatureOrdersScreen() {
             <th scope="col">Signatories</th>
             <th scope="col">Status</th>
             <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -58,6 +62,9 @@ export default function SignatureOrdersScreen() {
               <td>{signatory.status}</td>
               <td>
                 <a href={`https://signatures-frontend-test.netlify.app/?token=${signatory.token}`}>Sign link (right click and copy link)</a>
+              </td>
+              <td>
+                <DeleteSignatoryButton signatureOrder={data.signatureOrder!} signatory={signatory} />
               </td>
             </tr>
           ))}
