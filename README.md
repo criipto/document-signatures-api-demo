@@ -37,7 +37,9 @@ mutation {
 ```
 mutation {
   addSignatory(
-    input: {signatureOrderId: "[signatureOrder.id]"}
+    input: {
+      signatureOrderId: "[signatureOrder.id]"
+    }
   ) {
     signatory {
       token
