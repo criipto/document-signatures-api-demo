@@ -2,7 +2,7 @@
 
 This repository serves as an example of how you might implement the Criipto Document Signatures GraphQL API.
 
-We always have a [GraphQL Explorer](https://signatures-api-test.azurewebsites.net/v1/explorer)
+We also have a [GraphQL Explorer](https://signatures-api-test.azurewebsites.net/v1/explorer)
 
 ## Example Queries & Mutations
 
