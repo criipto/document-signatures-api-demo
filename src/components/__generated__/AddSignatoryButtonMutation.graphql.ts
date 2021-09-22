@@ -18,7 +18,7 @@ export type AddSignatoryButtonMutationResponse = {
             readonly signatories: ReadonlyArray<{
                 readonly id: string;
                 readonly status: SignatoryStatus;
-                readonly token: string;
+                readonly href: string;
             }>;
             readonly " $fragmentRefs": FragmentRefs<"AddSignatoryButton_signatureOrder">;
         };
@@ -41,7 +41,7 @@ mutation AddSignatoryButtonMutation(
       signatories {
         id
         status
-        token
+        href
       }
       id
     }
@@ -100,7 +100,7 @@ v4 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "token",
+      "name": "href",
       "storageKey": null
     }
   ],
@@ -191,12 +191,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5722d992a0d3976c14cb90f0609fb55a",
+    "cacheID": "12c91009fc7b559608d6208198146a07",
     "id": null,
     "metadata": {},
     "name": "AddSignatoryButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation AddSignatoryButtonMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        token\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n"
+    "text": "mutation AddSignatoryButtonMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        href\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n"
   }
 };
 })();

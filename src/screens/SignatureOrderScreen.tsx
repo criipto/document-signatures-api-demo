@@ -25,7 +25,7 @@ graphql`
   fragment SignatureOrderScreenSignatory on Signatory {
     id
     status
-    token
+    href
   }
 `;
 
@@ -128,7 +128,7 @@ export default function SignatureOrdersScreen() {
               <td>{signatory.status}</td>
               <td>
                 {data.signatureOrder?.status === 'OPEN' && signatory.status === 'OPEN' && (
-                  <a href={`${process.env.REACT_APP_SIGNATURE_FRONTEND_URI}?token=${signatory.token}`}>Sign link (right click and copy link)</a>
+                  <a href={signatory.href}>Sign link (right click and copy link)</a>
                 )}
               </td>
               <td>

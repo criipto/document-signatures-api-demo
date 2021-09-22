@@ -19,7 +19,7 @@ export type DeleteSignatoryButtonMutationResponse = {
             readonly signatories: ReadonlyArray<{
                 readonly id: string;
                 readonly status: SignatoryStatus;
-                readonly token: string;
+                readonly href: string;
             }>;
             readonly " $fragmentRefs": FragmentRefs<"AddSignatoryButton_signatureOrder">;
         };
@@ -42,7 +42,7 @@ mutation DeleteSignatoryButtonMutation(
       signatories {
         id
         status
-        token
+        href
       }
       id
     }
@@ -101,7 +101,7 @@ v4 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "token",
+      "name": "href",
       "storageKey": null
     }
   ],
@@ -192,12 +192,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "26f520bab611c5ff4d79c6dd225c39d8",
+    "cacheID": "0e4620a1b31d16e21789f906808c91cd",
     "id": null,
     "metadata": {},
     "name": "DeleteSignatoryButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        token\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n"
+    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        href\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n"
   }
 };
 })();
