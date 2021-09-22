@@ -16,13 +16,13 @@ export type SignatureOrderScreenQueryResponse = {
         readonly signatories: ReadonlyArray<{
             readonly id: string;
             readonly status: SignatoryStatus;
-            readonly token: string;
+            readonly href: string;
             readonly " $fragmentRefs": FragmentRefs<"DeleteSignatoryButton_signatory">;
         }>;
         readonly documents: ReadonlyArray<{
             readonly id: string;
             readonly title: string;
-            readonly blob: string;
+            readonly blob: string | null;
         }>;
         readonly " $fragmentRefs": FragmentRefs<"CancelSignatureOrderButton_signatureOrder" | "AddSignatoryButton_signatureOrder" | "DeleteSignatoryButton_signatureOrder" | "CloseSignatureOrderButton_signatureOrder">;
     } | null;
@@ -43,7 +43,7 @@ query SignatureOrderScreenQuery(
     signatories {
       id
       status
-      token
+      href
       ...DeleteSignatoryButton_signatory
     }
     documents {
@@ -125,7 +125,7 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "token",
+  "name": "href",
   "storageKey": null
 },
 v5 = {
@@ -291,12 +291,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8d39b415981fa92d87d27a51b0763c92",
+    "cacheID": "114bef6cde72fabf7135828b47654a6f",
     "id": null,
     "metadata": {},
     "name": "SignatureOrderScreenQuery",
     "operationKind": "query",
-    "text": "query SignatureOrderScreenQuery(\n  $id: ID!\n) {\n  signatureOrder(id: $id) {\n    status\n    signatories {\n      id\n      status\n      token\n      ...DeleteSignatoryButton_signatory\n    }\n    documents {\n      __typename\n      __isDocument: __typename\n      id\n      title\n      blob\n    }\n    ...CancelSignatureOrderButton_signatureOrder\n    ...AddSignatoryButton_signatureOrder\n    ...DeleteSignatoryButton_signatureOrder\n    ...CloseSignatureOrderButton_signatureOrder\n    id\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n\nfragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n\nfragment DeleteSignatoryButton_signatory on Signatory {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatureOrder on SignatureOrder {\n  id\n}\n"
+    "text": "query SignatureOrderScreenQuery(\n  $id: ID!\n) {\n  signatureOrder(id: $id) {\n    status\n    signatories {\n      id\n      status\n      href\n      ...DeleteSignatoryButton_signatory\n    }\n    documents {\n      __typename\n      __isDocument: __typename\n      id\n      title\n      blob\n    }\n    ...CancelSignatureOrderButton_signatureOrder\n    ...AddSignatoryButton_signatureOrder\n    ...DeleteSignatoryButton_signatureOrder\n    ...CloseSignatureOrderButton_signatureOrder\n    id\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n\nfragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n\nfragment DeleteSignatoryButton_signatory on Signatory {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatureOrder on SignatureOrder {\n  id\n}\n"
   }
 };
 })();

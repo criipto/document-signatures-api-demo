@@ -16,7 +16,7 @@ export type CloseSignatureOrderButtonMutationResponse = {
         readonly signatureOrder: {
             readonly status: SignatureOrderStatus;
             readonly documents: ReadonlyArray<{
-                readonly blob: string;
+                readonly blob: string | null;
             }>;
         };
     } | null;

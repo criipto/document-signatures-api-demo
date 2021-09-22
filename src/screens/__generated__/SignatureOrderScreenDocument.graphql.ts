@@ -8,7 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type SignatureOrderScreenDocument = {
     readonly id: string;
     readonly title: string;
-    readonly blob: string;
+    readonly blob: string | null;
     readonly " $refType": "SignatureOrderScreenDocument";
 };
 export type SignatureOrderScreenDocument$data = SignatureOrderScreenDocument;
