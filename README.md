@@ -4,6 +4,10 @@ This repository serves as an example of how you might implement the Criipto Docu
 
 We also have a [GraphQL Explorer](https://signatures-api-test.azurewebsites.net/v1/explorer)
 
+## GraphQL
+
+If you have not worked with GraphQL before we suggest you read through [Introduction to GraphQL](https://graphql.org/learn/) and [The Fullstack Tutorial for GraphQL](https://www.howtographql.com/).
+
 ## Example Queries & Mutations
 
 ### Creating a signature order
