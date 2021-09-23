@@ -42,7 +42,7 @@ mutation {
     }
   ) {
     signatory {
-      token
+      href
     }
   }
 }
@@ -55,9 +55,11 @@ query {
     status
     openSignatory {
       status
+      href
     }
     signatories {
       status
+      href
     }
   }
 }
