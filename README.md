@@ -63,7 +63,6 @@ query {
     }
     signatories {
       status
-      href
     }
   }
 }
