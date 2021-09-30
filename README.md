@@ -129,6 +129,34 @@ If a signatory is currently pending but you no longer require them to sign, dele
 }
 ```
 
+### Creating a signature workflow
+
+Workflows enable you to generate as many participant links at once as you wish. The criipto service will manage queuing of participants and ensure signatures will happen in a sequential order even if participants open links in parallel.
+
+```
+mutation {
+    createSignatureWorkflow(
+        input: {
+            signatureOrderId: "[signatureOrder.id]"
+            participants: [
+                {
+                    reference: "..."
+                }
+            ]
+        }
+    ) {
+        signatureWorkflow {
+            id
+            participants {
+                id
+                href
+                reference
+            }
+        }
+    }
+}
+```
+
 ## Executing a query with variables
 
 GraphQL queries are executed with HTTP POST requests. A `query` body parameter is required and a `variables` body parameter is optional but recommended.
