@@ -11,6 +11,7 @@ export type CreateSignatureOrderInput = {
     disableVerifyEvidenceProvider?: boolean | null;
     documents: Array<DocumentInput>;
     evidenceProviders?: Array<EvidenceProviderInput> | null;
+    ui?: CreateSignatureOrderUIInput | null;
 };
 export type DocumentInput = {
     pdf: PadesDocumentInput;
@@ -28,6 +29,9 @@ export type OidcEvidenceProviderInput = {
     domain: string;
     clientID: string;
     audience: string;
+};
+export type CreateSignatureOrderUIInput = {
+    signatoryRedirectUri?: string | null;
 };
 export type CreateSignatureOrderScreenMutationVariables = {
     input: CreateSignatureOrderInput;

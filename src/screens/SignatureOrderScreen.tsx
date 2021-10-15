@@ -47,6 +47,10 @@ const Query = graphql`
         id
       }
 
+      ui {
+        signatoryRedirectUri
+      }
+
       signatories {
         ...SignatureOrderScreenSignatory @relay(mask: false)
         ...DeleteSignatoryButton_signatory
@@ -93,6 +97,7 @@ export default function SignatureOrdersScreen() {
   return (
     <div>
       Status: {data.signatureOrder.status}<br />
+      Signatory Redirect URI: {data.signatureOrder.ui?.signatoryRedirectUri}<br />
       Workflow:&nbsp;
       {!data.signatureOrder.signatureWorkflow ? (
         <Link to={`/signatureworkflows/create/${data.signatureOrder.id}`}>Create workflow</Link>

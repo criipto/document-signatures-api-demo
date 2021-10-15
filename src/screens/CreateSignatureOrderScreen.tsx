@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 
 import { useHistory } from 'react-router-dom';
 
-import {CreateSignatureOrderScreenMutation, DocumentInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
+import {CreateSignatureOrderScreenMutation, DocumentInput, CreateSignatureOrderUIInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
 import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOrderScreenQuery.graphql';
 
 import useMutation from '../hooks/useMutation';
@@ -28,6 +28,7 @@ type LocalDocumentInput = DocumentInput & {
 export default function CreateSignatureOrderScreen() {
   const [title, setTitle] = useState<string | null>(null);
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
+  const [ui, setUI] = useState<CreateSignatureOrderUIInput>({});
   const [disableVerifyEvidenceProvider, setDisableVerifyEvidenceProvider] = useState(false);
   const history = useHistory();
 
@@ -80,6 +81,13 @@ export default function CreateSignatureOrderScreen() {
     })
   };
 
+  const handleUI = (event: React.ChangeEvent<HTMLInputElement>, key: keyof CreateSignatureOrderUIInput) => {
+    setUI(ui => ({
+      ...ui,
+      [key]: event.target.value
+    }));
+  }
+
   const formValid = documents?.length;
 
   const [executor, status] = useMutation<CreateSignatureOrderScreenMutation>(
@@ -115,7 +123,8 @@ export default function CreateSignatureOrderScreen() {
       input: {
         title,
         disableVerifyEvidenceProvider,
-        documents
+        documents,
+        ui
       }
     })
     .then((response) => {
@@ -148,6 +157,22 @@ export default function CreateSignatureOrderScreen() {
         <label className="form-check-label" htmlFor="disableVerifyEvidenceProvider" >
           Include Criipto Verify as an evidence provider
         </label>
+      </div>
+      <h4>UI Settings</h4>
+      <div className="row">
+        <div className="col-4">
+          <div className="mb-3 form-floating">
+            <input
+              className="form-control"
+              type="text"
+              onChange={(event) => handleUI(event, 'signatoryRedirectUri')}
+              value={ui.signatoryRedirectUri || ''}
+              placeholder="Signatory redirect URI"
+              required
+            />
+            <label className="form-label">Signatory redirect URI</label>
+          </div>
+        </div>
       </div>
       <h4>Documents</h4>
       {documents.length ? (
