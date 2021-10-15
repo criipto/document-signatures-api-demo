@@ -5,14 +5,18 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SignatoryStatus = "ERROR" | "OPEN" | "SIGNED" | "%future added value";
+export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future added value";
 export type SignatureOrderScreenQueryVariables = {
     id: string;
 };
 export type SignatureOrderScreenQueryResponse = {
     readonly signatureOrder: {
+        readonly id: string;
         readonly status: SignatureOrderStatus;
+        readonly signatureWorkflow: {
+            readonly id: string;
+        } | null;
         readonly signatories: ReadonlyArray<{
             readonly id: string;
             readonly status: SignatoryStatus;
@@ -39,7 +43,11 @@ query SignatureOrderScreenQuery(
   $id: ID!
 ) {
   signatureOrder(id: $id) {
+    id
     status
+    signatureWorkflow {
+      id
+    }
     signatories {
       id
       status
@@ -57,7 +65,6 @@ query SignatureOrderScreenQuery(
     ...AddSignatoryButton_signatureOrder
     ...DeleteSignatoryButton_signatureOrder
     ...CloseSignatureOrderButton_signatureOrder
-    id
   }
 }
 
@@ -111,31 +118,44 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "status",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "status",
   "storageKey": null
 },
-v4 = {
+v4 = [
+  (v2/*: any*/)
+],
+v5 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "SignatureWorkflow",
+  "kind": "LinkedField",
+  "name": "signatureWorkflow",
+  "plural": false,
+  "selections": (v4/*: any*/),
+  "storageKey": null
+},
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "href",
   "storageKey": null
 },
-v5 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v6 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -158,6 +178,8 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -166,9 +188,9 @@ return {
             "name": "signatories",
             "plural": true,
             "selections": [
-              (v3/*: any*/),
               (v2/*: any*/),
-              (v4/*: any*/),
+              (v3/*: any*/),
+              (v6/*: any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -185,9 +207,9 @@ return {
             "name": "documents",
             "plural": true,
             "selections": [
-              (v3/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/)
+              (v2/*: any*/),
+              (v7/*: any*/),
+              (v8/*: any*/)
             ],
             "storageKey": null
           },
@@ -233,6 +255,8 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -241,9 +265,9 @@ return {
             "name": "signatories",
             "plural": true,
             "selections": [
-              (v3/*: any*/),
               (v2/*: any*/),
-              (v4/*: any*/)
+              (v3/*: any*/),
+              (v6/*: any*/)
             ],
             "storageKey": null
           },
@@ -266,13 +290,12 @@ return {
                 "kind": "TypeDiscriminator",
                 "abstractKey": "__isDocument"
               },
-              (v3/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/)
+              (v2/*: any*/),
+              (v7/*: any*/),
+              (v8/*: any*/)
             ],
             "storageKey": null
           },
-          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -280,9 +303,7 @@ return {
             "kind": "LinkedField",
             "name": "openSignatory",
             "plural": false,
-            "selections": [
-              (v3/*: any*/)
-            ],
+            "selections": (v4/*: any*/),
             "storageKey": null
           }
         ],
@@ -291,14 +312,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "114bef6cde72fabf7135828b47654a6f",
+    "cacheID": "b389c2898b982db57e135d4745a25a91",
     "id": null,
     "metadata": {},
     "name": "SignatureOrderScreenQuery",
     "operationKind": "query",
-    "text": "query SignatureOrderScreenQuery(\n  $id: ID!\n) {\n  signatureOrder(id: $id) {\n    status\n    signatories {\n      id\n      status\n      href\n      ...DeleteSignatoryButton_signatory\n    }\n    documents {\n      __typename\n      __isDocument: __typename\n      id\n      title\n      blob\n    }\n    ...CancelSignatureOrderButton_signatureOrder\n    ...AddSignatoryButton_signatureOrder\n    ...DeleteSignatoryButton_signatureOrder\n    ...CloseSignatureOrderButton_signatureOrder\n    id\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n\nfragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n\nfragment DeleteSignatoryButton_signatory on Signatory {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatureOrder on SignatureOrder {\n  id\n}\n"
+    "text": "query SignatureOrderScreenQuery(\n  $id: ID!\n) {\n  signatureOrder(id: $id) {\n    id\n    status\n    signatureWorkflow {\n      id\n    }\n    signatories {\n      id\n      status\n      href\n      ...DeleteSignatoryButton_signatory\n    }\n    documents {\n      __typename\n      __isDocument: __typename\n      id\n      title\n      blob\n    }\n    ...CancelSignatureOrderButton_signatureOrder\n    ...AddSignatoryButton_signatureOrder\n    ...DeleteSignatoryButton_signatureOrder\n    ...CloseSignatureOrderButton_signatureOrder\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n\nfragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n\nfragment DeleteSignatoryButton_signatory on Signatory {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatureOrder on SignatureOrder {\n  id\n}\n"
   }
 };
 })();
-(node as any).hash = '06c5f9029a4117e95302caf48937a22a';
+(node as any).hash = 'dacf16dcc0c35c50e5e6ed305cf6255c';
 export default node;

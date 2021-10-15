@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SignatoryStatus = "ERROR" | "OPEN" | "SIGNED" | "%future added value";
+export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatureOrderScreenSignatory = {
     readonly id: string;
     readonly status: SignatoryStatus;

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import { useLazyLoadQuery } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
@@ -40,7 +40,12 @@ graphql`
 const Query = graphql`
   query SignatureOrderScreenQuery($id: ID!) {
     signatureOrder(id: $id) {
+      id
       status
+
+      signatureWorkflow {
+        id
+      }
 
       signatories {
         ...SignatureOrderScreenSignatory @relay(mask: false)
@@ -87,7 +92,13 @@ export default function SignatureOrdersScreen() {
 
   return (
     <div>
-      Status: {data.signatureOrder.status}
+      Status: {data.signatureOrder.status}<br />
+      Workflow:&nbsp;
+      {!data.signatureOrder.signatureWorkflow ? (
+        <Link to={`/signatureworkflows/create/${data.signatureOrder.id}`}>Create workflow</Link>
+      ) : (
+        <Link to={`/signatureworkflows/${data.signatureOrder.signatureWorkflow.id}`}>View workflow</Link>
+      )}
 
       <table className="table table-striped">
         <thead>
