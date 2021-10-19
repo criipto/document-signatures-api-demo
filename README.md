@@ -2,6 +2,8 @@
 
 This repository serves as an example of how you might implement the Criipto Document Signatures GraphQL API.
 
+[Test environment demo](https://criipto-signatures-api-demo-test.netlify.app/)
+
 We also have a [GraphQL Explorer](https://signatures-api-test.azurewebsites.net/v1/explorer)
 
 ## GraphQL
