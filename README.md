@@ -54,7 +54,7 @@ mutation {
 }
 ```
 
-### Polling for signature order signatory status
+### Query signature order
 ```
 query {
   signatureOrder(id: "[signatureOrder.id]") {
@@ -156,6 +156,35 @@ mutation {
             }
         }
     }
+}
+```
+
+
+### Query signatory
+```
+query {
+  signatory(id: "[signatory.id]") {
+    status
+    signatureOrder {
+      status
+    }
+  }
+}
+```
+
+### Query signature workflow
+```
+query {
+  signatureWorkflow(id: "[signatureWorkflow.id]") {
+    signatureOrder {
+      status
+    }
+    participants {
+        id
+        href
+        reference
+    }
+  }
 }
 ```
 
