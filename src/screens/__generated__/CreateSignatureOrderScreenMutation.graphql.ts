@@ -9,6 +9,8 @@ export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future ad
 export type CreateSignatureOrderInput = {
     title?: string | null;
     disableVerifyEvidenceProvider?: boolean | null;
+    fixDocumentFormattingErrors?: boolean | null;
+    maxSignatories?: number | null;
     documents: Array<DocumentInput>;
     evidenceProviders?: Array<EvidenceProviderInput> | null;
     ui?: CreateSignatureOrderUIInput | null;
@@ -18,6 +20,7 @@ export type DocumentInput = {
 };
 export type PadesDocumentInput = {
     title: string;
+    reference?: string | null;
     blob: string;
     storageMode: DocumentStorageMode;
 };

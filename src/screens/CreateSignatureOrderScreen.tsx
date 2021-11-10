@@ -27,6 +27,7 @@ type LocalDocumentInput = DocumentInput & {
 
 export default function CreateSignatureOrderScreen() {
   const [title, setTitle] = useState<string | null>(null);
+  const [maxSignatories, setMaxSignatories] = useState(14);
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
   const [ui, setUI] = useState<CreateSignatureOrderUIInput>({});
   const [disableVerifyEvidenceProvider, setDisableVerifyEvidenceProvider] = useState(false);
@@ -123,6 +124,7 @@ export default function CreateSignatureOrderScreen() {
       input: {
         title,
         disableVerifyEvidenceProvider,
+        maxSignatories,
         documents,
         ui
       }
@@ -147,16 +149,36 @@ export default function CreateSignatureOrderScreen() {
         />
         <label className="form-label">Signature order title</label>
       </div>
-      <div className="form-check mb-3">
-        <input
-          className="form-check-input"
-          id="disableVerifyEvidenceProvider" type="checkbox"
-          checked={!disableVerifyEvidenceProvider}
-          onChange={(event) => setDisableVerifyEvidenceProvider(!event.target.checked)}
-        />
-        <label className="form-check-label" htmlFor="disableVerifyEvidenceProvider" >
-          Include Criipto Verify as an evidence provider
-        </label>
+      <div className="row">
+        <div className="col-sm">
+          <div className="form-check mb-3">
+            <input
+              className="form-check-input"
+              id="disableVerifyEvidenceProvider" type="checkbox"
+              checked={!disableVerifyEvidenceProvider}
+              onChange={(event) => setDisableVerifyEvidenceProvider(!event.target.checked)}
+            />
+            <label className="form-check-label" htmlFor="disableVerifyEvidenceProvider" >
+              Include Criipto Verify as an evidence provider
+            </label>
+          </div>
+        </div>
+        <div className="col-sm">
+          <div className="mb-3 form-floating">
+            <input
+              className="form-control"
+              type="number"
+              onChange={(event) => setMaxSignatories(parseInt(event.target.value, 10) || 14)}
+              value={maxSignatories || 14}
+              placeholder="Max signatories"
+              required
+            />
+            <label className="form-label">Max signatories</label>
+            <small className="form-text text-muted">Helps determine how many blank pages need to be added for signatures.</small>
+          </div>
+        </div>
+        <div className="col-sm" />
+        <div className="col-sm" />
       </div>
       <h4>UI Settings</h4>
       <div className="row">
