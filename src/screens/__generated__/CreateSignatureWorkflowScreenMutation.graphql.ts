@@ -10,6 +10,16 @@ export type CreateSignatureWorkflowInput = {
 };
 export type WorkflowParticipantInput = {
     reference: string;
+    documents?: Array<SignatoryDocumentInput> | null;
+    evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
+};
+export type SignatoryDocumentInput = {
+    id: string;
+    preapproved?: boolean | null;
+};
+export type SignatoryEvidenceValidationInput = {
+    key: string;
+    value: string;
 };
 export type CreateSignatureWorkflowScreenMutationVariables = {
     input: CreateSignatureWorkflowInput;

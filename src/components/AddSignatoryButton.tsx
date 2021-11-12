@@ -1,18 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { useFragment } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
 import {AddSignatoryButton_signatureOrder$key} from './__generated__/AddSignatoryButton_signatureOrder.graphql';
-import {AddSignatoryButtonMutation} from './__generated__/AddSignatoryButtonMutation.graphql';
-
-import useMutation from '../hooks/useMutation';
+import AddSignatoryModal from './AddSignatoryModal';
 
 interface Props {
   signatureOrder: AddSignatoryButton_signatureOrder$key
 }
 
 export default function AddSignatoryButton(props : Props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const data = useFragment(
     graphql`
       fragment AddSignatoryButton_signatureOrder on SignatureOrder {
@@ -22,39 +25,21 @@ export default function AddSignatoryButton(props : Props) {
         openSignatory {
           id
         }
+
+        ... AddSignatoryModal_signatureOrder
       }
     `
   , props.signatureOrder);
 
-  const [executor, status] = useMutation<AddSignatoryButtonMutation>(
-    graphql`
-      mutation AddSignatoryButtonMutation($input: AddSignatoryInput!) {
-        addSignatory(input: $input) {
-          signatureOrder {
-            ...AddSignatoryButton_signatureOrder
-            signatories {
-              ...SignatureOrderScreenSignatory @relay(mask: false)
-            }
-          }
-        }
-      }
-    `
-  );
-
   if (data.status !== 'OPEN') return null;
   if (data.openSignatory !== null) return null;
 
-  const handleClick = () => {
-    executor.executePromise({
-      input: {
-        signatureOrderId: data.id
-      }
-    }).catch(console.error);
-  };
-
   return (
-    <button className="btn btn-secondary" disabled={status.pending} onClick={handleClick}>
-      Add signatory
-    </button>
+    <React.Fragment>
+      <button className="btn btn-secondary" onClick={handleShow}>
+        Add signatory
+      </button>
+      <AddSignatoryModal show={show} signatureOrder={data} onHide={handleClose} />
+    </React.Fragment>
   )
 }
