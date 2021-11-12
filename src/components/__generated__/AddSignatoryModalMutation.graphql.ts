@@ -8,11 +8,21 @@ import { FragmentRefs } from "relay-runtime";
 export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type AddSignatoryInput = {
     signatureOrderId: string;
+    documents?: Array<SignatoryDocumentInput> | null;
+    evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
 };
-export type AddSignatoryButtonMutationVariables = {
+export type SignatoryDocumentInput = {
+    id: string;
+    preapproved?: boolean | null;
+};
+export type SignatoryEvidenceValidationInput = {
+    key: string;
+    value: string;
+};
+export type AddSignatoryModalMutationVariables = {
     input: AddSignatoryInput;
 };
-export type AddSignatoryButtonMutationResponse = {
+export type AddSignatoryModalMutationResponse = {
     readonly addSignatory: {
         readonly signatureOrder: {
             readonly signatories: ReadonlyArray<{
@@ -20,24 +30,24 @@ export type AddSignatoryButtonMutationResponse = {
                 readonly status: SignatoryStatus;
                 readonly href: string;
             }>;
-            readonly " $fragmentRefs": FragmentRefs<"AddSignatoryButton_signatureOrder">;
+            readonly " $fragmentRefs": FragmentRefs<"AddSignatoryModal_signatureOrder">;
         };
     } | null;
 };
-export type AddSignatoryButtonMutation = {
-    readonly response: AddSignatoryButtonMutationResponse;
-    readonly variables: AddSignatoryButtonMutationVariables;
+export type AddSignatoryModalMutation = {
+    readonly response: AddSignatoryModalMutationResponse;
+    readonly variables: AddSignatoryModalMutationVariables;
 };
 
 
 
 /*
-mutation AddSignatoryButtonMutation(
+mutation AddSignatoryModalMutation(
   $input: AddSignatoryInput!
 ) {
   addSignatory(input: $input) {
     signatureOrder {
-      ...AddSignatoryButton_signatureOrder
+      ...AddSignatoryModal_signatureOrder
       signatories {
         id
         status
@@ -48,11 +58,24 @@ mutation AddSignatoryButtonMutation(
   }
 }
 
-fragment AddSignatoryButton_signatureOrder on SignatureOrder {
+fragment AddSignatoryModal_signatureOrder on SignatureOrder {
   id
   status
   openSignatory {
     id
+  }
+  documents {
+    __typename
+    id
+  }
+  ...SignatoryDocumentInput_signatureOrder
+}
+
+fragment SignatoryDocumentInput_signatureOrder on SignatureOrder {
+  documents {
+    __typename
+    id
+    title
   }
 }
 */
@@ -111,7 +134,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "AddSignatoryButtonMutation",
+    "name": "AddSignatoryModalMutation",
     "selections": [
       {
         "alias": null,
@@ -133,7 +156,7 @@ return {
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "AddSignatoryButton_signatureOrder"
+                "name": "AddSignatoryModal_signatureOrder"
               }
             ],
             "storageKey": null
@@ -149,7 +172,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "AddSignatoryButtonMutation",
+    "name": "AddSignatoryModalMutation",
     "selections": [
       {
         "alias": null,
@@ -181,6 +204,32 @@ return {
                 ],
                 "storageKey": null
               },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": null,
+                "kind": "LinkedField",
+                "name": "documents",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
+                    "storageKey": null
+                  },
+                  (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "title",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
               (v4/*: any*/)
             ],
             "storageKey": null
@@ -191,14 +240,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "12c91009fc7b559608d6208198146a07",
+    "cacheID": "4f5df037660c863cc017208ff20e8d43",
     "id": null,
     "metadata": {},
-    "name": "AddSignatoryButtonMutation",
+    "name": "AddSignatoryModalMutation",
     "operationKind": "mutation",
-    "text": "mutation AddSignatoryButtonMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        href\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n"
+    "text": "mutation AddSignatoryModalMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        href\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '6ff01b549c607268730f72896796e183';
+(node as any).hash = '950edddf177c374a68f2bed8f1865684';
 export default node;

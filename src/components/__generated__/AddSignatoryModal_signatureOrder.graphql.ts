@@ -6,19 +6,22 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future added value";
-export type AddSignatoryButton_signatureOrder = {
+export type AddSignatoryModal_signatureOrder = {
     readonly id: string;
     readonly status: SignatureOrderStatus;
     readonly openSignatory: {
         readonly id: string;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"AddSignatoryModal_signatureOrder">;
-    readonly " $refType": "AddSignatoryButton_signatureOrder";
+    readonly documents: ReadonlyArray<{
+        readonly id: string;
+    }>;
+    readonly " $fragmentRefs": FragmentRefs<"SignatoryDocumentInput_signatureOrder">;
+    readonly " $refType": "AddSignatoryModal_signatureOrder";
 };
-export type AddSignatoryButton_signatureOrder$data = AddSignatoryButton_signatureOrder;
-export type AddSignatoryButton_signatureOrder$key = {
-    readonly " $data"?: AddSignatoryButton_signatureOrder$data;
-    readonly " $fragmentRefs": FragmentRefs<"AddSignatoryButton_signatureOrder">;
+export type AddSignatoryModal_signatureOrder$data = AddSignatoryModal_signatureOrder;
+export type AddSignatoryModal_signatureOrder$key = {
+    readonly " $data"?: AddSignatoryModal_signatureOrder$data;
+    readonly " $fragmentRefs": FragmentRefs<"AddSignatoryModal_signatureOrder">;
 };
 
 
@@ -30,12 +33,15 @@ var v0 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-};
+},
+v1 = [
+  (v0/*: any*/)
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "AddSignatoryButton_signatureOrder",
+  "name": "AddSignatoryModal_signatureOrder",
   "selections": [
     (v0/*: any*/),
     {
@@ -52,20 +58,28 @@ return {
       "kind": "LinkedField",
       "name": "openSignatory",
       "plural": false,
-      "selections": [
-        (v0/*: any*/)
-      ],
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "documents",
+      "plural": true,
+      "selections": (v1/*: any*/),
       "storageKey": null
     },
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "AddSignatoryModal_signatureOrder"
+      "name": "SignatoryDocumentInput_signatureOrder"
     }
   ],
   "type": "SignatureOrder",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'dc958b3b26d521cf2a99d2de592abde3';
+(node as any).hash = '6015cfa43694da9b7a0fb1d293c66dfd';
 export default node;

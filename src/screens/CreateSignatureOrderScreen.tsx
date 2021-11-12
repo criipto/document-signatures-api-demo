@@ -145,7 +145,6 @@ export default function CreateSignatureOrderScreen() {
           onChange={(event) => setTitle(event.target.value)}
           value={title || ''}
           placeholder="Signature order title"
-          required
         />
         <label className="form-label">Signature order title</label>
       </div>
@@ -190,7 +189,6 @@ export default function CreateSignatureOrderScreen() {
               onChange={(event) => handleUI(event, 'signatoryRedirectUri')}
               value={ui.signatoryRedirectUri || ''}
               placeholder="Signatory redirect URI"
-              required
             />
             <label className="form-label">Signatory redirect URI</label>
           </div>
