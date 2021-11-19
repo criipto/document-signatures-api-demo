@@ -309,7 +309,7 @@ Authentication to the Criipto Document Signatures GraphQL API uses Basic Auth ov
 ```
 curl -u clientId:clientSecret \
   -X POST --data '{"query": "query { signatureOrder(id: $id) { status }", "variables": {"id": "...example id ...."}}'
-  https://signatures-api-test.azurewebsites.net/v1/query
+  https://signatures-api-prod.azurewebsites.net/v1/query
 ```
 
 Our [GraphQL Explorer](https://signatures-api-prod.azurewebsites.net/v1/explorer) is the easiest way to test out queries.
