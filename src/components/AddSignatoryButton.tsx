@@ -32,7 +32,6 @@ export default function AddSignatoryButton(props : Props) {
   , props.signatureOrder);
 
   if (data.status !== 'OPEN') return null;
-  if (data.openSignatory !== null) return null;
 
   return (
     <React.Fragment>

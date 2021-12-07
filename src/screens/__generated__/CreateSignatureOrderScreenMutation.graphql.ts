@@ -11,9 +11,24 @@ export type CreateSignatureOrderInput = {
     disableVerifyEvidenceProvider?: boolean | null;
     fixDocumentFormattingErrors?: boolean | null;
     maxSignatories?: number | null;
+    signatories?: Array<CreateSignatureOrderSignatoryInput> | null;
     documents: Array<DocumentInput>;
     evidenceProviders?: Array<EvidenceProviderInput> | null;
     ui?: CreateSignatureOrderUIInput | null;
+    webhook?: CreateSignatureOrderWebhookInput | null;
+};
+export type CreateSignatureOrderSignatoryInput = {
+    reference?: string | null;
+    documents?: Array<SignatoryDocumentInput> | null;
+    evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
+};
+export type SignatoryDocumentInput = {
+    id: string;
+    preapproved?: boolean | null;
+};
+export type SignatoryEvidenceValidationInput = {
+    key: string;
+    value: string;
 };
 export type DocumentInput = {
     pdf: PadesDocumentInput;
@@ -35,6 +50,9 @@ export type OidcEvidenceProviderInput = {
 };
 export type CreateSignatureOrderUIInput = {
     signatoryRedirectUri?: string | null;
+};
+export type CreateSignatureOrderWebhookInput = {
+    url: string;
 };
 export type CreateSignatureOrderScreenMutationVariables = {
     input: CreateSignatureOrderInput;

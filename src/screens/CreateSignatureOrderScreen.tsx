@@ -5,8 +5,9 @@ import graphql from 'babel-plugin-relay/macro';
 
 import { useHistory } from 'react-router-dom';
 
-import {CreateSignatureOrderScreenMutation, DocumentInput, CreateSignatureOrderUIInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
+import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
 import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOrderScreenQuery.graphql';
+import EvidenceValidationInput, { filterEvidenceValidation } from '../components/EvidenceValidationInput';
 
 import useMutation from '../hooks/useMutation';
 
@@ -30,6 +31,7 @@ export default function CreateSignatureOrderScreen() {
   const [maxSignatories, setMaxSignatories] = useState(14);
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
   const [ui, setUI] = useState<CreateSignatureOrderUIInput>({});
+  const [signatories, setSignatories] = useState<CreateSignatureOrderSignatoryInput[]>([]);
   const [disableVerifyEvidenceProvider, setDisableVerifyEvidenceProvider] = useState(false);
   const history = useHistory();
 
@@ -125,6 +127,12 @@ export default function CreateSignatureOrderScreen() {
         title,
         disableVerifyEvidenceProvider,
         maxSignatories,
+        signatories: signatories.map(signatory => {
+          return {
+            ...signatory,
+            evidenceValidation: filterEvidenceValidation(signatory.evidenceValidation)
+          }
+        }),
         documents,
         ui
       }
@@ -133,6 +141,40 @@ export default function CreateSignatureOrderScreen() {
       history.push(`/signatureorders/${response.createSignatureOrder?.signatureOrder.id}`);
     })
     .catch(console.error)
+  }
+
+  const handleChangeSignatory = (signatory : CreateSignatureOrderSignatoryInput, key : keyof CreateSignatureOrderSignatoryInput, value : string) => {
+    setSignatories(signatories => {
+      return signatories.map(search => {
+        if (search === signatory) {
+          return {
+            ...search,
+            [key]: value
+          };
+        }
+        return search;
+      });
+    })
+  };
+
+  const addSignatory = () => {
+    setSignatories(signatories => signatories.concat({
+      reference: '',
+    }))
+  }
+
+  const handleEvidenceValidation = (participant: CreateSignatureOrderSignatoryInput, evidenceValidation: SignatoryEvidenceValidationInput[]) => {
+    setSignatories(signatories => {
+      return signatories.map(existing => {
+        if (existing === participant) {
+          return {
+            ...participant,
+            evidenceValidation
+          };
+        }
+        return existing;
+      });
+    });
   }
 
   return (
@@ -178,6 +220,36 @@ export default function CreateSignatureOrderScreen() {
         </div>
         <div className="col-sm" />
         <div className="col-sm" />
+      </div>
+      <h4>Signatories</h4>
+      {signatories.length ? (
+        <div className="row">
+          {signatories.map((signatory, index) => (
+            <div className="col-4 mb-3 p-3" key={index}>
+              <div className="border rounded p-3">
+                <strong>Signatory #{index + 1}</strong>
+                <div className="mb-3 form-floating">
+                  <input
+                    className="form-control"
+                    type="text"
+                    onChange={(event) => handleChangeSignatory(signatory, 'reference', event.target.value)}
+                    value={signatory.reference!}
+                    placeholder="signatory reference"
+                    required
+                  />
+                  <label className="form-label">Signatory reference</label>
+                </div>
+                <div><strong>Documents</strong></div>
+                TODO
+                <div><strong>Evidence Validation</strong></div>
+                <EvidenceValidationInput item={signatory} onChange={(i) => handleEvidenceValidation(signatory, i)} />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
+      <div className="mb-3">
+        <button type="button" className="btn btn-secondary" onClick={addSignatory}>Add signatory</button>
       </div>
       <h4>UI Settings</h4>
       <div className="row">

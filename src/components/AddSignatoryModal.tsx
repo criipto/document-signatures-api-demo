@@ -59,7 +59,6 @@ export default function AddSignatoryModal(props : Props) {
   );
 
   if (data.status !== 'OPEN') return null;
-  if (data.openSignatory !== null) return null;
 
   const handleSubmit = () => {
     executor.executePromise({
@@ -69,6 +68,10 @@ export default function AddSignatoryModal(props : Props) {
       }
     }).then(() => {
       props.onHide();
+      setSignatory({
+        signatureOrderId: data.id,
+        documents: data.documents.map(d => ({id: d.id}))
+      });
     }).catch(console.error);
   };
 
@@ -95,6 +98,17 @@ export default function AddSignatoryModal(props : Props) {
         <Modal.Title>Add signatory</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+      <div className="mb-3 form-floating">
+          <input
+            className="form-control"
+            type="text"
+            onChange={(event) => setSignatory(signatory => ({...signatory, reference: event.target.value}))}
+            value={signatory.reference!}
+            placeholder="signatory reference"
+            required
+          />
+          <label className="form-label">Signatory reference</label>
+        </div>
         <div><strong>Documents</strong></div>
         <SignatoryDocumentInputComponent
           id={"addSignatory"}
