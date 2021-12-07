@@ -207,7 +207,7 @@ If a signatory is currently pending but you no longer require them to sign, dele
 }
 ```
 
-### Creating a signature workflow
+### Creating a signature workflow (DEPRECATED)
 
 Workflows enable you to generate as many participant links at once as you wish. The criipto service will manage queuing of participants and ensure signatures will happen in a sequential order even if participants open links in parallel.
 
@@ -235,7 +235,7 @@ mutation {
 }
 ```
 
-### Evidence validation for signature workflows
+### Evidence validation for signature workflows  (DEPRECATED)
 
 See "Evidence validation for signatories" for more information.
 
@@ -284,7 +284,7 @@ query {
 }
 ```
 
-### Query signature workflow
+### Query signature workflow (DEPRECATED)
 ```
 query {
   signatureWorkflow(id: "[signatureWorkflow.id]") {
