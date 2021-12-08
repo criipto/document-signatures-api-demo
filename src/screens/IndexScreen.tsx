@@ -9,9 +9,6 @@ import CreateSignatureOrderScreen from './CreateSignatureOrderScreen';
 import SignatureOrdersScreen from './SignatureOrdersScreen';
 import SignatureOrderScreen from './SignatureOrderScreen';
 
-import CreateSignatureWorkflowScreen from './CreateSignatureWorkflowScreen';
-import SignatureWorkflowScreen from './SignatureWorkflowScreen';
-
 export default function IndexScreen() {
   const data = useLazyLoadQuery<IndexScreenQuery>(
     graphql`
@@ -51,12 +48,6 @@ export default function IndexScreen() {
       </Route>
       <Route path="/signatureorders">
         <SignatureOrdersScreen />
-      </Route>
-      <Route path="/signatureworkflows/create/:signatureOrderId">
-        <CreateSignatureWorkflowScreen  />
-      </Route>
-      <Route path="/signatureworkflows/:signatureWorkflowId">
-        <SignatureWorkflowScreen  />
       </Route>
       <Route>
         <Redirect to="/signatureorders" />

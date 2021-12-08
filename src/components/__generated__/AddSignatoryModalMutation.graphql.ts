@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type AddSignatoryInput = {
     signatureOrderId: string;
+    reference?: string | null;
     documents?: Array<SignatoryDocumentInput> | null;
     evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
 };
@@ -29,6 +30,7 @@ export type AddSignatoryModalMutationResponse = {
                 readonly id: string;
                 readonly status: SignatoryStatus;
                 readonly href: string;
+                readonly reference: string | null;
             }>;
             readonly " $fragmentRefs": FragmentRefs<"AddSignatoryModal_signatureOrder">;
         };
@@ -52,6 +54,7 @@ mutation AddSignatoryModalMutation(
         id
         status
         href
+        reference
       }
       id
     }
@@ -124,6 +127,13 @@ v4 = {
       "args": null,
       "kind": "ScalarField",
       "name": "href",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "reference",
       "storageKey": null
     }
   ],
@@ -240,12 +250,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4f5df037660c863cc017208ff20e8d43",
+    "cacheID": "1a0f583c1726ea5940040ef1389fa3d9",
     "id": null,
     "metadata": {},
     "name": "AddSignatoryModalMutation",
     "operationKind": "mutation",
-    "text": "mutation AddSignatoryModalMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        href\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
+    "text": "mutation AddSignatoryModalMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
   }
 };
 })();

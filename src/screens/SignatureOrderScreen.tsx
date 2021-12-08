@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {Link, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import { useLazyLoadQuery } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
@@ -26,6 +26,7 @@ graphql`
     id
     status
     href
+    reference
   }
 `;
 
@@ -42,10 +43,6 @@ const Query = graphql`
     signatureOrder(id: $id) {
       id
       status
-
-      signatureWorkflow {
-        id
-      }
 
       ui {
         signatoryRedirectUri
@@ -98,12 +95,6 @@ export default function SignatureOrdersScreen() {
     <div>
       Status: {data.signatureOrder.status}<br />
       Signatory Redirect URI: {data.signatureOrder.ui?.signatoryRedirectUri}<br />
-      Workflow:&nbsp;
-      {!data.signatureOrder.signatureWorkflow ? (
-        <Link to={`/signatureworkflows/create/${data.signatureOrder.id}`}>Create workflow</Link>
-      ) : (
-        <Link to={`/signatureworkflows/${data.signatureOrder.signatureWorkflow.id}`}>View workflow</Link>
-      )}
 
       <table className="table table-striped">
         <thead>
@@ -132,6 +123,7 @@ export default function SignatureOrdersScreen() {
         <thead>
           <tr>
             <th scope="col">Signatories</th>
+            <th scope="col">Reference</th>
             <th scope="col">Status</th>
             <th scope="col"></th>
             <th scope="col"></th>
@@ -141,6 +133,7 @@ export default function SignatureOrdersScreen() {
           {data.signatureOrder.signatories.map((signatory, index) => (
             <tr key={signatory.id}>
               <th scope="row" >#{index + 1}</th>
+              <td>{signatory.reference}</td>
               <td>{signatory.status}</td>
               <td>
                 {data.signatureOrder?.status === 'OPEN' && signatory.status === 'OPEN' && (

@@ -10,6 +10,7 @@ export type SignatureOrderScreenSignatory = {
     readonly id: string;
     readonly status: SignatoryStatus;
     readonly href: string;
+    readonly reference: string | null;
     readonly " $refType": "SignatureOrderScreenSignatory";
 };
 export type SignatureOrderScreenSignatory$data = SignatureOrderScreenSignatory;
@@ -46,10 +47,17 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "href",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "reference",
+      "storageKey": null
     }
   ],
   "type": "Signatory",
   "abstractKey": null
 };
-(node as any).hash = 'ecf2e1fa3abe0086a4727cb1af317cea';
+(node as any).hash = 'bfb454a8ec143964c1ada369330b4dbc';
 export default node;
