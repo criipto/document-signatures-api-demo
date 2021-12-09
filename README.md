@@ -32,10 +32,10 @@ mutation {
     }],
     signatories: [
       {
-        reference: 'A'
+        reference: "A"
       },
       {
-        reference: 'B'
+        reference: "B"
       }
     ]
   }) {
@@ -133,19 +133,43 @@ mutation {
 }
 ```
 
-*Same input format is available for workflow participants*
+### Adding multiple signatories
+
+```
+mutation {
+  addSignatories(
+    input: {
+      signatureOrderId: "[signatureOrder.id]"
+      signatories: [
+        {
+          reference: "A"
+        },
+        {
+          reference: "B"
+        }
+      ]
+    }
+  ) {
+    signatureOrder {
+      signatories {
+        href
+      }
+    }
+
+    signatories {
+      href
+    }
+  }
+}
 
 ### Query signature order
 ```
 query {
   signatureOrder(id: "[signatureOrder.id]") {
     status
-    openSignatory {
-      status
-      href
-    }
     signatories {
       status
+      href
     }
   }
 }
@@ -204,7 +228,7 @@ If a signatory is currently pending but you no longer require them to sign, dele
     }
   ) {
     signatureOrder {
-      openSignatory {
+      signatories {
         status
       }
     }
