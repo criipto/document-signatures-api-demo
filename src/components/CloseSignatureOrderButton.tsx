@@ -19,10 +19,6 @@ export default function CloseSignatureOrderButton(props : Props) {
       fragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {
         id
         status
-
-        openSignatory {
-          id
-        }
       }
     `
   , props.signatureOrder);

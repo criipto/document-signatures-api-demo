@@ -64,9 +64,6 @@ mutation AddSignatoryModalMutation(
 fragment AddSignatoryModal_signatureOrder on SignatureOrder {
   id
   status
-  openSignatory {
-    id
-  }
   documents {
     __typename
     id
@@ -205,18 +202,6 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Signatory",
-                "kind": "LinkedField",
-                "name": "openSignatory",
-                "plural": false,
-                "selections": [
-                  (v2/*: any*/)
-                ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
                 "concreteType": null,
                 "kind": "LinkedField",
                 "name": "documents",
@@ -250,12 +235,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1a0f583c1726ea5940040ef1389fa3d9",
+    "cacheID": "44951ac91f556a32f7cfc093afe43fea",
     "id": null,
     "metadata": {},
     "name": "AddSignatoryModalMutation",
     "operationKind": "mutation",
-    "text": "mutation AddSignatoryModalMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
+    "text": "mutation AddSignatoryModalMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
   }
 };
 })();

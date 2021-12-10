@@ -25,10 +25,6 @@ export default function AddSignatoryModal(props : Props) {
         id
         status
 
-        openSignatory {
-          id
-        }
-
         documents {
           id
         }

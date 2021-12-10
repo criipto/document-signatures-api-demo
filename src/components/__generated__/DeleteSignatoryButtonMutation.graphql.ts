@@ -54,18 +54,12 @@ mutation DeleteSignatoryButtonMutation(
 fragment AddSignatoryButton_signatureOrder on SignatureOrder {
   id
   status
-  openSignatory {
-    id
-  }
   ...AddSignatoryModal_signatureOrder
 }
 
 fragment AddSignatoryModal_signatureOrder on SignatureOrder {
   id
   status
-  openSignatory {
-    id
-  }
   documents {
     __typename
     id
@@ -204,18 +198,6 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Signatory",
-                "kind": "LinkedField",
-                "name": "openSignatory",
-                "plural": false,
-                "selections": [
-                  (v2/*: any*/)
-                ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
                 "concreteType": null,
                 "kind": "LinkedField",
                 "name": "documents",
@@ -249,12 +231,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "155fc9bd4e3baf144ed2b1e3b81e255d",
+    "cacheID": "7fbcd5fe8ad9fd4676b371acce2d0321",
     "id": null,
     "metadata": {},
     "name": "DeleteSignatoryButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n  ...AddSignatoryModal_signatureOrder\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
+    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...AddSignatoryModal_signatureOrder\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
   }
 };
 })();

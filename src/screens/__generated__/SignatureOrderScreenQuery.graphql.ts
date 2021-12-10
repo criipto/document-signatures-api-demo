@@ -73,18 +73,12 @@ query SignatureOrderScreenQuery(
 fragment AddSignatoryButton_signatureOrder on SignatureOrder {
   id
   status
-  openSignatory {
-    id
-  }
   ...AddSignatoryModal_signatureOrder
 }
 
 fragment AddSignatoryModal_signatureOrder on SignatureOrder {
   id
   status
-  openSignatory {
-    id
-  }
   documents {
     __typename
     id
@@ -100,9 +94,6 @@ fragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {
 fragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {
   id
   status
-  openSignatory {
-    id
-  }
 }
 
 fragment DeleteSignatoryButton_signatory on Signatory {
@@ -333,18 +324,6 @@ return {
               (v8/*: any*/)
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Signatory",
-            "kind": "LinkedField",
-            "name": "openSignatory",
-            "plural": false,
-            "selections": [
-              (v2/*: any*/)
-            ],
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -352,12 +331,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7520fbfef601528e12267de9936f1bd0",
+    "cacheID": "aca9ea57161580d18638391625a1a92d",
     "id": null,
     "metadata": {},
     "name": "SignatureOrderScreenQuery",
     "operationKind": "query",
-    "text": "query SignatureOrderScreenQuery(\n  $id: ID!\n) {\n  signatureOrder(id: $id) {\n    id\n    status\n    ui {\n      signatoryRedirectUri\n    }\n    signatories {\n      id\n      status\n      href\n      reference\n      ...DeleteSignatoryButton_signatory\n    }\n    documents {\n      __typename\n      __isDocument: __typename\n      id\n      title\n      blob\n    }\n    ...CancelSignatureOrderButton_signatureOrder\n    ...AddSignatoryButton_signatureOrder\n    ...DeleteSignatoryButton_signatureOrder\n    ...CloseSignatureOrderButton_signatureOrder\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n  ...AddSignatoryModal_signatureOrder\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n  openSignatory {\n    id\n  }\n}\n\nfragment DeleteSignatoryButton_signatory on Signatory {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatureOrder on SignatureOrder {\n  id\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
+    "text": "query SignatureOrderScreenQuery(\n  $id: ID!\n) {\n  signatureOrder(id: $id) {\n    id\n    status\n    ui {\n      signatoryRedirectUri\n    }\n    signatories {\n      id\n      status\n      href\n      reference\n      ...DeleteSignatoryButton_signatory\n    }\n    documents {\n      __typename\n      __isDocument: __typename\n      id\n      title\n      blob\n    }\n    ...CancelSignatureOrderButton_signatureOrder\n    ...AddSignatoryButton_signatureOrder\n    ...DeleteSignatoryButton_signatureOrder\n    ...CloseSignatureOrderButton_signatureOrder\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...AddSignatoryModal_signatureOrder\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatory on Signatory {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatureOrder on SignatureOrder {\n  id\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
   }
 };
 })();

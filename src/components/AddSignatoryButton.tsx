@@ -22,10 +22,6 @@ export default function AddSignatoryButton(props : Props) {
         id
         status
 
-        openSignatory {
-          id
-        }
-
         ... AddSignatoryModal_signatureOrder
       }
     `

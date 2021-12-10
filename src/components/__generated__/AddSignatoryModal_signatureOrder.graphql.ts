@@ -9,9 +9,6 @@ export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future ad
 export type AddSignatoryModal_signatureOrder = {
     readonly id: string;
     readonly status: SignatureOrderStatus;
-    readonly openSignatory: {
-        readonly id: string;
-    } | null;
     readonly documents: ReadonlyArray<{
         readonly id: string;
     }>;
@@ -33,10 +30,7 @@ var v0 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-},
-v1 = [
-  (v0/*: any*/)
-];
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -54,21 +48,13 @@ return {
     {
       "alias": null,
       "args": null,
-      "concreteType": "Signatory",
-      "kind": "LinkedField",
-      "name": "openSignatory",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
       "concreteType": null,
       "kind": "LinkedField",
       "name": "documents",
       "plural": true,
-      "selections": (v1/*: any*/),
+      "selections": [
+        (v0/*: any*/)
+      ],
       "storageKey": null
     },
     {
@@ -81,5 +67,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '6015cfa43694da9b7a0fb1d293c66dfd';
+(node as any).hash = '1a3bc774c5271ebe663cfc7c75b9679b';
 export default node;

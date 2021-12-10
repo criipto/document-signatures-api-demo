@@ -9,9 +9,6 @@ export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future ad
 export type CloseSignatureOrderButton_signatureOrder = {
     readonly id: string;
     readonly status: SignatureOrderStatus;
-    readonly openSignatory: {
-        readonly id: string;
-    } | null;
     readonly " $refType": "CloseSignatureOrderButton_signatureOrder";
 };
 export type CloseSignatureOrderButton_signatureOrder$data = CloseSignatureOrderButton_signatureOrder;
@@ -22,44 +19,29 @@ export type CloseSignatureOrderButton_signatureOrder$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "CloseSignatureOrderButton_signatureOrder",
   "selections": [
-    (v0/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
       "name": "status",
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "Signatory",
-      "kind": "LinkedField",
-      "name": "openSignatory",
-      "plural": false,
-      "selections": [
-        (v0/*: any*/)
-      ],
-      "storageKey": null
     }
   ],
   "type": "SignatureOrder",
   "abstractKey": null
 };
-})();
-(node as any).hash = '5a61addfc68f3e33c04cdb11adca1368';
+(node as any).hash = '5e149f83314771c60ad70914904c6b49';
 export default node;
