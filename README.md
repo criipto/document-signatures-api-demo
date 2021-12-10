@@ -224,7 +224,7 @@ If a signatory is currently pending but you no longer require them to sign, dele
   deleteSignatory(
     input: {
       signatureOrderId: "[signatureOrder.id]"
-      signatoryId: "[signatureOrder.openSignatory.id]"
+      signatoryId: "[signatory.id]"
     }
   ) {
     signatureOrder {

@@ -39,7 +39,7 @@ export default function CloseSignatureOrderButton(props : Props) {
     `
   );
 
-  if (data.status !== 'OPEN' || data.openSignatory) return null;
+  if (data.status !== 'OPEN') return null;
 
   const handleClick = () => {
     executor.executePromise({
