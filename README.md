@@ -161,6 +161,7 @@ mutation {
     }
   }
 }
+```
 
 ### Query signature order
 ```
