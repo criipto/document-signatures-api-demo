@@ -230,6 +230,7 @@ export default function CreateSignatureOrderScreen() {
               placeholder="Webhook URI"
             />
             <label className="form-label">Webhook URI</label>
+            <small className="form-text text-muted">You can use https://webhook.site/ for testing</small>
           </div>
         </div>
         <div className="col-sm" />
