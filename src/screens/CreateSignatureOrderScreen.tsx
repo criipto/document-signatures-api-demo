@@ -31,6 +31,7 @@ export default function CreateSignatureOrderScreen() {
   const [maxSignatories, setMaxSignatories] = useState(14);
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
   const [ui, setUI] = useState<CreateSignatureOrderUIInput>({});
+  const [webhook, setWebhook] = useState('');
   const [signatories, setSignatories] = useState<CreateSignatureOrderSignatoryInput[]>([]);
   const [disableVerifyEvidenceProvider, setDisableVerifyEvidenceProvider] = useState(false);
   const history = useHistory();
@@ -134,7 +135,8 @@ export default function CreateSignatureOrderScreen() {
           }
         }),
         documents,
-        ui
+        ui,
+        webhook: webhook ? {url: webhook} : null
       }
     })
     .then((response) => {
@@ -218,38 +220,19 @@ export default function CreateSignatureOrderScreen() {
             <small className="form-text text-muted">Helps determine how many blank pages need to be added for signatures.</small>
           </div>
         </div>
-        <div className="col-sm" />
-        <div className="col-sm" />
-      </div>
-      <h4>Signatories</h4>
-      {signatories.length ? (
-        <div className="row">
-          {signatories.map((signatory, index) => (
-            <div className="col-4 mb-3 p-3" key={index}>
-              <div className="border rounded p-3">
-                <strong>Signatory #{index + 1}</strong>
-                <div className="mb-3 form-floating">
-                  <input
-                    className="form-control"
-                    type="text"
-                    onChange={(event) => handleChangeSignatory(signatory, 'reference', event.target.value)}
-                    value={signatory.reference!}
-                    placeholder="signatory reference"
-                    required
-                  />
-                  <label className="form-label">Signatory reference</label>
-                </div>
-                <div><strong>Documents</strong></div>
-                TODO
-                <div><strong>Evidence Validation</strong></div>
-                <EvidenceValidationInput item={signatory} onChange={(i) => handleEvidenceValidation(signatory, i)} />
-              </div>
-            </div>
-          ))}
+        <div className="col-sm">
+          <div className="mb-3 form-floating">
+            <input
+              className="form-control"
+              type="text"
+              onChange={(event) => setWebhook(event.target.value)}
+              value={webhook || ''}
+              placeholder="Webhook URI"
+            />
+            <label className="form-label">Webhook URI</label>
+          </div>
         </div>
-      ) : null}
-      <div className="mb-3">
-        <button type="button" className="btn btn-secondary" onClick={addSignatory}>Add signatory</button>
+        <div className="col-sm" />
       </div>
       <h4>UI Settings</h4>
       <div className="row">
@@ -290,6 +273,36 @@ export default function CreateSignatureOrderScreen() {
       <div className="mb-3">
         <label htmlFor="pdf_file_select" className="form-label">Add document</label>
         <input className="form-control" type="file" id="pdf_file_select" multiple onChange={handleAddDocument} />
+      </div>
+      <h4>Signatories</h4>
+      {signatories.length ? (
+        <div className="row">
+          {signatories.map((signatory, index) => (
+            <div className="col-4 mb-3 p-3" key={index}>
+              <div className="border rounded p-3">
+                <strong>Signatory #{index + 1}</strong>
+                <div className="mb-3 form-floating">
+                  <input
+                    className="form-control"
+                    type="text"
+                    onChange={(event) => handleChangeSignatory(signatory, 'reference', event.target.value)}
+                    value={signatory.reference!}
+                    placeholder="signatory reference"
+                    required
+                  />
+                  <label className="form-label">Signatory reference</label>
+                </div>
+                <div><strong>Documents</strong></div>
+                TODO
+                <div><strong>Evidence Validation</strong></div>
+                <EvidenceValidationInput item={signatory} onChange={(i) => handleEvidenceValidation(signatory, i)} />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
+      <div className="mb-3">
+        <button type="button" className="btn btn-secondary" onClick={addSignatory}>Add signatory</button>
       </div>
       {status.error && (
         <div className="alert alert-danger">
