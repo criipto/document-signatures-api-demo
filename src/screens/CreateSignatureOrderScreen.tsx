@@ -85,7 +85,7 @@ export default function CreateSignatureOrderScreen() {
     })
   };
 
-  const handleUI = (event: React.ChangeEvent<HTMLInputElement>, key: keyof CreateSignatureOrderUIInput) => {
+  const handleUI = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, key: keyof CreateSignatureOrderUIInput) => {
     setUI(ui => ({
       ...ui,
       [key]: event.target.value
@@ -247,6 +247,20 @@ export default function CreateSignatureOrderScreen() {
               placeholder="Signatory redirect URI"
             />
             <label className="form-label">Signatory redirect URI</label>
+          </div>
+        </div>
+        <div className="col-4">
+          <div className="mb-3 form-floating">
+            <select
+              className="form-control"
+              onChange={(event) => handleUI(event, 'language')}
+              value={ui.language || 'EN_US'}
+              placeholder="Language"
+            >
+              <option value="EN_US">EN_US</option>
+              <option value="DA_DK">DA_DK</option>
+            </select>
+            <label className="form-label">Language</label>
           </div>
         </div>
       </div>

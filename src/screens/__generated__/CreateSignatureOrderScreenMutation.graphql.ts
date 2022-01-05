@@ -5,6 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 
 export type DocumentStorageMode = "Temporary" | "%future added value";
+export type Language = "DA_DK" | "EN_US" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future added value";
 export type CreateSignatureOrderInput = {
     title?: string | null;
@@ -40,7 +41,8 @@ export type PadesDocumentInput = {
     storageMode: DocumentStorageMode;
 };
 export type EvidenceProviderInput = {
-    oidc: OidcEvidenceProviderInput;
+    oidc?: OidcEvidenceProviderInput | null;
+    noop?: NoopEvidenceProviderInput | null;
 };
 export type OidcEvidenceProviderInput = {
     name: string;
@@ -48,8 +50,12 @@ export type OidcEvidenceProviderInput = {
     clientID: string;
     audience: string;
 };
+export type NoopEvidenceProviderInput = {
+    name: string;
+};
 export type CreateSignatureOrderUIInput = {
     signatoryRedirectUri?: string | null;
+    language?: Language | null;
 };
 export type CreateSignatureOrderWebhookInput = {
     url: string;
