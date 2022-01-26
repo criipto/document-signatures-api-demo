@@ -29,6 +29,7 @@ type LocalDocumentInput = DocumentInput & {
 export default function CreateSignatureOrderScreen() {
   const [title, setTitle] = useState<string | null>(null);
   const [maxSignatories, setMaxSignatories] = useState(14);
+  const [expiresInDays, setExpiresInDays] = useState(90);
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
   const [ui, setUI] = useState<CreateSignatureOrderUIInput>({});
   const [webhook, setWebhook] = useState('');
@@ -218,6 +219,20 @@ export default function CreateSignatureOrderScreen() {
             />
             <label className="form-label">Max signatories</label>
             <small className="form-text text-muted">Helps determine how many blank pages need to be added for signatures.</small>
+          </div>
+        </div>
+        <div className="col-sm">
+          <div className="mb-3 form-floating">
+            <input
+              className="form-control"
+              type="number"
+              onChange={(event) => setExpiresInDays(parseInt(event.target.value, 10) || 90)}
+              value={expiresInDays || 90}
+              placeholder="Expires In (Days)"
+              required
+            />
+            <label className="form-label">Expires In (Days)</label>
+            <small className="form-text text-muted">For compliance reasons a signature order must be configured to expire automatically if not closed or cancelled.</small>
           </div>
         </div>
         <div className="col-sm">

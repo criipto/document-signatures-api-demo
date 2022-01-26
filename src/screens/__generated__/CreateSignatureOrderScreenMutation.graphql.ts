@@ -12,6 +12,7 @@ export type CreateSignatureOrderInput = {
     disableVerifyEvidenceProvider?: boolean | null;
     fixDocumentFormattingErrors?: boolean | null;
     maxSignatories?: number | null;
+    expiresInDays?: number | null;
     signatories?: Array<CreateSignatureOrderSignatoryInput> | null;
     documents: Array<DocumentInput>;
     evidenceProviders?: Array<EvidenceProviderInput> | null;
