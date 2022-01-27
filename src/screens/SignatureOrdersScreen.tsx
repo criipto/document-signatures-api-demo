@@ -50,6 +50,7 @@ export default function SignatureOrdersScreen() {
                 <option value="OPEN">Open</option>
                 <option value="CLOSED">Closed</option>
                 <option value="CANCELLED">Cancelled</option>
+                <option value="EXPIRED">Expired</option>
               </select>
             </th>
             <th scope="col"></th>

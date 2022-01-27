@@ -4,7 +4,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
-export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future added value";
+export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CancelSignatureOrderInput = {
     signatureOrderId: string;
 };

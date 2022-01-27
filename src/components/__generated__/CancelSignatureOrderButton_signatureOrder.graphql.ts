@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "OPEN" | "%future added value";
+export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CancelSignatureOrderButton_signatureOrder = {
     readonly id: string;
     readonly status: SignatureOrderStatus;
