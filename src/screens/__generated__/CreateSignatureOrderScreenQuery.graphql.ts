@@ -14,6 +14,7 @@ export type CreateSignatureOrderScreenQueryResponse = {
         value in case none of the concrete values match.*/
         readonly __typename: "%other";
     };
+    readonly timezones: ReadonlyArray<string>;
 };
 export type CreateSignatureOrderScreenQuery = {
     readonly response: CreateSignatureOrderScreenQueryResponse;
@@ -31,6 +32,7 @@ query CreateSignatureOrderScreenQuery {
     }
     id
   }
+  timezones
 }
 */
 
@@ -47,6 +49,13 @@ v1 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "timezones",
   "storageKey": null
 };
 return {
@@ -75,7 +84,8 @@ return {
           }
         ],
         "storageKey": null
-      }
+      },
+      (v2/*: any*/)
     ],
     "type": "Query",
     "abstractKey": null
@@ -98,18 +108,19 @@ return {
           (v1/*: any*/)
         ],
         "storageKey": null
-      }
+      },
+      (v2/*: any*/)
     ]
   },
   "params": {
-    "cacheID": "97bbaaece56b6962c474d1db9418d01a",
+    "cacheID": "5947ac2b4350bb0f21933e700816599e",
     "id": null,
     "metadata": {},
     "name": "CreateSignatureOrderScreenQuery",
     "operationKind": "query",
-    "text": "query CreateSignatureOrderScreenQuery {\n  viewer {\n    __typename\n    ... on Application {\n      id\n    }\n    id\n  }\n}\n"
+    "text": "query CreateSignatureOrderScreenQuery {\n  viewer {\n    __typename\n    ... on Application {\n      id\n    }\n    id\n  }\n  timezones\n}\n"
   }
 };
 })();
-(node as any).hash = '7565598f9fb9689f7c8505bf44f2f904';
+(node as any).hash = '591e6be6c856e9bdff6b31b5c72ccc13';
 export default node;

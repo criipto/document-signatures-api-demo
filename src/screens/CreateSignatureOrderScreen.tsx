@@ -30,6 +30,7 @@ export default function CreateSignatureOrderScreen() {
   const [title, setTitle] = useState<string | null>(null);
   const [maxSignatories, setMaxSignatories] = useState(14);
   const [expiresInDays, setExpiresInDays] = useState(90);
+  const [timezone, setTimezone] = useState('UTC');
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
   const [ui, setUI] = useState<CreateSignatureOrderUIInput>({});
   const [webhook, setWebhook] = useState('');
@@ -46,12 +47,15 @@ export default function CreateSignatureOrderScreen() {
             id
           }
         }
+
+        timezones
       }
     `,
     {}
   );
 
   const application = data.viewer;
+  const timezones = data.timezones;
 
   const handleAddDocument = async (event : React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
@@ -129,6 +133,7 @@ export default function CreateSignatureOrderScreen() {
         title,
         disableVerifyEvidenceProvider,
         maxSignatories,
+        timezone,
         signatories: signatories.map(signatory => {
           return {
             ...signatory,
@@ -248,7 +253,21 @@ export default function CreateSignatureOrderScreen() {
             <small className="form-text text-muted">You can use https://webhook.site/ for testing</small>
           </div>
         </div>
-        <div className="col-sm" />
+        <div className="col-4">
+          <div className="mb-3 form-floating">
+            <select
+              className="form-control"
+              onChange={(event) => setTimezone(event.target.value)}
+              value={timezone}
+              placeholder="Timezone"
+            >
+              {timezones?.map(timezone => (
+                <option value={timezone}>{timezone}</option>
+              ))}
+            </select>
+            <label className="form-label">Timezone</label>
+          </div>
+        </div>
       </div>
       <h4>UI Settings</h4>
       <div className="row">
