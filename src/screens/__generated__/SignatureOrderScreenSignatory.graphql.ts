@@ -9,6 +9,7 @@ export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%futur
 export type SignatureOrderScreenSignatory = {
     readonly id: string;
     readonly status: SignatoryStatus;
+    readonly statusReason: string | null;
     readonly href: string;
     readonly reference: string | null;
     readonly " $refType": "SignatureOrderScreenSignatory";
@@ -45,6 +46,13 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "statusReason",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "href",
       "storageKey": null
     },
@@ -59,5 +67,5 @@ const node: ReaderFragment = {
   "type": "Signatory",
   "abstractKey": null
 };
-(node as any).hash = 'bfb454a8ec143964c1ada369330b4dbc';
+(node as any).hash = 'ac8eec4f5b7849da508a1c7efe445c79';
 export default node;

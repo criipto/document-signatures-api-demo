@@ -20,6 +20,7 @@ export type SignatureOrderScreenQueryResponse = {
         readonly signatories: ReadonlyArray<{
             readonly id: string;
             readonly status: SignatoryStatus;
+            readonly statusReason: string | null;
             readonly href: string;
             readonly reference: string | null;
             readonly " $fragmentRefs": FragmentRefs<"DeleteSignatoryButton_signatory">;
@@ -52,6 +53,7 @@ query SignatureOrderScreenQuery(
     signatories {
       id
       status
+      statusReason
       href
       reference
       ...DeleteSignatoryButton_signatory
@@ -165,24 +167,31 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "href",
+  "name": "statusReason",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "reference",
+  "name": "href",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "reference",
   "storageKey": null
 },
 v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -219,6 +228,7 @@ return {
               (v3/*: any*/),
               (v5/*: any*/),
               (v6/*: any*/),
+              (v7/*: any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -236,8 +246,8 @@ return {
             "plural": true,
             "selections": [
               (v2/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/)
+              (v8/*: any*/),
+              (v9/*: any*/)
             ],
             "storageKey": null
           },
@@ -296,7 +306,8 @@ return {
               (v2/*: any*/),
               (v3/*: any*/),
               (v5/*: any*/),
-              (v6/*: any*/)
+              (v6/*: any*/),
+              (v7/*: any*/)
             ],
             "storageKey": null
           },
@@ -320,8 +331,8 @@ return {
                 "abstractKey": "__isDocument"
               },
               (v2/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/)
+              (v8/*: any*/),
+              (v9/*: any*/)
             ],
             "storageKey": null
           }
@@ -331,12 +342,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "aca9ea57161580d18638391625a1a92d",
+    "cacheID": "cdf983536578a481008bbfb262c815b3",
     "id": null,
     "metadata": {},
     "name": "SignatureOrderScreenQuery",
     "operationKind": "query",
-    "text": "query SignatureOrderScreenQuery(\n  $id: ID!\n) {\n  signatureOrder(id: $id) {\n    id\n    status\n    ui {\n      signatoryRedirectUri\n    }\n    signatories {\n      id\n      status\n      href\n      reference\n      ...DeleteSignatoryButton_signatory\n    }\n    documents {\n      __typename\n      __isDocument: __typename\n      id\n      title\n      blob\n    }\n    ...CancelSignatureOrderButton_signatureOrder\n    ...AddSignatoryButton_signatureOrder\n    ...DeleteSignatoryButton_signatureOrder\n    ...CloseSignatureOrderButton_signatureOrder\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...AddSignatoryModal_signatureOrder\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatory on Signatory {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatureOrder on SignatureOrder {\n  id\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
+    "text": "query SignatureOrderScreenQuery(\n  $id: ID!\n) {\n  signatureOrder(id: $id) {\n    id\n    status\n    ui {\n      signatoryRedirectUri\n    }\n    signatories {\n      id\n      status\n      statusReason\n      href\n      reference\n      ...DeleteSignatoryButton_signatory\n    }\n    documents {\n      __typename\n      __isDocument: __typename\n      id\n      title\n      blob\n    }\n    ...CancelSignatureOrderButton_signatureOrder\n    ...AddSignatoryButton_signatureOrder\n    ...DeleteSignatoryButton_signatureOrder\n    ...CloseSignatureOrderButton_signatureOrder\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...AddSignatoryModal_signatureOrder\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatory on Signatory {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatureOrder on SignatureOrder {\n  id\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
   }
 };
 })();

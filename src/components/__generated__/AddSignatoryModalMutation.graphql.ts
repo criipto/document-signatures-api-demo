@@ -29,6 +29,7 @@ export type AddSignatoryModalMutationResponse = {
             readonly signatories: ReadonlyArray<{
                 readonly id: string;
                 readonly status: SignatoryStatus;
+                readonly statusReason: string | null;
                 readonly href: string;
                 readonly reference: string | null;
             }>;
@@ -53,6 +54,7 @@ mutation AddSignatoryModalMutation(
       signatories {
         id
         status
+        statusReason
         href
         reference
       }
@@ -119,6 +121,13 @@ v4 = {
   "selections": [
     (v2/*: any*/),
     (v3/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "statusReason",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -235,12 +244,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "44951ac91f556a32f7cfc093afe43fea",
+    "cacheID": "35051b3204b5aec2e338a5cde53e5782",
     "id": null,
     "metadata": {},
     "name": "AddSignatoryModalMutation",
     "operationKind": "mutation",
-    "text": "mutation AddSignatoryModalMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
+    "text": "mutation AddSignatoryModalMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
   }
 };
 })();

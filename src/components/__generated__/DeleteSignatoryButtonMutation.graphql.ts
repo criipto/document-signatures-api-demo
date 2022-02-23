@@ -19,6 +19,7 @@ export type DeleteSignatoryButtonMutationResponse = {
             readonly signatories: ReadonlyArray<{
                 readonly id: string;
                 readonly status: SignatoryStatus;
+                readonly statusReason: string | null;
                 readonly href: string;
                 readonly reference: string | null;
             }>;
@@ -43,6 +44,7 @@ mutation DeleteSignatoryButtonMutation(
       signatories {
         id
         status
+        statusReason
         href
         reference
       }
@@ -115,6 +117,13 @@ v4 = {
   "selections": [
     (v2/*: any*/),
     (v3/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "statusReason",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -231,12 +240,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7fbcd5fe8ad9fd4676b371acce2d0321",
+    "cacheID": "950146dbd751b8854b1b44e9d21dcef7",
     "id": null,
     "metadata": {},
     "name": "DeleteSignatoryButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...AddSignatoryModal_signatureOrder\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
+    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...AddSignatoryModal_signatureOrder\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
   }
 };
 })();

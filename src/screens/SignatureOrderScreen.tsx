@@ -25,6 +25,7 @@ graphql`
   fragment SignatureOrderScreenSignatory on Signatory {
     id
     status
+    statusReason
     href
     reference
   }
@@ -134,7 +135,7 @@ export default function SignatureOrdersScreen() {
             <tr key={signatory.id}>
               <th scope="row" >#{index + 1}</th>
               <td>{signatory.reference}</td>
-              <td>{signatory.status}</td>
+              <td>{signatory.status}{signatory.statusReason ? `( ${signatory.statusReason})` : null}</td>
               <td>
                 {data.signatureOrder?.status === 'OPEN' && signatory.status === 'OPEN' && (
                   <a href={signatory.href}>Sign link (right click and copy link)</a>
