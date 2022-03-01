@@ -293,6 +293,7 @@ export default function CreateSignatureOrderScreen() {
             >
               <option value="EN_US">EN_US</option>
               <option value="DA_DK">DA_DK</option>
+              <option value="SV_SE">SV_SE</option>
             </select>
             <label className="form-label">Language</label>
           </div>
