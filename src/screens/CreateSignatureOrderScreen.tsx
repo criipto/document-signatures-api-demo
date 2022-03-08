@@ -16,7 +16,7 @@ const toBase64 = (file : File) : Promise<string> => new Promise((resolve, reject
   reader.readAsDataURL(file);
   reader.onload = () => {
     let result : string = reader.result as string;
-    result = result.replace('data:application/pdf;base64,', '')
+    result = result.replace(/^data:(.+);base64,/, '');
     resolve(result);
   };
   reader.onerror = error => reject(error);
