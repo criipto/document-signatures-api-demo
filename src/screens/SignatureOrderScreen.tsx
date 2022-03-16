@@ -44,6 +44,7 @@ const Query = graphql`
     signatureOrder(id: $id) {
       id
       status
+      title
 
       ui {
         signatoryRedirectUri
@@ -52,6 +53,21 @@ const Query = graphql`
       signatories {
         ...SignatureOrderScreenSignatory @relay(mask: false)
         ...DeleteSignatoryButton_signatory
+      }
+
+      evidenceProviders {
+        __typename
+        ... on OidcJWTSignatureEvidenceProvider {
+          id
+          name
+          domain
+          clientID
+          acrValues
+        }
+        ... on DrawableSignatureEvidenceProvider {
+          id
+          requireName
+        }
       }
 
       documents {
@@ -94,6 +110,7 @@ export default function SignatureOrdersScreen() {
 
   return (
     <div>
+      Title: {data.signatureOrder.title}<br />
       Status: {data.signatureOrder.status}<br />
       Signatory Redirect URI: {data.signatureOrder.ui?.signatoryRedirectUri}<br />
 
@@ -114,6 +131,39 @@ export default function SignatureOrdersScreen() {
                 {document.blob && (
                   <a href={URL.createObjectURL(base64ToBlob(document.blob))} target="_blank" rel="noreferrer">Download</a>
                 )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Evidence Providers</th>
+            <th scope="col">Type</th>
+            <th scope="col">Configuration</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.signatureOrder.evidenceProviders.map((provider, index) => (
+            <tr key={index}>
+              <th scope="row">#{index + 1}</th>
+              <td>
+                {provider.__typename}
+              </td>
+              <td>
+                {provider.__typename === 'OidcJWTSignatureEvidenceProvider' ? (
+                  <React.Fragment>
+                    Domain: {provider.domain}<br />
+                    ClientID: {provider.clientID}<br />
+                    Acr values: {provider.acrValues.join(', ')}<br />
+                  </React.Fragment>
+                ) : provider.__typename === 'DrawableSignatureEvidenceProvider' ? (
+                  <React.Fragment>
+                    Require Name: {provider.requireName ? 'true' : 'false'}<br />
+                  </React.Fragment>
+                ) : null}
               </td>
             </tr>
           ))}

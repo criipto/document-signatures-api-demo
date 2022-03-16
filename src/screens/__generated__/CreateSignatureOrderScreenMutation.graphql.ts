@@ -5,7 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 
 export type DocumentStorageMode = "Temporary" | "%future added value";
-export type Language = "DA_DK" | "EN_US" | "%future added value";
+export type Language = "DA_DK" | "EN_US" | "SV_SE" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CreateSignatureOrderInput = {
     title?: string | null;
@@ -23,11 +23,15 @@ export type CreateSignatureOrderInput = {
 export type CreateSignatureOrderSignatoryInput = {
     reference?: string | null;
     documents?: Array<SignatoryDocumentInput> | null;
+    evidenceProviders?: Array<SignatoryEvidenceProviderInput> | null;
     evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
 };
 export type SignatoryDocumentInput = {
     id: string;
     preapproved?: boolean | null;
+};
+export type SignatoryEvidenceProviderInput = {
+    id: string;
 };
 export type SignatoryEvidenceValidationInput = {
     key: string;
@@ -44,16 +48,26 @@ export type PadesDocumentInput = {
 };
 export type EvidenceProviderInput = {
     oidc?: OidcEvidenceProviderInput | null;
+    criiptoVerify?: CriiptoVerifyProviderInput | null;
     noop?: NoopEvidenceProviderInput | null;
+    enabledByDefault?: boolean | null;
+    drawable?: DrawableEvidenceProviderInput | null;
 };
 export type OidcEvidenceProviderInput = {
     name: string;
     domain: string;
     clientID: string;
     audience: string;
+    acrValues?: Array<string> | null;
+};
+export type CriiptoVerifyProviderInput = {
+    acrValues?: Array<string> | null;
 };
 export type NoopEvidenceProviderInput = {
     name: string;
+};
+export type DrawableEvidenceProviderInput = {
+    requireName?: boolean | null;
 };
 export type CreateSignatureOrderUIInput = {
     signatoryRedirectUri?: string | null;

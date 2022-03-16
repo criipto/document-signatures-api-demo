@@ -70,7 +70,7 @@ export default function EvidenceValidationInput<T extends HasEvidenceValidation>
           </div>
         </div>
       ))}
-      <button type="button" className="btn btn-secondary" onClick={handleAdd}>Add</button>
+      <button type="button" className="btn btn-secondary" onClick={handleAdd}>Add evidence validation</button>
     </React.Fragment>
   );
 }
