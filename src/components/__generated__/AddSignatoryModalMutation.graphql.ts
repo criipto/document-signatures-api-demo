@@ -10,11 +10,15 @@ export type AddSignatoryInput = {
     signatureOrderId: string;
     reference?: string | null;
     documents?: Array<SignatoryDocumentInput> | null;
+    evidenceProviders?: Array<SignatoryEvidenceProviderInput> | null;
     evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
 };
 export type SignatoryDocumentInput = {
     id: string;
     preapproved?: boolean | null;
+};
+export type SignatoryEvidenceProviderInput = {
+    id: string;
 };
 export type SignatoryEvidenceValidationInput = {
     key: string;
@@ -69,6 +73,20 @@ fragment AddSignatoryModal_signatureOrder on SignatureOrder {
   documents {
     __typename
     id
+  }
+  evidenceProviders {
+    __typename
+    ... on OidcJWTSignatureEvidenceProvider {
+      id
+      name
+      domain
+      clientID
+      acrValues
+    }
+    ... on DrawableSignatureEvidenceProvider {
+      id
+      requireName
+    }
   }
   ...SignatoryDocumentInput_signatureOrder
 }
@@ -144,6 +162,13 @@ v4 = {
     }
   ],
   "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -216,13 +241,7 @@ return {
                 "name": "documents",
                 "plural": true,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "__typename",
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
                   (v2/*: any*/),
                   {
                     "alias": null,
@@ -230,6 +249,69 @@ return {
                     "kind": "ScalarField",
                     "name": "title",
                     "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": null,
+                "kind": "LinkedField",
+                "name": "evidenceProviders",
+                "plural": true,
+                "selections": [
+                  (v5/*: any*/),
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v2/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "name",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "domain",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "clientID",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "acrValues",
+                        "storageKey": null
+                      }
+                    ],
+                    "type": "OidcJWTSignatureEvidenceProvider",
+                    "abstractKey": null
+                  },
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v2/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "requireName",
+                        "storageKey": null
+                      }
+                    ],
+                    "type": "DrawableSignatureEvidenceProvider",
+                    "abstractKey": null
                   }
                 ],
                 "storageKey": null
@@ -244,12 +326,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "35051b3204b5aec2e338a5cde53e5782",
+    "cacheID": "b90b0282dffefc30716c3f6128eeff0d",
     "id": null,
     "metadata": {},
     "name": "AddSignatoryModalMutation",
     "operationKind": "mutation",
-    "text": "mutation AddSignatoryModalMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
+    "text": "mutation AddSignatoryModalMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n"
   }
 };
 })();

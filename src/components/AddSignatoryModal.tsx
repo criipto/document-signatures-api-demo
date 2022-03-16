@@ -29,6 +29,21 @@ export default function AddSignatoryModal(props : Props) {
           id
         }
 
+        evidenceProviders {
+          __typename
+          ... on OidcJWTSignatureEvidenceProvider {
+            id
+            name
+            domain
+            clientID
+            acrValues
+          }
+          ... on DrawableSignatureEvidenceProvider {
+            id
+            requireName
+          }
+        }
+
         ...SignatoryDocumentInput_signatureOrder
       }
     `
@@ -36,7 +51,8 @@ export default function AddSignatoryModal(props : Props) {
   
   const [signatory, setSignatory] = useState<AddSignatoryInput>({
     signatureOrderId: data.id,
-    documents: data.documents.map(d => ({id: d.id}))
+    documents: data.documents.map(d => ({id: d.id})),
+    evidenceProviders: data.evidenceProviders.map(d => ({id: (d as any).id}))
   });
 
   const [executor, status] = useMutation<AddSignatoryModalMutation>(
@@ -85,6 +101,16 @@ export default function AddSignatoryModal(props : Props) {
     }));
   }
 
+  const handleEvidenceProvider = (provider: any, checked: boolean) => {
+    setSignatory(signatory => ({
+      ...signatory,
+      evidenceProviders: 
+        checked ?
+          (signatory.evidenceProviders || []).concat([{id: (provider as any).id}]) :
+          (signatory.evidenceProviders || []).filter(s => s.id !== (provider as any).id)
+    }));
+  } 
+
   return (
     <Modal
       show={props.show}
@@ -112,6 +138,25 @@ export default function AddSignatoryModal(props : Props) {
           signatureOrder={data}
           onChange={(ds) => handleDocuments(ds)}
         />
+        <div><strong>Evidence Providers</strong></div>
+        <ul>
+          {data.evidenceProviders.map((provider, index) => (
+            <li key={index}>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id={`${index}_providers_enabled`}
+                  checked={signatory.evidenceProviders?.find(s => s.id === (provider as any).id) !== undefined}
+                  onChange={(event) => handleEvidenceProvider(provider, event.target.checked)}
+                />
+                <label className="form-check-label" htmlFor={`${index}_providers_enabled`}>
+                  {provider.__typename}
+                </label>
+              </div>
+            </li>
+          ))}
+        </ul>
         <div><strong>Evidence Validation</strong></div>
         <EvidenceValidationInput item={signatory} onChange={(i) => handleEvidenceValidation(i)} />
       </Modal.Body>

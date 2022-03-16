@@ -12,6 +12,22 @@ export type AddSignatoryModal_signatureOrder = {
     readonly documents: ReadonlyArray<{
         readonly id: string;
     }>;
+    readonly evidenceProviders: ReadonlyArray<{
+        readonly __typename: "OidcJWTSignatureEvidenceProvider";
+        readonly id: string;
+        readonly name: string;
+        readonly domain: string;
+        readonly clientID: string;
+        readonly acrValues: ReadonlyArray<string>;
+    } | {
+        readonly __typename: "DrawableSignatureEvidenceProvider";
+        readonly id: string;
+        readonly requireName: boolean;
+    } | {
+        /*This will never be '%other', but we need some
+        value in case none of the concrete values match.*/
+        readonly __typename: "%other";
+    }>;
     readonly " $fragmentRefs": FragmentRefs<"SignatoryDocumentInput_signatureOrder">;
     readonly " $refType": "AddSignatoryModal_signatureOrder";
 };
@@ -58,6 +74,75 @@ return {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "evidenceProviders",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "__typename",
+          "storageKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "name",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "domain",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "clientID",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "acrValues",
+              "storageKey": null
+            }
+          ],
+          "type": "OidcJWTSignatureEvidenceProvider",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "requireName",
+              "storageKey": null
+            }
+          ],
+          "type": "DrawableSignatureEvidenceProvider",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "SignatoryDocumentInput_signatureOrder"
@@ -67,5 +152,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '1a3bc774c5271ebe663cfc7c75b9679b';
+(node as any).hash = 'a2358b88520b135b69b82472c8ea5b45';
 export default node;
