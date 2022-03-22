@@ -4,7 +4,7 @@ import { useFragment } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
 import {AddSignatoryButton_signatureOrder$key} from './__generated__/AddSignatoryButton_signatureOrder.graphql';
-import AddSignatoryModal from './AddSignatoryModal';
+import SignatoryModal from './SignatoryModal';
 
 interface Props {
   signatureOrder: AddSignatoryButton_signatureOrder$key
@@ -22,7 +22,7 @@ export default function AddSignatoryButton(props : Props) {
         id
         status
 
-        ... AddSignatoryModal_signatureOrder
+        ... SignatoryModal_signatureOrder
       }
     `
   , props.signatureOrder);
@@ -34,7 +34,7 @@ export default function AddSignatoryButton(props : Props) {
       <button className="btn btn-secondary" onClick={handleShow}>
         Add signatory
       </button>
-      <AddSignatoryModal show={show} signatureOrder={data} onHide={handleClose} />
+      <SignatoryModal show={show} signatureOrder={data} onHide={handleClose} />
     </React.Fragment>
   )
 }

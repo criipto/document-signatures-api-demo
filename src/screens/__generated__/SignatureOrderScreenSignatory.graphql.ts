@@ -12,6 +12,17 @@ export type SignatureOrderScreenSignatory = {
     readonly statusReason: string | null;
     readonly href: string;
     readonly reference: string | null;
+    readonly documents: {
+        readonly edges: ReadonlyArray<{
+            readonly node: {
+                readonly id: string;
+                readonly title: string;
+            };
+        }>;
+    };
+    readonly evidenceProviders: ReadonlyArray<{
+        readonly __typename: string;
+    }>;
     readonly " $refType": "SignatureOrderScreenSignatory";
 };
 export type SignatureOrderScreenSignatory$data = SignatureOrderScreenSignatory;
@@ -22,19 +33,21 @@ export type SignatureOrderScreenSignatory$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "SignatureOrderScreenSignatory",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -62,10 +75,70 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "reference",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SignatoryDocumentConnection",
+      "kind": "LinkedField",
+      "name": "documents",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SignatoryDocumentEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                (v0/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "title",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "evidenceProviders",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "__typename",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Signatory",
   "abstractKey": null
 };
-(node as any).hash = 'ac8eec4f5b7849da508a1c7efe445c79';
+})();
+(node as any).hash = '205cd535420eae43443d3d364b91b5c5';
 export default node;

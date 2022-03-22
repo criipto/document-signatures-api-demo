@@ -6,16 +6,16 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
-export type AddSignatoryButton_signatureOrder = {
+export type ChangeSignatoryButton_signatureOrder = {
     readonly id: string;
     readonly status: SignatureOrderStatus;
     readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatureOrder">;
-    readonly " $refType": "AddSignatoryButton_signatureOrder";
+    readonly " $refType": "ChangeSignatoryButton_signatureOrder";
 };
-export type AddSignatoryButton_signatureOrder$data = AddSignatoryButton_signatureOrder;
-export type AddSignatoryButton_signatureOrder$key = {
-    readonly " $data"?: AddSignatoryButton_signatureOrder$data;
-    readonly " $fragmentRefs": FragmentRefs<"AddSignatoryButton_signatureOrder">;
+export type ChangeSignatoryButton_signatureOrder$data = ChangeSignatoryButton_signatureOrder;
+export type ChangeSignatoryButton_signatureOrder$key = {
+    readonly " $data"?: ChangeSignatoryButton_signatureOrder$data;
+    readonly " $fragmentRefs": FragmentRefs<"ChangeSignatoryButton_signatureOrder">;
 };
 
 
@@ -24,7 +24,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "AddSignatoryButton_signatureOrder",
+  "name": "ChangeSignatoryButton_signatureOrder",
   "selections": [
     {
       "alias": null,
@@ -49,5 +49,5 @@ const node: ReaderFragment = {
   "type": "SignatureOrder",
   "abstractKey": null
 };
-(node as any).hash = '25328d7872422b644074a351698101cb';
+(node as any).hash = '93276a4030d8bafaeffef1679c0945ef';
 export default node;

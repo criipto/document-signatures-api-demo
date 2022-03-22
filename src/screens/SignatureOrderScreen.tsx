@@ -10,6 +10,7 @@ import CancelSignatureOrderButton from '../components/CancelSignatureOrderButton
 import AddSignatoryButton from '../components/AddSignatoryButton';
 import DeleteSignatoryButton from '../components/DeleteSignatoryButton';
 import CloseSignatureOrderButton from '../components/CloseSignatureOrderButton';
+import ChangeSignatoryButton from '../components/ChangeSignatoryButton';
 
 function base64ToBlob( base64 : string, type = "application/pdf" ) {
   const binStr = atob( base64 );
@@ -28,6 +29,19 @@ graphql`
     statusReason
     href
     reference
+
+    documents {
+      edges {
+        node {
+          id
+          title
+        }
+      }
+    }
+    
+    evidenceProviders {
+      __typename
+    }
   }
 `;
 
@@ -53,6 +67,7 @@ const Query = graphql`
       signatories {
         ...SignatureOrderScreenSignatory @relay(mask: false)
         ...DeleteSignatoryButton_signatory
+        ...ChangeSignatoryButton_signatory
       }
 
       evidenceProviders {
@@ -77,6 +92,7 @@ const Query = graphql`
       ...CancelSignatureOrderButton_signatureOrder
       ...AddSignatoryButton_signatureOrder
       ...DeleteSignatoryButton_signatureOrder
+      ...ChangeSignatoryButton_signatureOrder
       ...CloseSignatureOrderButton_signatureOrder
     }
   }
@@ -176,6 +192,8 @@ export default function SignatureOrdersScreen() {
             <th scope="col">Signatories</th>
             <th scope="col">Reference</th>
             <th scope="col">Status</th>
+            <th scope="col">Documents</th>
+            <th scope="col">Evidence Providers</th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
@@ -187,11 +205,18 @@ export default function SignatureOrdersScreen() {
               <td>{signatory.reference}</td>
               <td>{signatory.status}{signatory.statusReason ? ` (${signatory.statusReason})` : null}</td>
               <td>
+                {signatory.documents.edges.map(edge => <span key={edge.node.id}>{edge.node.title}<br /></span>)}
+              </td>
+              <td>
+                {signatory.evidenceProviders.map(p => <span key={p.__typename}>{p.__typename}<br /></span>)}
+              </td>
+              <td>
                 {data.signatureOrder?.status === 'OPEN' && signatory.status === 'OPEN' && (
                   <a href={signatory.href}>Sign link (right click and copy link)</a>
                 )}
               </td>
-              <td>
+              <td style={{display: 'flex', gap: 5, justifyContent: 'flex-end'}}>
+                <ChangeSignatoryButton signatureOrder={data.signatureOrder!} signatory={signatory} />
                 <DeleteSignatoryButton signatureOrder={data.signatureOrder!} signatory={signatory} />
               </td>
             </tr>

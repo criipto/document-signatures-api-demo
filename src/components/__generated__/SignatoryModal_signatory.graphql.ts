@@ -5,13 +5,11 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
-export type AddSignatoryModal_signatureOrder = {
+export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "%future added value";
+export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
+export type SignatoryModal_signatory = {
     readonly id: string;
-    readonly status: SignatureOrderStatus;
-    readonly documents: ReadonlyArray<{
-        readonly id: string;
-    }>;
+    readonly status: SignatoryStatus;
     readonly evidenceProviders: ReadonlyArray<{
         readonly __typename: "OidcJWTSignatureEvidenceProvider";
         readonly id: string;
@@ -28,13 +26,20 @@ export type AddSignatoryModal_signatureOrder = {
         value in case none of the concrete values match.*/
         readonly __typename: "%other";
     }>;
-    readonly " $fragmentRefs": FragmentRefs<"SignatoryDocumentInput_signatureOrder">;
-    readonly " $refType": "AddSignatoryModal_signatureOrder";
+    readonly documents: {
+        readonly edges: ReadonlyArray<{
+            readonly status: SignatoryDocumentStatus | null;
+            readonly node: {
+                readonly id: string;
+            };
+        }>;
+    };
+    readonly " $refType": "SignatoryModal_signatory";
 };
-export type AddSignatoryModal_signatureOrder$data = AddSignatoryModal_signatureOrder;
-export type AddSignatoryModal_signatureOrder$key = {
-    readonly " $data"?: AddSignatoryModal_signatureOrder$data;
-    readonly " $fragmentRefs": FragmentRefs<"AddSignatoryModal_signatureOrder">;
+export type SignatoryModal_signatory$data = SignatoryModal_signatory;
+export type SignatoryModal_signatory$key = {
+    readonly " $data"?: SignatoryModal_signatory$data;
+    readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatory">;
 };
 
 
@@ -46,33 +51,22 @@ var v0 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "status",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "AddSignatoryModal_signatureOrder",
+  "name": "SignatoryModal_signatory",
   "selections": [
     (v0/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "status",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "documents",
-      "plural": true,
-      "selections": [
-        (v0/*: any*/)
-      ],
-      "storageKey": null
-    },
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -143,14 +137,44 @@ return {
       "storageKey": null
     },
     {
+      "alias": null,
       "args": null,
-      "kind": "FragmentSpread",
-      "name": "SignatoryDocumentInput_signatureOrder"
+      "concreteType": "SignatoryDocumentConnection",
+      "kind": "LinkedField",
+      "name": "documents",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SignatoryDocumentEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            (v1/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                (v0/*: any*/)
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
-  "type": "SignatureOrder",
+  "type": "Signatory",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'a2358b88520b135b69b82472c8ea5b45';
+(node as any).hash = '1dffa15b08528a92fb6a326dedbf5df0';
 export default node;

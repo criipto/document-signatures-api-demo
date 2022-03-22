@@ -6,15 +6,29 @@ import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
-export type DeleteSignatoryInput = {
+export type AddSignatoryInput = {
     signatureOrderId: string;
-    signatoryId: string;
+    reference?: string | null;
+    documents?: Array<SignatoryDocumentInput> | null;
+    evidenceProviders?: Array<SignatoryEvidenceProviderInput> | null;
+    evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
 };
-export type DeleteSignatoryButtonMutationVariables = {
-    input: DeleteSignatoryInput;
+export type SignatoryDocumentInput = {
+    id: string;
+    preapproved?: boolean | null;
 };
-export type DeleteSignatoryButtonMutationResponse = {
-    readonly deleteSignatory: {
+export type SignatoryEvidenceProviderInput = {
+    id: string;
+};
+export type SignatoryEvidenceValidationInput = {
+    key: string;
+    value: string;
+};
+export type SignatoryModalAddMutationVariables = {
+    input: AddSignatoryInput;
+};
+export type SignatoryModalAddMutationResponse = {
+    readonly addSignatory: {
         readonly signatureOrder: {
             readonly signatories: ReadonlyArray<{
                 readonly id: string;
@@ -34,24 +48,24 @@ export type DeleteSignatoryButtonMutationResponse = {
                     readonly __typename: string;
                 }>;
             }>;
-            readonly " $fragmentRefs": FragmentRefs<"AddSignatoryButton_signatureOrder">;
+            readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatureOrder">;
         };
     } | null;
 };
-export type DeleteSignatoryButtonMutation = {
-    readonly response: DeleteSignatoryButtonMutationResponse;
-    readonly variables: DeleteSignatoryButtonMutationVariables;
+export type SignatoryModalAddMutation = {
+    readonly response: SignatoryModalAddMutationResponse;
+    readonly variables: SignatoryModalAddMutationVariables;
 };
 
 
 
 /*
-mutation DeleteSignatoryButtonMutation(
-  $input: DeleteSignatoryInput!
+mutation SignatoryModalAddMutation(
+  $input: AddSignatoryInput!
 ) {
-  deleteSignatory(input: $input) {
+  addSignatory(input: $input) {
     signatureOrder {
-      ...AddSignatoryButton_signatureOrder
+      ...SignatoryModal_signatureOrder
       signatories {
         id
         status
@@ -74,12 +88,6 @@ mutation DeleteSignatoryButtonMutation(
       id
     }
   }
-}
-
-fragment AddSignatoryButton_signatureOrder on SignatureOrder {
-  id
-  status
-  ...SignatoryModal_signatureOrder
 }
 
 fragment SignatoryDocumentInput_signatureOrder on SignatureOrder {
@@ -201,14 +209,14 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "DeleteSignatoryButtonMutation",
+    "name": "SignatoryModalAddMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "DeleteSignatoryOutput",
+        "concreteType": "AddSignatoryOutput",
         "kind": "LinkedField",
-        "name": "deleteSignatory",
+        "name": "addSignatory",
         "plural": false,
         "selections": [
           {
@@ -274,7 +282,7 @@ return {
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "AddSignatoryButton_signatureOrder"
+                "name": "SignatoryModal_signatureOrder"
               }
             ],
             "storageKey": null
@@ -290,14 +298,14 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "DeleteSignatoryButtonMutation",
+    "name": "SignatoryModalAddMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "DeleteSignatoryOutput",
+        "concreteType": "AddSignatoryOutput",
         "kind": "LinkedField",
-        "name": "deleteSignatory",
+        "name": "addSignatory",
         "plural": false,
         "selections": [
           {
@@ -441,14 +449,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "508b77e3d64fce7f28efdda987800063",
+    "cacheID": "197413874c709099044a22859bbec039",
     "id": null,
     "metadata": {},
-    "name": "DeleteSignatoryButtonMutation",
+    "name": "SignatoryModalAddMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n        documents {\n          edges {\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignatoryModal_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
+    "text": "mutation SignatoryModalAddMutation(\n  $input: AddSignatoryInput!\n) {\n  addSignatory(input: $input) {\n    signatureOrder {\n      ...SignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n        documents {\n          edges {\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
   }
 };
 })();
-(node as any).hash = 'dddc6a5c868815bed1dc3b4e87ddfb86';
+(node as any).hash = '2f7de82b7d6488842f8b428ec78ad1c3';
 export default node;

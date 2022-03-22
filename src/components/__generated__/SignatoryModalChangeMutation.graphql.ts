@@ -6,15 +6,32 @@ import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
-export type DeleteSignatoryInput = {
-    signatureOrderId: string;
+export type ChangeSignatoryInput = {
     signatoryId: string;
+    reference?: string | null;
+    documents?: Array<SignatoryDocumentInput> | null;
+    evidenceProviders?: Array<SignatoryEvidenceProviderInput> | null;
+    evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
 };
-export type DeleteSignatoryButtonMutationVariables = {
-    input: DeleteSignatoryInput;
+export type SignatoryDocumentInput = {
+    id: string;
+    preapproved?: boolean | null;
 };
-export type DeleteSignatoryButtonMutationResponse = {
-    readonly deleteSignatory: {
+export type SignatoryEvidenceProviderInput = {
+    id: string;
+};
+export type SignatoryEvidenceValidationInput = {
+    key: string;
+    value: string;
+};
+export type SignatoryModalChangeMutationVariables = {
+    input: ChangeSignatoryInput;
+};
+export type SignatoryModalChangeMutationResponse = {
+    readonly changeSignatory: {
+        readonly signatory: {
+            readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatory">;
+        };
         readonly signatureOrder: {
             readonly signatories: ReadonlyArray<{
                 readonly id: string;
@@ -33,25 +50,30 @@ export type DeleteSignatoryButtonMutationResponse = {
                 readonly evidenceProviders: ReadonlyArray<{
                     readonly __typename: string;
                 }>;
+                readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatory">;
             }>;
-            readonly " $fragmentRefs": FragmentRefs<"AddSignatoryButton_signatureOrder">;
+            readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatureOrder">;
         };
     } | null;
 };
-export type DeleteSignatoryButtonMutation = {
-    readonly response: DeleteSignatoryButtonMutationResponse;
-    readonly variables: DeleteSignatoryButtonMutationVariables;
+export type SignatoryModalChangeMutation = {
+    readonly response: SignatoryModalChangeMutationResponse;
+    readonly variables: SignatoryModalChangeMutationVariables;
 };
 
 
 
 /*
-mutation DeleteSignatoryButtonMutation(
-  $input: DeleteSignatoryInput!
+mutation SignatoryModalChangeMutation(
+  $input: ChangeSignatoryInput!
 ) {
-  deleteSignatory(input: $input) {
+  changeSignatory(input: $input) {
+    signatory {
+      ...SignatoryModal_signatory
+      id
+    }
     signatureOrder {
-      ...AddSignatoryButton_signatureOrder
+      ...SignatoryModal_signatureOrder
       signatories {
         id
         status
@@ -70,16 +92,11 @@ mutation DeleteSignatoryButtonMutation(
         evidenceProviders {
           __typename
         }
+        ...SignatoryModal_signatory
       }
       id
     }
   }
-}
-
-fragment AddSignatoryButton_signatureOrder on SignatureOrder {
-  id
-  status
-  ...SignatoryModal_signatureOrder
 }
 
 fragment SignatoryDocumentInput_signatureOrder on SignatureOrder {
@@ -87,6 +104,34 @@ fragment SignatoryDocumentInput_signatureOrder on SignatureOrder {
     __typename
     id
     title
+  }
+}
+
+fragment SignatoryModal_signatory on Signatory {
+  id
+  status
+  evidenceProviders {
+    __typename
+    ... on OidcJWTSignatureEvidenceProvider {
+      id
+      name
+      domain
+      clientID
+      acrValues
+    }
+    ... on DrawableSignatureEvidenceProvider {
+      id
+      requireName
+    }
+  }
+  documents {
+    edges {
+      status
+      node {
+        __typename
+        id
+      }
+    }
   }
 }
 
@@ -131,55 +176,60 @@ v1 = [
   }
 ],
 v2 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "SignatoryModal_signatory"
+},
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "status",
   "storageKey": null
 },
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "statusReason",
   "storageKey": null
 },
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "href",
   "storageKey": null
 },
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "reference",
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": null,
@@ -187,30 +237,93 @@ v9 = {
   "name": "evidenceProviders",
   "plural": true,
   "selections": [
-    (v8/*: any*/)
+    (v9/*: any*/),
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        (v3/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "domain",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "clientID",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "acrValues",
+          "storageKey": null
+        }
+      ],
+      "type": "OidcJWTSignatureEvidenceProvider",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        (v3/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "requireName",
+          "storageKey": null
+        }
+      ],
+      "type": "DrawableSignatureEvidenceProvider",
+      "abstractKey": null
+    }
   ],
   "storageKey": null
 },
-v10 = [
-  (v8/*: any*/),
-  (v2/*: any*/),
-  (v7/*: any*/)
+v11 = [
+  (v9/*: any*/),
+  (v3/*: any*/),
+  (v8/*: any*/)
 ];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "DeleteSignatoryButtonMutation",
+    "name": "SignatoryModalChangeMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "DeleteSignatoryOutput",
+        "concreteType": "ChangeSignatoryOutput",
         "kind": "LinkedField",
-        "name": "deleteSignatory",
+        "name": "changeSignatory",
         "plural": false,
         "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Signatory",
+            "kind": "LinkedField",
+            "name": "signatory",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -227,11 +340,11 @@ return {
                 "name": "signatories",
                 "plural": true,
                 "selections": [
-                  (v2/*: any*/),
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
+                  (v7/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -256,8 +369,8 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v2/*: any*/),
-                              (v7/*: any*/)
+                              (v3/*: any*/),
+                              (v8/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -267,14 +380,26 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v9/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "evidenceProviders",
+                    "plural": true,
+                    "selections": [
+                      (v9/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
               },
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "AddSignatoryButton_signatureOrder"
+                "name": "SignatoryModal_signatureOrder"
               }
             ],
             "storageKey": null
@@ -290,16 +415,66 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "DeleteSignatoryButtonMutation",
+    "name": "SignatoryModalChangeMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "DeleteSignatoryOutput",
+        "concreteType": "ChangeSignatoryOutput",
         "kind": "LinkedField",
-        "name": "deleteSignatory",
+        "name": "changeSignatory",
         "plural": false,
         "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Signatory",
+            "kind": "LinkedField",
+            "name": "signatory",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v10/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "SignatoryDocumentConnection",
+                "kind": "LinkedField",
+                "name": "documents",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "SignatoryDocumentEdge",
+                    "kind": "LinkedField",
+                    "name": "edges",
+                    "plural": true,
+                    "selections": [
+                      (v4/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": null,
+                        "kind": "LinkedField",
+                        "name": "node",
+                        "plural": false,
+                        "selections": [
+                          (v9/*: any*/),
+                          (v3/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -308,8 +483,8 @@ return {
             "name": "signatureOrder",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
               (v3/*: any*/),
+              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -317,72 +492,10 @@ return {
                 "kind": "LinkedField",
                 "name": "documents",
                 "plural": true,
-                "selections": (v10/*: any*/),
+                "selections": (v11/*: any*/),
                 "storageKey": null
               },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": null,
-                "kind": "LinkedField",
-                "name": "evidenceProviders",
-                "plural": true,
-                "selections": [
-                  (v8/*: any*/),
-                  {
-                    "kind": "InlineFragment",
-                    "selections": [
-                      (v2/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "name",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "domain",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "clientID",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "acrValues",
-                        "storageKey": null
-                      }
-                    ],
-                    "type": "OidcJWTSignatureEvidenceProvider",
-                    "abstractKey": null
-                  },
-                  {
-                    "kind": "InlineFragment",
-                    "selections": [
-                      (v2/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "requireName",
-                        "storageKey": null
-                      }
-                    ],
-                    "type": "DrawableSignatureEvidenceProvider",
-                    "abstractKey": null
-                  }
-                ],
-                "storageKey": null
-              },
+              (v10/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -391,11 +504,11 @@ return {
                 "name": "signatories",
                 "plural": true,
                 "selections": [
-                  (v2/*: any*/),
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
+                  (v7/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -419,16 +532,17 @@ return {
                             "kind": "LinkedField",
                             "name": "node",
                             "plural": false,
-                            "selections": (v10/*: any*/),
+                            "selections": (v11/*: any*/),
                             "storageKey": null
-                          }
+                          },
+                          (v4/*: any*/)
                         ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
                   },
-                  (v9/*: any*/)
+                  (v10/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -441,14 +555,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "508b77e3d64fce7f28efdda987800063",
+    "cacheID": "aa285563902b9495db13be4f9dd11227",
     "id": null,
     "metadata": {},
-    "name": "DeleteSignatoryButtonMutation",
+    "name": "SignatoryModalChangeMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n        documents {\n          edges {\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignatoryModal_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
+    "text": "mutation SignatoryModalChangeMutation(\n  $input: ChangeSignatoryInput!\n) {\n  changeSignatory(input: $input) {\n    signatory {\n      ...SignatoryModal_signatory\n      id\n    }\n    signatureOrder {\n      ...SignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n        documents {\n          edges {\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n        ...SignatoryModal_signatory\n      }\n      id\n    }\n  }\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatory on Signatory {\n  id\n  status\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  documents {\n    edges {\n      status\n      node {\n        __typename\n        id\n      }\n    }\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
   }
 };
 })();
-(node as any).hash = 'dddc6a5c868815bed1dc3b4e87ddfb86';
+(node as any).hash = '938197a7d2ffb8742423ae0660603868';
 export default node;
