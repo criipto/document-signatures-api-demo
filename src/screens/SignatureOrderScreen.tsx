@@ -32,6 +32,7 @@ graphql`
 
     documents {
       edges {
+        status
         node {
           id
           title
@@ -205,7 +206,7 @@ export default function SignatureOrdersScreen() {
               <td>{signatory.reference}</td>
               <td>{signatory.status}{signatory.statusReason ? ` (${signatory.statusReason})` : null}</td>
               <td>
-                {signatory.documents.edges.map(edge => <span key={edge.node.id}>{edge.node.title}<br /></span>)}
+                {signatory.documents.edges.map(edge => <span key={edge.node.id}>{edge.node.title} ({edge.status})<br /></span>)}
               </td>
               <td>
                 {signatory.evidenceProviders.map(p => <span key={p.__typename}>{p.__typename}<br /></span>)}

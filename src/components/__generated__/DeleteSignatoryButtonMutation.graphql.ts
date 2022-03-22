@@ -5,6 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "%future added value";
 export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type DeleteSignatoryInput = {
     signatureOrderId: string;
@@ -24,6 +25,7 @@ export type DeleteSignatoryButtonMutationResponse = {
                 readonly reference: string | null;
                 readonly documents: {
                     readonly edges: ReadonlyArray<{
+                        readonly status: SignatoryDocumentStatus | null;
                         readonly node: {
                             readonly id: string;
                             readonly title: string;
@@ -60,6 +62,7 @@ mutation DeleteSignatoryButtonMutation(
         reference
         documents {
           edges {
+            status
             node {
               __typename
               id
@@ -248,6 +251,7 @@ return {
                         "name": "edges",
                         "plural": true,
                         "selections": [
+                          (v3/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -412,6 +416,7 @@ return {
                         "name": "edges",
                         "plural": true,
                         "selections": [
+                          (v3/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -441,12 +446,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "508b77e3d64fce7f28efdda987800063",
+    "cacheID": "f23fb1d43706b5ea970886b307a8b700",
     "id": null,
     "metadata": {},
     "name": "DeleteSignatoryButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n        documents {\n          edges {\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignatoryModal_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
+    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignatoryModal_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
   }
 };
 })();

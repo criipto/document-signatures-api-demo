@@ -5,6 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "%future added value";
 export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatureOrderScreenSignatory = {
     readonly id: string;
@@ -14,6 +15,7 @@ export type SignatureOrderScreenSignatory = {
     readonly reference: string | null;
     readonly documents: {
         readonly edges: ReadonlyArray<{
+            readonly status: SignatoryDocumentStatus | null;
             readonly node: {
                 readonly id: string;
                 readonly title: string;
@@ -40,6 +42,13 @@ var v0 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "status",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -48,13 +57,7 @@ return {
   "name": "SignatureOrderScreenSignatory",
   "selections": [
     (v0/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "status",
-      "storageKey": null
-    },
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -92,6 +95,7 @@ return {
           "name": "edges",
           "plural": true,
           "selections": [
+            (v1/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -140,5 +144,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '205cd535420eae43443d3d364b91b5c5';
+(node as any).hash = '5cc3e6a555e8fb4079cda222e46bdb17';
 export default node;

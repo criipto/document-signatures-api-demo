@@ -5,6 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "%future added value";
 export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type ChangeSignatoryInput = {
     signatoryId: string;
@@ -41,6 +42,7 @@ export type SignatoryModalChangeMutationResponse = {
                 readonly reference: string | null;
                 readonly documents: {
                     readonly edges: ReadonlyArray<{
+                        readonly status: SignatoryDocumentStatus | null;
                         readonly node: {
                             readonly id: string;
                             readonly title: string;
@@ -82,6 +84,7 @@ mutation SignatoryModalChangeMutation(
         reference
         documents {
           edges {
+            status
             node {
               __typename
               id
@@ -362,6 +365,7 @@ return {
                         "name": "edges",
                         "plural": true,
                         "selections": [
+                          (v4/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -527,6 +531,7 @@ return {
                         "name": "edges",
                         "plural": true,
                         "selections": [
+                          (v4/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -536,8 +541,7 @@ return {
                             "plural": false,
                             "selections": (v11/*: any*/),
                             "storageKey": null
-                          },
-                          (v4/*: any*/)
+                          }
                         ],
                         "storageKey": null
                       }
@@ -557,12 +561,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "dfc7d7c9588db85087f010ed2dd54179",
+    "cacheID": "365e9dde98320e28e7862b3dc90098aa",
     "id": null,
     "metadata": {},
     "name": "SignatoryModalChangeMutation",
     "operationKind": "mutation",
-    "text": "mutation SignatoryModalChangeMutation(\n  $input: ChangeSignatoryInput!\n) {\n  changeSignatory(input: $input) {\n    signatory {\n      ...SignatoryModal_signatory\n      id\n    }\n    signatureOrder {\n      ...SignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n        documents {\n          edges {\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n        ...SignatoryModal_signatory\n      }\n      id\n    }\n  }\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatory on Signatory {\n  id\n  status\n  reference\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  documents {\n    edges {\n      status\n      node {\n        __typename\n        id\n      }\n    }\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
+    "text": "mutation SignatoryModalChangeMutation(\n  $input: ChangeSignatoryInput!\n) {\n  changeSignatory(input: $input) {\n    signatory {\n      ...SignatoryModal_signatory\n      id\n    }\n    signatureOrder {\n      ...SignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n        ...SignatoryModal_signatory\n      }\n      id\n    }\n  }\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatory on Signatory {\n  id\n  status\n  reference\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  documents {\n    edges {\n      status\n      node {\n        __typename\n        id\n      }\n    }\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
   }
 };
 })();
