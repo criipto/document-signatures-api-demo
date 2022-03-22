@@ -10,6 +10,7 @@ export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%futur
 export type SignatoryModal_signatory = {
     readonly id: string;
     readonly status: SignatoryStatus;
+    readonly reference: string | null;
     readonly evidenceProviders: ReadonlyArray<{
         readonly __typename: "OidcJWTSignatureEvidenceProvider";
         readonly id: string;
@@ -67,6 +68,13 @@ return {
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "reference",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -176,5 +184,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '1dffa15b08528a92fb6a326dedbf5df0';
+(node as any).hash = 'f62758c0c527f3e0faa244ed1a0e08fe';
 export default node;

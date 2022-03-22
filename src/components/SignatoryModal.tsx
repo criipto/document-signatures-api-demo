@@ -57,6 +57,7 @@ export default function SignatoryModal(props : Props) {
       fragment SignatoryModal_signatory on Signatory {
         id
         status
+        reference
 
         evidenceProviders {
           __typename
@@ -86,6 +87,7 @@ export default function SignatoryModal(props : Props) {
   , props.signatory || null)
   
   const [signatory, setSignatory] = useState<AddSignatoryInput | ChangeSignatoryInput>({
+    reference: existingSignatory?.reference || null,
     signatureOrderId: data.id,
     documents:
       existingSignatory ?
