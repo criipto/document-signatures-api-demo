@@ -59,9 +59,11 @@ export type OidcEvidenceProviderInput = {
     clientID: string;
     audience: string;
     acrValues?: Array<string> | null;
+    uniqueEvidenceKey?: string | null;
 };
 export type CriiptoVerifyProviderInput = {
     acrValues?: Array<string> | null;
+    uniqueEvidenceKey?: string | null;
 };
 export type NoopEvidenceProviderInput = {
     name: string;

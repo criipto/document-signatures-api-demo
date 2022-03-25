@@ -462,6 +462,17 @@ export default function CreateSignatureOrderScreen() {
                     />
                     <label className="form-label">Acr values (comma-seperated)</label>
                   </div>
+                  <div className="mb-3 form-floating">
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider, uniqueEvidenceKey: event.target.value})}
+                      value={evidenceProvider.oidc?.uniqueEvidenceKey || undefined}
+                      placeholder="Unique Evidence Key"
+                      required
+                    />
+                    <label className="form-label">Unique Evidence Key</label>
+                  </div>
                 </React.Fragment>
               ) : null}
 
@@ -476,6 +487,17 @@ export default function CreateSignatureOrderScreen() {
                       placeholder="Acr values (comma-seperated)"
                     />
                     <label className="form-label">Acr values (comma-seperated)</label>
+                  </div>
+                  <div className="mb-3 form-floating">
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider, uniqueEvidenceKey: event.target.value})}
+                      value={evidenceProvider.oidc?.uniqueEvidenceKey || undefined}
+                      placeholder="Unique Evidence Key"
+                      required
+                    />
+                    <label className="form-label">Unique Evidence Key</label>
                   </div>
                 </React.Fragment>
               ) : null}
