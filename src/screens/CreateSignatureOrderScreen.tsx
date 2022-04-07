@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 
 import { useHistory } from 'react-router-dom';
 
-import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
+import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
 import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOrderScreenQuery.graphql';
 import EvidenceValidationInput, { filterEvidenceValidation } from '../components/EvidenceValidationInput';
 
@@ -114,6 +114,18 @@ export default function CreateSignatureOrderScreen() {
     }));
   }
 
+  const handleUILogo = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, key: keyof SignatureOrderUILogoInput) => {
+    setUI(ui => ({
+      ...ui,
+      logo: {
+        src: '',
+        href: '',
+        ...ui.logo,
+        [key]: event.target.value
+      }
+    }));
+  }
+
   const formValid = documents?.length;
 
   const [executor, status] = useMutation<CreateSignatureOrderScreenMutation>(
@@ -159,7 +171,10 @@ export default function CreateSignatureOrderScreen() {
         }),
         documents,
         evidenceProviders,
-        ui,
+        ui: {
+          ...ui,
+          logo: ui.logo?.src ? ui.logo : null
+        },
         webhook: webhook ? {url: webhook} : null
       }
     })
@@ -359,6 +374,30 @@ export default function CreateSignatureOrderScreen() {
               <option value="SV_SE">SV_SE</option>
             </select>
             <label className="form-label">Language</label>
+          </div>
+        </div>
+        <div className="col-4">
+          <div className="mb-3 form-floating">
+            <input
+              className="form-control"
+              type="text"
+              onChange={(event) => handleUILogo(event, 'src')}
+              value={ui.logo?.src || ''}
+              placeholder="Logo SRC"
+            />
+            <label className="form-label">Logo SRC</label>
+          </div>
+        </div>
+        <div className="col-4">
+          <div className="mb-3 form-floating">
+            <input
+              className="form-control"
+              type="text"
+              onChange={(event) => handleUILogo(event, 'href')}
+              value={ui.logo?.href || ''}
+              placeholder="Logo Href"
+            />
+            <label className="form-label">Logo Href</label>
           </div>
         </div>
       </div>

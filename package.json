@@ -27,7 +27,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "schema": "curl -s https://signatures-api-test.azurewebsites.net/v1/graphql > schema.json",
+    "schema": "curl -s https://signatures-api-test.criipto.com/v1/graphql > schema.json",
     "schema:local": "curl -s http://localhost:7071/v1/graphql > schema.json",
     "relay": "relay-compiler",
     "start": "react-scripts start",

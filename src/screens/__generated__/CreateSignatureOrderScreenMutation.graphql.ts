@@ -74,6 +74,11 @@ export type DrawableEvidenceProviderInput = {
 export type CreateSignatureOrderUIInput = {
     signatoryRedirectUri?: string | null;
     language?: Language | null;
+    logo?: SignatureOrderUILogoInput | null;
+};
+export type SignatureOrderUILogoInput = {
+    src: string;
+    href?: string | null;
 };
 export type CreateSignatureOrderWebhookInput = {
     url: string;
