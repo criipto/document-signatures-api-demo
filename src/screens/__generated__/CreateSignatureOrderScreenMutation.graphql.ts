@@ -75,6 +75,7 @@ export type CreateSignatureOrderUIInput = {
     signatoryRedirectUri?: string | null;
     language?: Language | null;
     logo?: SignatureOrderUILogoInput | null;
+    stylesheet?: string | null;
 };
 export type SignatureOrderUILogoInput = {
     src: string;

@@ -173,6 +173,7 @@ export default function CreateSignatureOrderScreen() {
         evidenceProviders,
         ui: {
           ...ui,
+          stylesheet: ui.stylesheet || null,
           logo: ui.logo?.src ? ui.logo : null
         },
         webhook: webhook ? {url: webhook} : null
@@ -359,6 +360,18 @@ export default function CreateSignatureOrderScreen() {
               placeholder="Signatory redirect URI"
             />
             <label className="form-label">Signatory redirect URI</label>
+          </div>
+        </div>
+        <div className="col-4">
+          <div className="mb-3 form-floating">
+            <input
+              className="form-control"
+              type="text"
+              onChange={(event) => handleUI(event, 'stylesheet')}
+              value={ui.stylesheet || ''}
+              placeholder="Stylesheet"
+            />
+            <label className="form-label">Stylesheet</label>
           </div>
         </div>
         <div className="col-4">
