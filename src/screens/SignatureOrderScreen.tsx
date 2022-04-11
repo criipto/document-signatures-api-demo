@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import { useLazyLoadQuery } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
+import {get, isPlainObject} from 'lodash';
 
 import {SignatureOrderScreenQuery} from './__generated__/SignatureOrderScreenQuery.graphql';
 
@@ -63,6 +64,12 @@ const Query = graphql`
 
       ui {
         signatoryRedirectUri
+        stylesheet
+        language
+        logo {
+          src
+          href
+        }
       }
 
       signatories {
@@ -127,9 +134,31 @@ export default function SignatureOrdersScreen() {
 
   return (
     <div>
-      Title: {data.signatureOrder.title}<br />
-      Status: {data.signatureOrder.status}<br />
-      Signatory Redirect URI: {data.signatureOrder.ui?.signatoryRedirectUri}<br />
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Setting</th>
+            <th scope="col">Value</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Title</td>
+            <td>{data.signatureOrder.title}</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>{data.signatureOrder.status}</td>
+          </tr>
+          {['ui.signatoryRedirectUri', 'ui.language', 'ui.stylesheet', 'ui.logo.src', 'ui.logo.href'].filter(setting => get(data.signatureOrder, setting, null)).map(setting => (
+            <tr key={setting}>
+              <td>{setting}</td>
+              <td>{isPlainObject(get(data.signatureOrder, setting, null)) ? JSON.stringify(get(data.signatureOrder, setting, null)) : get(data.signatureOrder, setting, null)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <table className="table table-striped">
         <thead>
