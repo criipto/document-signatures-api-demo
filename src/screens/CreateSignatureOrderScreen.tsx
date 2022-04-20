@@ -521,7 +521,6 @@ export default function CreateSignatureOrderScreen() {
                       onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider, uniqueEvidenceKey: event.target.value})}
                       value={evidenceProvider.oidc?.uniqueEvidenceKey || undefined}
                       placeholder="Unique Evidence Key"
-                      required
                     />
                     <label className="form-label">Unique Evidence Key</label>
                   </div>
@@ -545,9 +544,8 @@ export default function CreateSignatureOrderScreen() {
                       className="form-control"
                       type="text"
                       onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider, uniqueEvidenceKey: event.target.value})}
-                      value={evidenceProvider.oidc?.uniqueEvidenceKey || undefined}
+                      value={evidenceProvider.criiptoVerify?.uniqueEvidenceKey || undefined}
                       placeholder="Unique Evidence Key"
-                      required
                     />
                     <label className="form-label">Unique Evidence Key</label>
                   </div>
