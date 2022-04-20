@@ -86,6 +86,7 @@ const Query = graphql`
           domain
           clientID
           acrValues
+          alwaysRedirect
         }
         ... on DrawableSignatureEvidenceProvider {
           id
@@ -204,6 +205,7 @@ export default function SignatureOrdersScreen() {
                     Domain: {provider.domain}<br />
                     ClientID: {provider.clientID}<br />
                     Acr values: {provider.acrValues.join(', ')}<br />
+                    Always redirect: {provider.alwaysRedirect ? 'true' : 'false'}
                   </React.Fragment>
                 ) : provider.__typename === 'DrawableSignatureEvidenceProvider' ? (
                   <React.Fragment>

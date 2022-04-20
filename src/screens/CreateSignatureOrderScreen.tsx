@@ -228,7 +228,8 @@ export default function CreateSignatureOrderScreen() {
         provider = {
           enabledByDefault: true,
           criiptoVerify: {
-            acrValues: []
+            acrValues: [],
+            alwaysRedirect: false
           }
         };
         break;
@@ -475,7 +476,7 @@ export default function CreateSignatureOrderScreen() {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider, domain: event.target.value})}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, domain: event.target.value})}
                       value={evidenceProvider.oidc?.domain}
                       placeholder="Domain"
                       required
@@ -486,7 +487,7 @@ export default function CreateSignatureOrderScreen() {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider, clientID: event.target.value})}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, clientID: event.target.value})}
                       value={evidenceProvider.oidc?.clientID}
                       placeholder="ClientID"
                       required
@@ -497,7 +498,7 @@ export default function CreateSignatureOrderScreen() {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider, audience: event.target.value})}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, audience: event.target.value})}
                       value={evidenceProvider.oidc?.audience}
                       placeholder="Audience"
                       required
@@ -508,7 +509,7 @@ export default function CreateSignatureOrderScreen() {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider, acrValues: event.target.value.split(',')})}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, acrValues: event.target.value.split(',')})}
                       value={evidenceProvider.oidc?.acrValues?.join(',') || ''}
                       placeholder="Acr values (comma-seperated)"
                     />
@@ -518,11 +519,22 @@ export default function CreateSignatureOrderScreen() {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider, uniqueEvidenceKey: event.target.value})}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, uniqueEvidenceKey: event.target.value})}
                       value={evidenceProvider.oidc?.uniqueEvidenceKey || undefined}
                       placeholder="Unique Evidence Key"
                     />
                     <label className="form-label">Unique Evidence Key</label>
+                  </div>
+                  <div className="form-check mb-3">
+                    <input
+                      className="form-check-input"
+                      id={`evidenceProvider_${index}_alwaysRedirect`} type="checkbox"
+                      checked={evidenceProvider.oidc?.alwaysRedirect || false}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, alwaysRedirect: event.target.checked})}
+                    />
+                    <label className="form-check-label" htmlFor={`evidenceProvider_${index}_alwaysRedirect`} >
+                      Always redirect
+                    </label>
                   </div>
                 </React.Fragment>
               ) : null}
@@ -533,7 +545,7 @@ export default function CreateSignatureOrderScreen() {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider, acrValues: event.target.value.split(',')})}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, acrValues: event.target.value.split(',')})}
                       value={evidenceProvider.criiptoVerify?.acrValues?.join(',') || ''}
                       placeholder="Acr values (comma-seperated)"
                     />
@@ -543,11 +555,22 @@ export default function CreateSignatureOrderScreen() {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider, uniqueEvidenceKey: event.target.value})}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, uniqueEvidenceKey: event.target.value})}
                       value={evidenceProvider.criiptoVerify?.uniqueEvidenceKey || undefined}
                       placeholder="Unique Evidence Key"
                     />
                     <label className="form-label">Unique Evidence Key</label>
+                  </div>
+                  <div className="form-check mb-3">
+                    <input
+                      className="form-check-input"
+                      id={`evidenceProvider_${index}_alwaysRedirect`} type="checkbox"
+                      checked={evidenceProvider.criiptoVerify?.alwaysRedirect || false}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, alwaysRedirect: event.target.checked})}
+                    />
+                    <label className="form-check-label" htmlFor={`evidenceProvider_${index}_alwaysRedirect`} >
+                      Always redirect
+                    </label>
                   </div>
                 </React.Fragment>
               ) : null}
@@ -555,16 +578,16 @@ export default function CreateSignatureOrderScreen() {
               {evidenceProviderToType(evidenceProvider) === 'drawable' ? (
                 <React.Fragment>
                   <div className="form-check mb-3">
-                  <input
-                    className="form-check-input"
-                    id={`evidenceProvider_${index}_requireName`} type="checkbox"
-                    checked={evidenceProvider.drawable?.requireName || false}
-                    onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'drawable', {...evidenceProvider, requireName: event.target.checked})}
-                  />
-                  <label className="form-check-label" htmlFor={`evidenceProvider_${index}_requireName`} >
-                    Require name
-                  </label>
-                </div>
+                    <input
+                      className="form-check-input"
+                      id={`evidenceProvider_${index}_requireName`} type="checkbox"
+                      checked={evidenceProvider.drawable?.requireName || false}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'drawable', {...evidenceProvider.drawable, requireName: event.target.checked})}
+                    />
+                    <label className="form-check-label" htmlFor={`evidenceProvider_${index}_requireName`} >
+                      Require name
+                    </label>
+                  </div>
                 </React.Fragment>
               ) : null}
 
