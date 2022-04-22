@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import { useLazyLoadQuery } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
-import {get, isPlainObject} from 'lodash';
+import {get, isBoolean, isPlainObject} from 'lodash';
 
 import {SignatureOrderScreenQuery} from './__generated__/SignatureOrderScreenQuery.graphql';
 
@@ -70,6 +70,7 @@ const Query = graphql`
           src
           href
         }
+        disableRejection
       }
 
       signatories {
@@ -152,10 +153,12 @@ export default function SignatureOrdersScreen() {
             <td>Status</td>
             <td>{data.signatureOrder.status}</td>
           </tr>
-          {['ui.signatoryRedirectUri', 'ui.language', 'ui.stylesheet', 'ui.logo.src', 'ui.logo.href'].filter(setting => get(data.signatureOrder, setting, null)).map(setting => (
+          {['ui.signatoryRedirectUri', 'ui.language', 'ui.stylesheet', 'ui.logo.src', 'ui.logo.href', 'ui.disableRejection'].filter(setting => get(data.signatureOrder, setting, null)).map(setting => (
             <tr key={setting}>
               <td>{setting}</td>
-              <td>{isPlainObject(get(data.signatureOrder, setting, null)) ? JSON.stringify(get(data.signatureOrder, setting, null)) : get(data.signatureOrder, setting, null)}</td>
+              <td>
+                {isPlainObject(get(data.signatureOrder, setting, null)) ? JSON.stringify(get(data.signatureOrder, setting, null)) : isBoolean(get(data.signatureOrder, setting, null)) ? get(data.signatureOrder, setting, null) ? "true" : "false" : get(data.signatureOrder, setting, null)}
+                </td>
             </tr>
           ))}
         </tbody>

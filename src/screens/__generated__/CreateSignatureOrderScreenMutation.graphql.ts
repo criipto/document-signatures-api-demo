@@ -78,6 +78,7 @@ export type CreateSignatureOrderUIInput = {
     language?: Language | null;
     logo?: SignatureOrderUILogoInput | null;
     stylesheet?: string | null;
+    disableRejection?: boolean | null;
 };
 export type SignatureOrderUILogoInput = {
     src: string;

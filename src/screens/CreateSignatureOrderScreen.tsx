@@ -110,7 +110,7 @@ export default function CreateSignatureOrderScreen() {
   const handleUI = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, key: keyof CreateSignatureOrderUIInput) => {
     setUI(ui => ({
       ...ui,
-      [key]: event.target.value
+      [key]: "checked" in event.target ? event.target.checked : event.target.value
     }));
   }
 
@@ -412,6 +412,19 @@ export default function CreateSignatureOrderScreen() {
               placeholder="Logo Href"
             />
             <label className="form-label">Logo Href</label>
+          </div>
+        </div>
+        <div className="col-4">
+          <div className="form-check mb-3">
+            <input
+              className="form-check-input"
+              id={`ui_disableRejection`} type="checkbox"
+              checked={ui.disableRejection ||false}
+              onChange={(event) => handleUI(event, 'disableRejection')}
+            />
+            <label className="form-check-label" htmlFor={`ui_disableRejection`} >
+              Disable rejection
+            </label>
           </div>
         </div>
       </div>
