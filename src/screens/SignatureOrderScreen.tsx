@@ -61,6 +61,10 @@ const Query = graphql`
       id
       status
       title
+      timezone
+      createdAt
+      expiresAt
+      closedAt
 
       ui {
         signatoryRedirectUri
@@ -108,6 +112,30 @@ const Query = graphql`
   }
 `;
 
+const SETTINGS = [
+  'title',
+  'status',
+  'timezone',
+  'createdAt',
+  'closedAt',
+  'expiresAt',
+  'ui.signatoryRedirectUri',
+  'ui.language',
+  'ui.stylesheet',
+  'ui.logo.src',
+  'ui.logo.href',
+  'ui.disableRejection'
+];
+
+function displaySetting(signatureOrder: SignatureOrderScreenQuery["response"]["signatureOrder"], setting: string) {
+  const value = get(signatureOrder, setting, null);
+  if (isPlainObject(value)) return JSON.stringify(value);
+  if (isBoolean(value)) {
+    return value ? "true" : "false";
+  }
+  return value;
+}
+
 export default function SignatureOrdersScreen() {
   const [fetchKey, setFetchKey] = useState(Math.random().toString());
   const params = useParams<{signatureOrderId: string}>();
@@ -145,20 +173,10 @@ export default function SignatureOrdersScreen() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Title</td>
-            <td>{data.signatureOrder.title}</td>
-          </tr>
-          <tr>
-            <td>Status</td>
-            <td>{data.signatureOrder.status}</td>
-          </tr>
-          {['ui.signatoryRedirectUri', 'ui.language', 'ui.stylesheet', 'ui.logo.src', 'ui.logo.href', 'ui.disableRejection'].filter(setting => get(data.signatureOrder, setting, null)).map(setting => (
+          {SETTINGS.filter(setting => get(data.signatureOrder, setting, null)).map(setting => (
             <tr key={setting}>
               <td>{setting}</td>
-              <td>
-                {isPlainObject(get(data.signatureOrder, setting, null)) ? JSON.stringify(get(data.signatureOrder, setting, null)) : isBoolean(get(data.signatureOrder, setting, null)) ? get(data.signatureOrder, setting, null) ? "true" : "false" : get(data.signatureOrder, setting, null)}
-                </td>
+              <td>{displaySetting(data.signatureOrder, setting)}</td>
             </tr>
           ))}
         </tbody>
