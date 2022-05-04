@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 
 import { useHistory } from 'react-router-dom';
 
-import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
+import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput, SignatureAppearanceInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
 import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOrderScreenQuery.graphql';
 import EvidenceValidationInput, { filterEvidenceValidation } from '../components/EvidenceValidationInput';
 
@@ -42,6 +42,7 @@ export default function CreateSignatureOrderScreen() {
   const [timezone, setTimezone] = useState('UTC');
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
   const [ui, setUI] = useState<CreateSignatureOrderUIInput>({});
+  const [signatureAppearance, setSignatureAppearance] = useState<SignatureAppearanceInput>({identifierFromEvidence: []});
   const [webhook, setWebhook] = useState('');
   const [signatories, setSignatories] = useState<CreateSignatureOrderSignatoryInput[]>([]);
   const [disableVerifyEvidenceProvider, setDisableVerifyEvidenceProvider] = useState(false);
@@ -126,6 +127,20 @@ export default function CreateSignatureOrderScreen() {
     }));
   }
 
+  const handleSignatureAppearance = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, key: keyof SignatureAppearanceInput) => {
+    if (key === 'identifierFromEvidence') {
+      setSignatureAppearance(signatureAppearance => ({
+        ...signatureAppearance,
+        identifierFromEvidence: event.target.value.split(',').map(s => s.trim())
+      }));
+      return;
+    }
+    setSignatureAppearance(signatureAppearance => ({
+      ...signatureAppearance,
+      [key]: "checked" in event.target ? event.target.checked : event.target.value
+    }));
+  }
+
   const formValid = documents?.length;
 
   const [executor, status] = useMutation<CreateSignatureOrderScreenMutation>(
@@ -176,7 +191,8 @@ export default function CreateSignatureOrderScreen() {
           stylesheet: ui.stylesheet || null,
           logo: ui.logo?.src ? ui.logo : null
         },
-        webhook: webhook ? {url: webhook} : null
+        webhook: webhook ? {url: webhook} : null,
+        signatureAppearance: signatureAppearance.identifierFromEvidence.length ? signatureAppearance : null
       }
     })
     .then((response) => {
@@ -425,6 +441,21 @@ export default function CreateSignatureOrderScreen() {
             <label className="form-check-label" htmlFor={`ui_disableRejection`} >
               Disable rejection
             </label>
+          </div>
+        </div>
+      </div>
+      <h4>Signature Appearance</h4>
+      <div className="row">
+        <div className="col-4">
+          <div className="mb-3 form-floating">
+            <input
+              className="form-control"
+              type="text"
+              onChange={(event) => handleSignatureAppearance(event, 'identifierFromEvidence')}
+              value={signatureAppearance.identifierFromEvidence.join(',')}
+              placeholder="Identifier From Evidence"
+            />
+            <label className="form-label">Identifier From Evidence (comma-seperated)</label>
           </div>
         </div>
       </div>

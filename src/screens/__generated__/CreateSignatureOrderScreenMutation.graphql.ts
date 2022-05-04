@@ -19,6 +19,7 @@ export type CreateSignatureOrderInput = {
     evidenceProviders?: Array<EvidenceProviderInput> | null;
     ui?: CreateSignatureOrderUIInput | null;
     webhook?: CreateSignatureOrderWebhookInput | null;
+    signatureAppearance?: SignatureAppearanceInput | null;
 };
 export type CreateSignatureOrderSignatoryInput = {
     reference?: string | null;
@@ -86,6 +87,9 @@ export type SignatureOrderUILogoInput = {
 };
 export type CreateSignatureOrderWebhookInput = {
     url: string;
+};
+export type SignatureAppearanceInput = {
+    identifierFromEvidence: Array<string>;
 };
 export type CreateSignatureOrderScreenMutationVariables = {
     input: CreateSignatureOrderInput;
