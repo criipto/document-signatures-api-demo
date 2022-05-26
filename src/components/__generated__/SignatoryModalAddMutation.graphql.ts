@@ -6,7 +6,7 @@ import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "%future added value";
-export type SignatoryStatus = "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
+export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type AddSignatoryInput = {
     signatureOrderId: string;
     reference?: string | null;

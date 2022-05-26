@@ -154,6 +154,7 @@ export default function SignatureOrdersScreen() {
      * However real world API scenario would likely use API hooks so not worth the hassle
      */
     const interval = setInterval(() => {
+      if (data.signatureOrder?.status !== "OPEN") return;
       setFetchKey(Math.random().toString());
     }, 5000);
 
