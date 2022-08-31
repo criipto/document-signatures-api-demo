@@ -52,6 +52,14 @@ graphql`
     id
     title
     blob
+
+    signatures {
+      __typename
+      signatory {
+        id
+        reference
+      }
+    }
   }
 `;
 
@@ -188,6 +196,7 @@ export default function SignatureOrdersScreen() {
           <tr>
             <th scope="col">Documents</th>
             <th scope="col">Title</th>
+            <th scope="col">Signatures</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -196,6 +205,16 @@ export default function SignatureOrdersScreen() {
             <tr key={document.id}>
               <th scope="row" >#{index + 1}</th>
               <td>{document.title}</td>
+              <td>
+                <ul>
+                  {document.signatures?.map(signature => (
+                    <li>
+                      {signature.__typename}<br />
+                      Signatory: {signature.signatory?.reference}
+                    </li>
+                  ))}
+                </ul>
+              </td>
               <td>
                 {document.blob && (
                   <a href={URL.createObjectURL(base64ToBlob(document.blob))} target="_blank" rel="noreferrer">Download</a>

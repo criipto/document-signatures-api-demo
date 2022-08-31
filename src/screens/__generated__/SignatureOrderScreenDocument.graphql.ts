@@ -9,6 +9,13 @@ export type SignatureOrderScreenDocument = {
     readonly id: string;
     readonly title: string;
     readonly blob: string | null;
+    readonly signatures: ReadonlyArray<{
+        readonly __typename: string;
+        readonly signatory: {
+            readonly id: string;
+            readonly reference: string | null;
+        } | null;
+    }> | null;
     readonly " $refType": "SignatureOrderScreenDocument";
 };
 export type SignatureOrderScreenDocument$data = SignatureOrderScreenDocument;
@@ -19,19 +26,21 @@ export type SignatureOrderScreenDocument$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "SignatureOrderScreenDocument",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -45,10 +54,48 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "blob",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "signatures",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "__typename",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Signatory",
+          "kind": "LinkedField",
+          "name": "signatory",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "reference",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Document",
   "abstractKey": "__isDocument"
 };
-(node as any).hash = '5ad0b59b133aadb87ffe0affea6af2e5';
+})();
+(node as any).hash = 'fe7bbc15789a8b378951ddc6c00992af';
 export default node;
