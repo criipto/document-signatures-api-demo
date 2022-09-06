@@ -284,9 +284,7 @@ export default function SignatureOrdersScreen() {
                 {signatory.evidenceProviders.map(p => <span key={p.__typename}>{p.__typename}<br /></span>)}
               </td>
               <td>
-                {data.signatureOrder?.status === 'OPEN' && signatory.status === 'OPEN' && (
-                  <a href={signatory.href}>Sign link (right click and copy link)</a>
-                )}
+                <a href={signatory.href}>Sign link (right click and copy link)</a>
               </td>
               <td style={{display: 'flex', gap: 5, justifyContent: 'flex-end'}}>
                 <ChangeSignatoryButton signatureOrder={data.signatureOrder!} signatory={signatory} />
