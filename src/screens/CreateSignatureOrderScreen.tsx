@@ -178,6 +178,7 @@ export default function CreateSignatureOrderScreen() {
         disableVerifyEvidenceProvider,
         maxSignatories,
         timezone,
+        expiresInDays,
         signatories: signatories.map(signatory => {
           return {
             ...signatory,
