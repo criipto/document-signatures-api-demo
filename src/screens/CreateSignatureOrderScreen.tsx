@@ -484,7 +484,7 @@ export default function CreateSignatureOrderScreen() {
       ) : null}
       <div className="mb-3">
         <label htmlFor="pdf_file_select" className="form-label"><strong>Add document</strong></label>
-        <input className="form-control" type="file" id="pdf_file_select" multiple onChange={handleAddDocument} />
+        <input className="form-control" type="file" id="pdf_file_select" multiple onChange={handleAddDocument} accept=".pdf" />
       </div>
       <h4>Evidence Providers</h4>
       <div className="form-check mb-3">

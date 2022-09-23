@@ -12,6 +12,7 @@ import AddSignatoryButton from '../components/AddSignatoryButton';
 import DeleteSignatoryButton from '../components/DeleteSignatoryButton';
 import CloseSignatureOrderButton from '../components/CloseSignatureOrderButton';
 import ChangeSignatoryButton from '../components/ChangeSignatoryButton';
+import SignActingAsButton from '../components/SignActingAsButton';
 
 function base64ToBlob( base64 : string, type = "application/pdf" ) {
   const binStr = atob( base64 );
@@ -89,6 +90,7 @@ const Query = graphql`
         ...SignatureOrderScreenSignatory @relay(mask: false)
         ...DeleteSignatoryButton_signatory
         ...ChangeSignatoryButton_signatory
+        ...SignActingAsButton_signatory
       }
 
       evidenceProviders {
@@ -115,6 +117,7 @@ const Query = graphql`
       ...AddSignatoryButton_signatureOrder
       ...DeleteSignatoryButton_signatureOrder
       ...ChangeSignatoryButton_signatureOrder
+      ...SignActingAsButton_signatureOrder
       ...CloseSignatureOrderButton_signatureOrder
     }
   }
@@ -289,6 +292,7 @@ export default function SignatureOrdersScreen() {
               <td style={{display: 'flex', gap: 5, justifyContent: 'flex-end'}}>
                 <ChangeSignatoryButton signatureOrder={data.signatureOrder!} signatory={signatory} />
                 <DeleteSignatoryButton signatureOrder={data.signatureOrder!} signatory={signatory} />
+                <SignActingAsButton signatureOrder={data.signatureOrder!} signatory={signatory} />
               </td>
             </tr>
           ))}
