@@ -41,6 +41,14 @@ export default function SignatoryModal(props : Props) {
             clientID
             acrValues
           }
+          ... on CriiptoVerifySignatureEvidenceProvider {
+            id
+            name
+            domain
+            clientID
+            acrValues
+            message
+          }
           ... on DrawableSignatureEvidenceProvider {
             id
             requireName
@@ -67,6 +75,14 @@ export default function SignatoryModal(props : Props) {
             domain
             clientID
             acrValues
+          }
+          ... on CriiptoVerifySignatureEvidenceProvider {
+            id
+            name
+            domain
+            clientID
+            acrValues
+            message
           }
           ... on DrawableSignatureEvidenceProvider {
             id

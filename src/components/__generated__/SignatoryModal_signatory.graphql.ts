@@ -19,6 +19,14 @@ export type SignatoryModal_signatory = {
         readonly clientID: string;
         readonly acrValues: ReadonlyArray<string>;
     } | {
+        readonly __typename: "CriiptoVerifySignatureEvidenceProvider";
+        readonly id: string;
+        readonly name: string;
+        readonly domain: string;
+        readonly clientID: string;
+        readonly acrValues: ReadonlyArray<string>;
+        readonly message: string | null;
+    } | {
         readonly __typename: "DrawableSignatureEvidenceProvider";
         readonly id: string;
         readonly requireName: boolean;
@@ -59,6 +67,34 @@ v1 = {
   "kind": "ScalarField",
   "name": "status",
   "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "domain",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "clientID",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "acrValues",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -94,36 +130,31 @@ return {
           "kind": "InlineFragment",
           "selections": [
             (v0/*: any*/),
+            (v2/*: any*/),
+            (v3/*: any*/),
+            (v4/*: any*/),
+            (v5/*: any*/)
+          ],
+          "type": "OidcJWTSignatureEvidenceProvider",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v0/*: any*/),
+            (v2/*: any*/),
+            (v3/*: any*/),
+            (v4/*: any*/),
+            (v5/*: any*/),
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "name",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "domain",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "clientID",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "acrValues",
+              "name": "message",
               "storageKey": null
             }
           ],
-          "type": "OidcJWTSignatureEvidenceProvider",
+          "type": "CriiptoVerifySignatureEvidenceProvider",
           "abstractKey": null
         },
         {
@@ -184,5 +215,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f62758c0c527f3e0faa244ed1a0e08fe';
+(node as any).hash = '15a10d17b4ed3ae78d4a8e0069b97b26';
 export default node;

@@ -67,6 +67,7 @@ export type CriiptoVerifyProviderInput = {
     acrValues?: Array<string> | null;
     alwaysRedirect?: boolean | null;
     uniqueEvidenceKey?: string | null;
+    message?: string | null;
 };
 export type NoopEvidenceProviderInput = {
     name: string;
