@@ -259,7 +259,8 @@ export default function CreateSignatureOrderScreen() {
           enabledByDefault: true,
           criiptoVerify: {
             acrValues: [],
-            alwaysRedirect: false
+            alwaysRedirect: false,
+            message: null
           }
         };
         break;
@@ -276,7 +277,7 @@ export default function CreateSignatureOrderScreen() {
     setEvidenceProviders(providers => providers.concat(provider!));
   };
 
-  const handleChangeEvidenceProvider = (provider : EvidenceProviderInput, key : string, value : string | boolean | object) => {
+  const handleChangeEvidenceProvider = (provider : EvidenceProviderInput, key : keyof EvidenceProviderInput, value : string | boolean | object) => {
     setEvidenceProviders(providers => {
       return providers.map(search => {
         if (search === provider) {
@@ -635,7 +636,7 @@ export default function CreateSignatureOrderScreen() {
                     <input
                       className="form-control"
                       type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'message', {...evidenceProvider.criiptoVerify, message: event.target.value})}
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, message: event.target.value})}
                       value={evidenceProvider.criiptoVerify?.message || undefined}
                       placeholder="Message (DK MitID)"
                     />
