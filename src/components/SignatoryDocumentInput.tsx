@@ -3,7 +3,9 @@ import React from "react";
 import { useFragment } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
-import {SignatoryDocumentInput_signatureOrder$key} from './__generated__/SignatoryDocumentInput_signatureOrder.graphql'
+import {SignatoryDocumentInput_signatureOrder$key} from './__generated__/SignatoryDocumentInput_signatureOrder.graphql';
+
+import './SignatoryDocumentInput.css';
 
 type SignatoryDocumentInput = {
   id: string;
@@ -61,7 +63,7 @@ export default function SignatoryDocumentInputComponent<T extends HasSignatoryDo
   }
 
   return (
-    <ul>
+    <ul className="signatory-input-document">
       {signatureOrder?.documents.map(document => (
         <li key={document.id}>
           {document.title}

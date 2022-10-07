@@ -38,6 +38,7 @@ const evidenceProviderToType = (input: EvidenceProviderInput) : EvidenceProvider
 export default function CreateSignatureOrderScreen() {
   const [title, setTitle] = useState<string | null>(null);
   const [maxSignatories, setMaxSignatories] = useState(14);
+  const [sampleDocumentCount, setSampleDocumentCount] = useState(1);
   const [expiresInDays, setExpiresInDays] = useState(7);
   const [timezone, setTimezone] = useState('UTC');
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
@@ -86,16 +87,16 @@ export default function CreateSignatureOrderScreen() {
   };
 
   const handleAddSampleDocument = () => {
-    setDocuments(documents => documents.concat([
-      {
-        fileName: 'sample.pdf',
-        pdf: {
-          title: 'sample.pdf',
-          blob: samplePDF,
-          storageMode: 'Temporary'
-        }
+    const newDocuments : LocalDocumentInput[] = new Array(sampleDocumentCount).fill(undefined).map(() => ({
+      fileName: 'sample.pdf',
+      pdf: {
+        title: 'sample.pdf',
+        blob: samplePDF,
+        storageMode: 'Temporary'
       }
-    ]));
+    }));
+
+    setDocuments(documents => documents.concat(newDocuments));
   }
 
   const handleChangeDocument = (document : LocalDocumentInput, key : string, value : string) => {
@@ -499,7 +500,10 @@ export default function CreateSignatureOrderScreen() {
       <div className="mb-3">
         <label htmlFor="pdf_file_select" className="form-label"><strong>Add document</strong></label>
         <input className="form-control" type="file" id="pdf_file_select" multiple onChange={handleAddDocument} accept=".pdf" />
-        <button type="button" className="btn btn-secondary btn-small" onClick={() => handleAddSampleDocument()}>Add sample</button>
+        <div className="d-flex flex-row align-items-center mt-3">
+          <input style={{width: 100}} className="form-control" type="number" min={1} step={1} value={sampleDocumentCount} onChange={event => setSampleDocumentCount(parseInt(event.target.value, 10))} />
+          <button type="button" className="btn btn-secondary btn-small" onClick={() => handleAddSampleDocument()}>Add sample</button>
+        </div>
       </div>
       <h4>Evidence Providers</h4>
       <div className="form-check mb-3">

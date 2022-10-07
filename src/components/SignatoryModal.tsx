@@ -201,6 +201,16 @@ export default function SignatoryModal(props : Props) {
     }));
   } 
 
+  const handlePreapproveAll = () => {
+    setSignatory(signatory => ({
+      ...signatory,
+      documents: signatory.documents?.map(d => ({
+        ...d,
+        preapproved: true
+      }))
+    }));
+  };
+
   return (
     <Modal
       show={props.show}
@@ -228,6 +238,9 @@ export default function SignatoryModal(props : Props) {
           signatureOrder={data}
           onChange={(ds) => handleDocuments(ds)}
         />
+        <button className="btn btn-secondary" onClick={() => handlePreapproveAll()}>
+          Preapprove all
+        </button>
         <div><strong>Evidence Providers</strong></div>
         <ul>
           {data.evidenceProviders.map((provider, index) => (
