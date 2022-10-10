@@ -131,7 +131,7 @@ function SealPosition(props: SealPositionProps) {
     };
 
     setInput(inputChange);
-    if (inputChange.page && inputChange.x && inputChange.y) {
+    if (inputChange.page !== undefined && inputChange.x !== undefined && inputChange.y !== undefined) {
       onChange(inputChange as NonNullable<SignatoryDocumentInput["pdfSealPosition"]>);
     } else {
       onChange(null);
