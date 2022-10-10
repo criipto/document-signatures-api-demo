@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState, useMemo } from "react";
 
 import { useFragment } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
@@ -6,11 +6,8 @@ import graphql from 'babel-plugin-relay/macro';
 import {SignatoryDocumentInput_signatureOrder$key} from './__generated__/SignatoryDocumentInput_signatureOrder.graphql';
 
 import './SignatoryDocumentInput.css';
+import { SignatoryDocumentInput } from "../screens/__generated__/CreateSignatureOrderScreenMutation.graphql";
 
-type SignatoryDocumentInput = {
-  id: string;
-  preapproved?: boolean | null;
-};
 
 interface HasSignatoryDocumentInput {
   documents?: Array<SignatoryDocumentInput> | null;
@@ -24,7 +21,7 @@ interface Props<T> {
 }
 
 export default function SignatoryDocumentInputComponent<T extends HasSignatoryDocumentInput>(props: Props<T>) {
-  const {item} = props;
+  const {item, onChange} = props;
   const signatureOrder = useFragment(
     graphql`
       fragment SignatoryDocumentInput_signatureOrder on SignatureOrder {
@@ -36,7 +33,7 @@ export default function SignatoryDocumentInputComponent<T extends HasSignatoryDo
     `
   , props.signatureOrder);
 
-  const documents = item.documents || [];
+  const documents = useMemo(() => item.documents || [], [item.documents]);
 
   const handleDocumentSelected = (document: SignatoryDocumentInput, event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;
@@ -61,6 +58,20 @@ export default function SignatoryDocumentInputComponent<T extends HasSignatoryDo
       })
     )
   }
+
+  const handleSealPosition = useCallback((document: SignatoryDocumentInput, pdfSealPosition: SignatoryDocumentInput["pdfSealPosition"]) => {
+    onChange(
+      documents!.map(search => {
+        if (search.id === document.id) {
+          return {
+            ...document,
+            pdfSealPosition
+          }
+        }
+        return search;
+      })
+    );
+  }, [onChange, documents]);
 
   return (
     <ul className="signatory-input-document">
@@ -91,8 +102,68 @@ export default function SignatoryDocumentInputComponent<T extends HasSignatoryDo
               Preapprove
             </label>
           </div>
+          <SealPosition
+            pdfSealPosition={documents.find(s => s.id === document.id)?.pdfSealPosition ?? null}
+            onChange={pos => handleSealPosition(document, pos)}
+          />
         </li>
       ))}
     </ul>
   )
+}
+
+type SealPositionProps = {
+  pdfSealPosition: SignatoryDocumentInput["pdfSealPosition"],
+  onChange: (pdfSealPosition: SignatoryDocumentInput["pdfSealPosition"]) => void
+}
+function SealPosition(props: SealPositionProps) {
+  const {onChange, pdfSealPosition} = props;
+  const [input, setInput] = useState<Partial<NonNullable<SignatoryDocumentInput["pdfSealPosition"]>>>({
+    page: pdfSealPosition?.page ?? undefined,
+    x: pdfSealPosition?.x ?? undefined,
+    y: pdfSealPosition?.y ?? undefined
+  });
+
+  const handleChange = (key: keyof NonNullable<SignatoryDocumentInput["pdfSealPosition"]>, value: number | undefined) => {
+    let inputChange = {
+      ...input,
+      [key]: value
+    };
+
+    setInput(inputChange);
+    if (inputChange.page && inputChange.x && inputChange.y) {
+      onChange(inputChange as NonNullable<SignatoryDocumentInput["pdfSealPosition"]>);
+    } else {
+      onChange(null);
+    }
+  }
+
+  return (
+    <div className="d-flex">
+      <input
+        className="form-control"
+        type="number"
+        onChange={(event) => handleChange('page', event.target.value ? parseInt(event.target.value, 10) : undefined)}
+        value={input.page ?? ""}
+        placeholder="Page"
+        style={{width: '75px', padding: '2px 4px'}}
+      />
+      <input
+        className="form-control"
+        type="number"
+        onChange={(event) => handleChange('x', event.target.value ? parseInt(event.target.value, 10) : undefined)}
+        value={input.x ?? ""}
+        placeholder="X"
+        style={{width: '50px', padding: '2px 4px'}}
+      />
+      <input
+        className="form-control"
+        type="number"
+        onChange={(event) => handleChange('y', event.target.value ? parseInt(event.target.value, 10) : undefined)}
+        value={input.y ?? ""}
+        placeholder="Y"
+        style={{width: '50px', padding: '2px 4px'}}
+      />
+    </div>
+  );
 }

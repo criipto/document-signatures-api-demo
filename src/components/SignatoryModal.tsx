@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 
 import { useFragment } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
@@ -147,6 +147,13 @@ export default function SignatoryModal(props : Props) {
       `
   );
 
+  const handleDocuments = useCallback((documents: SignatoryDocumentInput[]) => {
+    setSignatory(signatory => ({
+      ...signatory,
+      documents
+    }));
+  }, []);
+
   if (data.status !== 'OPEN') return null;
 
   const handleSubmit = () => {
@@ -175,14 +182,7 @@ export default function SignatoryModal(props : Props) {
         });
       }
     }).catch(console.error);
-  };
-
-  const handleDocuments = (documents: SignatoryDocumentInput[]) => {
-    setSignatory(signatory => ({
-      ...signatory,
-      documents
-    }));
-  }
+  };;
 
   const handleEvidenceValidation = (evidenceValidation: SignatoryEvidenceValidationInput[]) => {
     setSignatory(signatory => ({
@@ -238,7 +238,7 @@ export default function SignatoryModal(props : Props) {
           signatureOrder={data}
           onChange={(ds) => handleDocuments(ds)}
         />
-        <button className="btn btn-secondary" onClick={() => handlePreapproveAll()}>
+        <button className="btn btn-secondary mt-2" onClick={() => handlePreapproveAll()}>
           Preapprove all
         </button>
         <div><strong>Evidence Providers</strong></div>
@@ -268,6 +268,11 @@ export default function SignatoryModal(props : Props) {
         ) : null}
       </Modal.Body>
       <Modal.Footer>
+        {status.error ? (
+          <p className="alert alert-danger">
+            {status.error.message}
+          </p>
+        ) : null}
         <button className="btn btn-secondary" onClick={props.onHide}>
           Cancel
         </button>

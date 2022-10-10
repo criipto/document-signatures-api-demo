@@ -30,6 +30,12 @@ export type CreateSignatureOrderSignatoryInput = {
 export type SignatoryDocumentInput = {
     id: string;
     preapproved?: boolean | null;
+    pdfSealPosition?: PdfSealPosiiton | null;
+};
+export type PdfSealPosiiton = {
+    page: number;
+    x: number;
+    y: number;
 };
 export type SignatoryEvidenceProviderInput = {
     id: string;
