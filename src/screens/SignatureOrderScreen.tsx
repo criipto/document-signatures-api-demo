@@ -13,6 +13,7 @@ import DeleteSignatoryButton from '../components/DeleteSignatoryButton';
 import CloseSignatureOrderButton from '../components/CloseSignatureOrderButton';
 import ChangeSignatoryButton from '../components/ChangeSignatoryButton';
 import SignActingAsButton from '../components/SignActingAsButton';
+import ExtendSignatureOrderButton from '../components/ExtendSignatureOrderButton';
 
 function base64ToBlob( base64 : string, type = "application/pdf" ) {
   const binStr = atob( base64 );
@@ -128,6 +129,7 @@ const Query = graphql`
       ...ChangeSignatoryButton_signatureOrder
       ...SignActingAsButton_signatureOrder
       ...CloseSignatureOrderButton_signatureOrder
+      ...ExtendSignatureOrderButton_signatureOrder
     }
   }
 `;
@@ -197,7 +199,13 @@ export default function SignatureOrdersScreen() {
           {SETTINGS.filter(setting => get(data.signatureOrder, setting, null)).map(setting => (
             <tr key={setting}>
               <td>{setting}</td>
-              <td>{displaySetting(data.signatureOrder, setting)}</td>
+              <td>
+                {displaySetting(data.signatureOrder, setting)}
+
+                {setting === 'expiresAt' ? (
+                  <ExtendSignatureOrderButton signatureOrder={data.signatureOrder!} />
+                ) : null}
+              </td>
             </tr>
           ))}
         </tbody>
