@@ -99,7 +99,20 @@ export default function CreateSignatureOrderScreen() {
     setDocuments(documents => documents.concat(newDocuments));
   }
 
-  const handleChangeDocument = (document : LocalDocumentInput, key : string, value : string) => {
+  const handleChangeDocument = (document : LocalDocumentInput, key : string, value : string | boolean) => {
+    setDocuments(documents => {
+      return documents.map(search => {
+        if (search === document) {
+          return {
+            ...search,
+            [key]: value
+          };
+        }
+        return search;
+      });
+    })
+  };
+  const handleChangePdfDocument = (document : LocalDocumentInput, key : string, value : string) => {
     setDocuments(documents => {
       return documents.map(search => {
         if (search === document) {
@@ -486,12 +499,23 @@ export default function CreateSignatureOrderScreen() {
                 <input
                   className="form-control"
                   type="text"
-                  onChange={(event) => handleChangeDocument(document, 'title', event.target.value)}
+                  onChange={(event) => handleChangePdfDocument(document, 'title', event.target.value)}
                   value={document.pdf.title}
                   placeholder="Document title"
                   required
                 />
                 <label className="form-label">Document title</label>
+              </div>
+              <div className="form-check mb-2">
+                <input
+                  className="form-check-input"
+                  id={`document_${document.fileName}_removePreviousSignatures`} type="checkbox"
+                  checked={document.removePreviousSignatures ?? false}
+                  onChange={(event) => handleChangeDocument(document, 'removePreviousSignatures', event.target.checked)}
+                />
+                <label className="form-check-label" htmlFor={`document_${document.fileName}_removePreviousSignatures`} >
+                  Remove previous signatures
+                </label>
               </div>
               <button type="button" className="btn btn-secondary btn-small" onClick={() => handleRemoveDocument(document)}>Remove</button>
             </div>

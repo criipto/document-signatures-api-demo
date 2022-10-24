@@ -17,9 +17,9 @@ export type AddSignatoryInput = {
 export type SignatoryDocumentInput = {
     id: string;
     preapproved?: boolean | null;
-    pdfSealPosition?: PdfSealPosiiton | null;
+    pdfSealPosition?: PdfSealPosition | null;
 };
-export type PdfSealPosiiton = {
+export type PdfSealPosition = {
     page: number;
     x: number;
     y: number;

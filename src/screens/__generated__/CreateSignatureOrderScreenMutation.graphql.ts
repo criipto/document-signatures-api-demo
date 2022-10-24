@@ -5,7 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 
 export type DocumentStorageMode = "Temporary" | "%future added value";
-export type Language = "DA_DK" | "EN_US" | "SV_SE" | "%future added value";
+export type Language = "DA_DK" | "EN_US" | "NB_NO" | "SV_SE" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CreateSignatureOrderInput = {
     title?: string | null;
@@ -30,9 +30,9 @@ export type CreateSignatureOrderSignatoryInput = {
 export type SignatoryDocumentInput = {
     id: string;
     preapproved?: boolean | null;
-    pdfSealPosition?: PdfSealPosiiton | null;
+    pdfSealPosition?: PdfSealPosition | null;
 };
-export type PdfSealPosiiton = {
+export type PdfSealPosition = {
     page: number;
     x: number;
     y: number;
@@ -46,6 +46,7 @@ export type SignatoryEvidenceValidationInput = {
 };
 export type DocumentInput = {
     pdf: PadesDocumentInput;
+    removePreviousSignatures?: boolean | null;
 };
 export type PadesDocumentInput = {
     title: string;
