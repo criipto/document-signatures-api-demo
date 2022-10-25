@@ -138,7 +138,7 @@ export default function CreateSignatureOrderScreen() {
   const handleUI = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, key: keyof CreateSignatureOrderUIInput) => {
     setUI(ui => ({
       ...ui,
-      [key]: "checked" in event.target ? event.target.checked : event.target.value
+      [key]: (event.target.type === "checkbox" && "checked" in event.target) ? event.target.checked : event.target.value
     }));
   }
 
