@@ -12,6 +12,7 @@ export type SignatureOrderScreenSignatory = {
     readonly status: SignatoryStatus;
     readonly statusReason: string | null;
     readonly href: string;
+    readonly downloadHref: string | null;
     readonly reference: string | null;
     readonly documents: {
         readonly edges: ReadonlyArray<{
@@ -70,6 +71,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "href",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "downloadHref",
       "storageKey": null
     },
     {
@@ -144,5 +152,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5cc3e6a555e8fb4079cda222e46bdb17';
+(node as any).hash = '8ccc44722893056dfced0874150c2ab0';
 export default node;

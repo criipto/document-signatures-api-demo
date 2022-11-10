@@ -39,6 +39,7 @@ export type SignActingAsModalMutationResponse = {
                 readonly status: SignatoryStatus;
                 readonly statusReason: string | null;
                 readonly href: string;
+                readonly downloadHref: string | null;
                 readonly reference: string | null;
                 readonly documents: {
                     readonly edges: ReadonlyArray<{
@@ -76,6 +77,7 @@ mutation SignActingAsModalMutation(
         status
         statusReason
         href
+        downloadHref
         reference
         documents {
           edges {
@@ -162,24 +164,31 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "reference",
+  "name": "downloadHref",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "reference",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "title",
   "storageKey": null
 },
 v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": null,
@@ -187,11 +196,11 @@ v9 = {
   "name": "evidenceProviders",
   "plural": true,
   "selections": [
-    (v8/*: any*/)
+    (v9/*: any*/)
   ],
   "storageKey": null
 },
-v10 = [
+v11 = [
   (v2/*: any*/)
 ];
 return {
@@ -230,6 +239,7 @@ return {
                   (v4/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
+                  (v7/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -256,7 +266,7 @@ return {
                             "plural": false,
                             "selections": [
                               (v2/*: any*/),
-                              (v7/*: any*/)
+                              (v8/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -266,7 +276,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v9/*: any*/)
+                  (v10/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -317,7 +327,7 @@ return {
                 "name": "evidenceProviders",
                 "plural": true,
                 "selections": [
-                  (v8/*: any*/),
+                  (v9/*: any*/),
                   {
                     "kind": "InlineFragment",
                     "selections": [
@@ -335,13 +345,13 @@ return {
                   },
                   {
                     "kind": "InlineFragment",
-                    "selections": (v10/*: any*/),
+                    "selections": (v11/*: any*/),
                     "type": "OidcJWTSignatureEvidenceProvider",
                     "abstractKey": null
                   },
                   {
                     "kind": "InlineFragment",
-                    "selections": (v10/*: any*/),
+                    "selections": (v11/*: any*/),
                     "type": "CriiptoVerifySignatureEvidenceProvider",
                     "abstractKey": null
                   }
@@ -361,6 +371,7 @@ return {
                   (v4/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
+                  (v7/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -386,9 +397,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v8/*: any*/),
+                              (v9/*: any*/),
                               (v2/*: any*/),
-                              (v7/*: any*/)
+                              (v8/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -398,7 +409,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v9/*: any*/)
+                  (v10/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -411,12 +422,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e9c974614d6186df7707fb2e78d9bd1c",
+    "cacheID": "5f251cf9a3feb00e3c29fc3b9a1daf53",
     "id": null,
     "metadata": {},
     "name": "SignActingAsModalMutation",
     "operationKind": "mutation",
-    "text": "mutation SignActingAsModalMutation(\n  $input: SignActingAsInput!\n) {\n  signActingAs(input: $input) {\n    signatureOrder {\n      ...SignActingAsModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        reference\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment SignActingAsModal_signatureOrder on SignatureOrder {\n  id\n  status\n  evidenceProviders {\n    __typename\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n    }\n  }\n}\n"
+    "text": "mutation SignActingAsModalMutation(\n  $input: SignActingAsInput!\n) {\n  signActingAs(input: $input) {\n    signatureOrder {\n      ...SignActingAsModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment SignActingAsModal_signatureOrder on SignatureOrder {\n  id\n  status\n  evidenceProviders {\n    __typename\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
