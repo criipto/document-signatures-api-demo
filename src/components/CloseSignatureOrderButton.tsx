@@ -42,6 +42,10 @@ export default function CloseSignatureOrderButton(props : Props) {
             documents {
               blob
             }
+
+            signatories {
+              ...SignatureOrderScreenSignatory @relay(mask: false)
+            }
           }
         }
       }

@@ -4,6 +4,8 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
+export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "%future added value";
+export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CloseSignatureOrderInput = {
     signatureOrderId: string;
@@ -18,6 +20,26 @@ export type CloseSignatureOrderButtonMutationResponse = {
             readonly status: SignatureOrderStatus;
             readonly documents: ReadonlyArray<{
                 readonly blob: string | null;
+            }>;
+            readonly signatories: ReadonlyArray<{
+                readonly id: string;
+                readonly status: SignatoryStatus;
+                readonly statusReason: string | null;
+                readonly href: string;
+                readonly downloadHref: string | null;
+                readonly reference: string | null;
+                readonly documents: {
+                    readonly edges: ReadonlyArray<{
+                        readonly status: SignatoryDocumentStatus | null;
+                        readonly node: {
+                            readonly id: string;
+                            readonly title: string;
+                        };
+                    }>;
+                };
+                readonly evidenceProviders: ReadonlyArray<{
+                    readonly __typename: string;
+                }>;
             }>;
         };
     } | null;
@@ -40,6 +62,27 @@ mutation CloseSignatureOrderButtonMutation(
         __typename
         blob
         id
+      }
+      signatories {
+        id
+        status
+        statusReason
+        href
+        downloadHref
+        reference
+        documents {
+          edges {
+            status
+            node {
+              __typename
+              id
+              title
+            }
+          }
+        }
+        evidenceProviders {
+          __typename
+        }
       }
       id
     }
@@ -82,6 +125,60 @@ v4 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "statusReason",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "href",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "downloadHref",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "reference",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
+  "concreteType": null,
+  "kind": "LinkedField",
+  "name": "evidenceProviders",
+  "plural": true,
+  "selections": [
+    (v10/*: any*/)
+  ],
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -116,6 +213,60 @@ return {
                 "plural": true,
                 "selections": [
                   (v3/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Signatory",
+                "kind": "LinkedField",
+                "name": "signatories",
+                "plural": true,
+                "selections": [
+                  (v4/*: any*/),
+                  (v2/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v7/*: any*/),
+                  (v8/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "SignatoryDocumentConnection",
+                    "kind": "LinkedField",
+                    "name": "documents",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "SignatoryDocumentEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          (v2/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": null,
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              (v4/*: any*/),
+                              (v9/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  (v11/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -160,15 +311,64 @@ return {
                 "name": "documents",
                 "plural": true,
                 "selections": [
+                  (v10/*: any*/),
+                  (v3/*: any*/),
+                  (v4/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Signatory",
+                "kind": "LinkedField",
+                "name": "signatories",
+                "plural": true,
+                "selections": [
+                  (v4/*: any*/),
+                  (v2/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v7/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
-                    "name": "__typename",
+                    "concreteType": "SignatoryDocumentConnection",
+                    "kind": "LinkedField",
+                    "name": "documents",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "SignatoryDocumentEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          (v2/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": null,
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              (v10/*: any*/),
+                              (v4/*: any*/),
+                              (v9/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
                     "storageKey": null
                   },
-                  (v3/*: any*/),
-                  (v4/*: any*/)
+                  (v11/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -182,14 +382,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3ffed496a414e93891d5f3f71119a47d",
+    "cacheID": "996dee83e773b49a0c024cc323834422",
     "id": null,
     "metadata": {},
     "name": "CloseSignatureOrderButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation CloseSignatureOrderButtonMutation(\n  $input: CloseSignatureOrderInput!\n) {\n  closeSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      documents {\n        __typename\n        blob\n        id\n      }\n      id\n    }\n  }\n}\n"
+    "text": "mutation CloseSignatureOrderButtonMutation(\n  $input: CloseSignatureOrderInput!\n) {\n  closeSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      documents {\n        __typename\n        blob\n        id\n      }\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'b7479747e9c8cd91720b658f06ad80f0';
+(node as any).hash = 'dccfc702a4d8739a2581c4c92a5029ff';
 export default node;
