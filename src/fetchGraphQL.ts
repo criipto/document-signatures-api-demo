@@ -7,7 +7,8 @@ async function fetchGraphQL(text : string, variables : any) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${getCredentials()}`
+        'Authorization': `Basic ${getCredentials()}`,
+        'Criipto-Sdk': 'signatures-api-demo'
       },
       body: JSON.stringify({
         query: text,
