@@ -671,6 +671,16 @@ export default function CreateSignatureOrderScreen() {
                     />
                     <label className="form-label">Message (DK MitID)</label>
                   </div>
+                  <div className="mb-3 form-floating">
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, loginHint: event.target.value})}
+                      value={evidenceProvider.criiptoVerify?.loginHint || undefined}
+                      placeholder="login_hint"
+                    />
+                    <label className="form-label">login_hint</label>
+                  </div>
                 </React.Fragment>
               ) : null}
 

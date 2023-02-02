@@ -113,6 +113,7 @@ const Query = graphql`
           acrValues
           alwaysRedirect
           message
+          loginHint
         }
         ... on DrawableSignatureEvidenceProvider {
           id
@@ -276,6 +277,7 @@ export default function SignatureOrdersScreen() {
                     Acr values: {provider.acrValues.join(', ')}<br />
                     Always redirect: {provider.alwaysRedirect ? 'true' : 'false'}<br />
                     Message: {provider.message}<br />
+                    login_hint: {provider.loginHint}<br />
                   </React.Fragment>
                 ) : provider.__typename === 'DrawableSignatureEvidenceProvider' ? (
                   <React.Fragment>

@@ -75,6 +75,7 @@ export type CriiptoVerifyProviderInput = {
     alwaysRedirect?: boolean | null;
     uniqueEvidenceKey?: string | null;
     message?: string | null;
+    loginHint?: string | null;
 };
 export type NoopEvidenceProviderInput = {
     name: string;
