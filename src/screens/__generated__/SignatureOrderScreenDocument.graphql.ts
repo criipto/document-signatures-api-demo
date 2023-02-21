@@ -14,6 +14,7 @@ export type SignatureOrderScreenDocument = {
         readonly signatory: {
             readonly id: string;
             readonly reference: string | null;
+            readonly role: string | null;
         } | null;
     }> | null;
     readonly " $refType": "SignatureOrderScreenDocument";
@@ -85,6 +86,13 @@ return {
               "kind": "ScalarField",
               "name": "reference",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "role",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -97,5 +105,5 @@ return {
   "abstractKey": "__isDocument"
 };
 })();
-(node as any).hash = 'fe7bbc15789a8b378951ddc6c00992af';
+(node as any).hash = 'a3c982fbbc00a43e4311a701d5ab56a4';
 export default node;

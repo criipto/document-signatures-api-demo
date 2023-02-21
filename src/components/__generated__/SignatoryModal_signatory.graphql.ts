@@ -11,6 +11,7 @@ export type SignatoryModal_signatory = {
     readonly id: string;
     readonly status: SignatoryStatus;
     readonly reference: string | null;
+    readonly role: string | null;
     readonly evidenceProviders: ReadonlyArray<{
         readonly __typename: "OidcJWTSignatureEvidenceProvider";
         readonly id: string;
@@ -109,6 +110,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "reference",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "role",
       "storageKey": null
     },
     {
@@ -215,5 +223,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '15a10d17b4ed3ae78d4a8e0069b97b26';
+(node as any).hash = '90605081c5c0f0c2a017724fb5d9bbc6';
 export default node;

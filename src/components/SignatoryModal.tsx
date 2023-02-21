@@ -66,6 +66,7 @@ export default function SignatoryModal(props : Props) {
         id
         status
         reference
+        role
 
         evidenceProviders {
           __typename
@@ -225,11 +226,22 @@ export default function SignatoryModal(props : Props) {
             className="form-control"
             type="text"
             onChange={(event) => setSignatory(signatory => ({...signatory, reference: event.target.value}))}
-            value={signatory.reference!}
+            value={signatory.reference ?? ''}
             placeholder="signatory reference"
             required
           />
           <label className="form-label">Signatory reference</label>
+        </div>
+        <div className="mb-3 form-floating">
+          <input
+            className="form-control"
+            type="text"
+            onChange={(event) => setSignatory(signatory => ({...signatory, role: event.target.value}))}
+            value={signatory.role ?? ''}
+            placeholder="signatory role"
+            required
+          />
+          <label className="form-label">Signatory role</label>
         </div>
         <div><strong>Documents</strong></div>
         <SignatoryDocumentInputComponent

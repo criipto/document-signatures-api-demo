@@ -23,9 +23,11 @@ export type CreateSignatureOrderInput = {
 };
 export type CreateSignatureOrderSignatoryInput = {
     reference?: string | null;
+    role?: string | null;
     documents?: Array<SignatoryDocumentInput> | null;
     evidenceProviders?: Array<SignatoryEvidenceProviderInput> | null;
     evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
+    signatureAppearance?: SignatureAppearanceInput | null;
 };
 export type SignatoryDocumentInput = {
     id: string;
@@ -43,6 +45,9 @@ export type SignatoryEvidenceProviderInput = {
 export type SignatoryEvidenceValidationInput = {
     key: string;
     value: string;
+};
+export type SignatureAppearanceInput = {
+    identifierFromEvidence: Array<string>;
 };
 export type DocumentInput = {
     pdf: PadesDocumentInput;
@@ -96,9 +101,6 @@ export type SignatureOrderUILogoInput = {
 };
 export type CreateSignatureOrderWebhookInput = {
     url: string;
-};
-export type SignatureAppearanceInput = {
-    identifierFromEvidence: Array<string>;
 };
 export type CreateSignatureOrderScreenMutationVariables = {
     input: CreateSignatureOrderInput;

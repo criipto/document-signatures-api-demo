@@ -33,6 +33,7 @@ graphql`
     href
     downloadHref
     reference
+    role
 
     documents {
       edges {
@@ -61,6 +62,7 @@ graphql`
       signatory {
         id
         reference
+        role
       }
     }
   }
@@ -295,6 +297,7 @@ export default function SignatureOrdersScreen() {
           <tr>
             <th scope="col">Signatories</th>
             <th scope="col">Reference</th>
+            <th scope="col">Role</th>
             <th scope="col">Status</th>
             <th scope="col">Documents</th>
             <th scope="col">Evidence Providers</th>
@@ -307,6 +310,7 @@ export default function SignatureOrdersScreen() {
             <tr key={signatory.id}>
               <th scope="row" >#{index + 1}</th>
               <td>{signatory.reference}</td>
+              <td>{signatory.role}</td>
               <td>{signatory.status}{signatory.statusReason ? ` (${signatory.statusReason})` : null}</td>
               <td>
                 {signatory.documents.edges.map(edge => <span key={edge.node.id}>{edge.node.title} ({edge.status})<br /></span>)}
