@@ -5,11 +5,13 @@ import graphql from 'babel-plugin-relay/macro';
 
 import { useHistory } from 'react-router-dom';
 
-import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput, SignatureAppearanceInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
+import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput, SignatureAppearanceInput, EvidenceValidationStage} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
 import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOrderScreenQuery.graphql';
 import EvidenceValidationInput, { filterEvidenceValidation } from '../components/EvidenceValidationInput';
 
 import useMutation from '../hooks/useMutation';
+
+const ALL_EVIDENCE_VALIDATION_STAGES : EvidenceValidationStage[] = ['VIEW', 'SIGN'];
 
 const toBase64 = (file : File) : Promise<string> => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -49,6 +51,7 @@ export default function CreateSignatureOrderScreen() {
   const [disableVerifyEvidenceProvider, setDisableVerifyEvidenceProvider] = useState(false);
   const [addEvidenceProviderType, setAddEvidenceProviderType] = useState<EvidenceProviderType>("oidc");
   const [evidenceProviders, setEvidenceProviders] = useState<EvidenceProviderInput[]>([]);
+  const [evidenceValidationStages, setEvidenceValidationStages] = useState<EvidenceValidationStage[]>(['SIGN']);
   const history = useHistory();
 
   const data = useLazyLoadQuery<CreateSignatureOrderScreenQuery>(
@@ -214,6 +217,7 @@ export default function CreateSignatureOrderScreen() {
         }),
         documents,
         evidenceProviders,
+        evidenceValidationStages,
         ui: {
           ...ui,
           stylesheet: ui.stylesheet || null,
@@ -715,6 +719,20 @@ export default function CreateSignatureOrderScreen() {
         </select>
         <button type="button" className="btn btn-secondary" onClick={addEvidenceProvider}>Add evidence provider</button>
       </div>
+      <h4>Evidence Validation Stages</h4>
+      {ALL_EVIDENCE_VALIDATION_STAGES.map(evidenceValidationStage => (
+        <div className="form-check mb-3">
+          <input
+            className="form-check-input"
+            id={evidenceValidationStage} type="checkbox"
+            checked={evidenceValidationStages.includes(evidenceValidationStage)}
+            onChange={(event) => setEvidenceValidationStages(stages => event.target.checked ? stages.concat([evidenceValidationStage]) : stages.filter(s => s !== evidenceValidationStage))}
+          />
+          <label className="form-check-label" htmlFor={evidenceValidationStage} >
+            {evidenceValidationStage}
+          </label>
+        </div>
+      ))}
       <h4>Signatories</h4>
       {signatories.length ? (
         <div className="row">

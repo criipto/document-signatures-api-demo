@@ -5,6 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 
 export type DocumentStorageMode = "Temporary" | "%future added value";
+export type EvidenceValidationStage = "SIGN" | "VIEW" | "%future added value";
 export type Language = "DA_DK" | "EN_US" | "NB_NO" | "SV_SE" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CreateSignatureOrderInput = {
@@ -17,6 +18,7 @@ export type CreateSignatureOrderInput = {
     signatories?: Array<CreateSignatureOrderSignatoryInput> | null;
     documents: Array<DocumentInput>;
     evidenceProviders?: Array<EvidenceProviderInput> | null;
+    evidenceValidationStages?: Array<EvidenceValidationStage> | null;
     ui?: CreateSignatureOrderUIInput | null;
     webhook?: CreateSignatureOrderWebhookInput | null;
     signatureAppearance?: SignatureAppearanceInput | null;
