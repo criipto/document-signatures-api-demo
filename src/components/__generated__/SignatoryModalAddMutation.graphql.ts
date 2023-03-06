@@ -35,6 +35,15 @@ export type SignatoryEvidenceValidationInput = {
 };
 export type SignatureAppearanceInput = {
     identifierFromEvidence: Array<string>;
+    displayName?: Array<SignatureAppearanceTemplateInput> | null;
+};
+export type SignatureAppearanceTemplateInput = {
+    template: string;
+    replacements?: Array<SignatureAppearanceTemplateReplacementInput> | null;
+};
+export type SignatureAppearanceTemplateReplacementInput = {
+    placeholder: string;
+    fromEvidence: Array<string>;
 };
 export type SignatoryModalAddMutationVariables = {
     input: AddSignatoryInput;

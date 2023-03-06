@@ -7,11 +7,12 @@ import { Modal } from 'react-bootstrap';
 
 import {SignatoryModal_signatureOrder$key} from './__generated__/SignatoryModal_signatureOrder.graphql';
 import {SignatoryModal_signatory$key} from './__generated__/SignatoryModal_signatory.graphql';
-import {SignatoryModalAddMutation, AddSignatoryInput, SignatoryDocumentInput, SignatoryEvidenceValidationInput} from './__generated__/SignatoryModalAddMutation.graphql';
+import {SignatoryModalAddMutation, AddSignatoryInput, SignatoryDocumentInput, SignatoryEvidenceValidationInput, SignatureAppearanceInput as SignatureAppearanceInputType} from './__generated__/SignatoryModalAddMutation.graphql';
 import {SignatoryModalChangeMutation, ChangeSignatoryInput} from './__generated__/SignatoryModalChangeMutation.graphql';
 
 import EvidenceValidationInput, { filterEvidenceValidation } from './EvidenceValidationInput';
 import SignatoryDocumentInputComponent from './SignatoryDocumentInput';
+import SignatureAppearanceInput, { filterSignatureAppearance } from './SignatureAppearanceInput';
 import useMutation from '../hooks/useMutation';
 
 interface Props {
@@ -169,7 +170,8 @@ export default function SignatoryModal(props : Props) {
         {
           input: {
             ...signatory,
-            evidenceValidation: filterEvidenceValidation(signatory.evidenceValidation)
+            evidenceValidation: filterEvidenceValidation(signatory.evidenceValidation),
+            signatureAppearance: filterSignatureAppearance(signatory.signatureAppearance)
           }
         } as {input: AddSignatoryInput}
 
@@ -192,6 +194,14 @@ export default function SignatoryModal(props : Props) {
     }));
   }
 
+  const handleSignatureAppearance = (signatureAppearance: SignatureAppearanceInputType) => {
+    setSignatory(signatory => ({
+      ...signatory,
+      signatureAppearance
+    }));
+  }
+
+  
   const handleEvidenceProvider = (provider: any, checked: boolean) => {
     setSignatory(signatory => ({
       ...signatory,
@@ -253,7 +263,7 @@ export default function SignatoryModal(props : Props) {
         <button className="btn btn-secondary mt-2" onClick={() => handlePreapproveAll()}>
           Preapprove all
         </button>
-        <div><strong>Evidence Providers</strong></div>
+        <div className="mt-3"><strong>Evidence Providers</strong></div>
         <ul>
           {data.evidenceProviders.map((provider, index) => (
             <li key={index}>
@@ -274,8 +284,14 @@ export default function SignatoryModal(props : Props) {
         </ul>
         {!existingSignatory ? (
           <React.Fragment>
-            <div><strong>Evidence Validation</strong></div>
+            <div className="mt-3"><strong>Evidence Validation</strong></div>
             <EvidenceValidationInput item={signatory} onChange={(i) => handleEvidenceValidation(i)} />
+          </React.Fragment>
+        ) : null}
+        {!existingSignatory ? (
+          <React.Fragment>
+            <div className="mt-3"><strong>Signature Appearance</strong></div>
+            <SignatureAppearanceInput value={signatory.signatureAppearance} onChange={(i) => handleSignatureAppearance(i)} />
           </React.Fragment>
         ) : null}
       </Modal.Body>

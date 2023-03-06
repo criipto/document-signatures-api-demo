@@ -38,11 +38,15 @@ export default function EvidenceValidationInput<T extends HasEvidenceValidation>
     props.onChange(list.concat([{key: '', value: ''}]));
   }
 
+  const handleRemove = (ev: SignatoryEvidenceValidationInput) => {
+    props.onChange(list.filter(s => s !== ev));
+  }
+
   return (
     <React.Fragment>
       {list.map((ev, index) => (
         <div className="row" key={index}>
-          <div className="col-6">
+          <div className="col-5">
             <div className="mb-3 form-floating">
               <input
                 className="form-control"
@@ -55,7 +59,7 @@ export default function EvidenceValidationInput<T extends HasEvidenceValidation>
               <label className="form-label">Key</label>
             </div>
           </div>
-          <div className="col-6">
+          <div className="col-5">
             <div className="mb-3 form-floating">
               <input
                 className="form-control"
@@ -67,6 +71,9 @@ export default function EvidenceValidationInput<T extends HasEvidenceValidation>
               />
               <label className="form-label">Value</label>
             </div>
+          </div>
+          <div className="col-2">
+            <button type="button" className="btn btn-danger" onClick={() => handleRemove(ev)}>X</button>
           </div>
         </div>
       ))}
