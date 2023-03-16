@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 
 import { useHistory } from 'react-router-dom';
 
-import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput, SignatureAppearanceInput, EvidenceValidationStage} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
+import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput, SignatureAppearanceInput, EvidenceValidationStage, CreateSignatureOrderWebhookInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
 import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOrderScreenQuery.graphql';
 import EvidenceValidationInput, { filterEvidenceValidation } from '../components/EvidenceValidationInput';
 
@@ -46,7 +46,10 @@ export default function CreateSignatureOrderScreen() {
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
   const [ui, setUI] = useState<CreateSignatureOrderUIInput>({});
   const [signatureAppearance, setSignatureAppearance] = useState<SignatureAppearanceInput>({identifierFromEvidence: [], displayName: null});
-  const [webhook, setWebhook] = useState('');
+  const [webhook, setWebhook] = useState<CreateSignatureOrderWebhookInput>({
+    url: '',
+    validateConnectivity: false
+  });
   const [signatories, setSignatories] = useState<CreateSignatureOrderSignatoryInput[]>([]);
   const [disableVerifyEvidenceProvider, setDisableVerifyEvidenceProvider] = useState(false);
   const [addEvidenceProviderType, setAddEvidenceProviderType] = useState<EvidenceProviderType>("oidc");
@@ -227,7 +230,7 @@ export default function CreateSignatureOrderScreen() {
           stylesheet: ui.stylesheet || null,
           logo: ui.logo?.src ? ui.logo : null
         },
-        webhook: webhook ? {url: webhook} : null,
+        webhook: webhook.url ? webhook : null,
         signatureAppearance: signatureAppearance.identifierFromEvidence.length ? signatureAppearance : null
       }
     })
@@ -378,12 +381,23 @@ export default function CreateSignatureOrderScreen() {
             <input
               className="form-control"
               type="text"
-              onChange={(event) => setWebhook(event.target.value)}
-              value={webhook || ''}
+              onChange={(event) => setWebhook(webhook => ({...webhook, url: event.target.value}))}
+              value={webhook.url || ''}
               placeholder="Webhook URI"
             />
             <label className="form-label">Webhook URI</label>
             <small className="form-text text-muted">You can use https://webhook.site/ for testing</small>
+          </div>
+          <div className="form-check mb-3">
+            <input
+              className="form-check-input"
+              id={`webhook_validateConnectivity`} type="checkbox"
+              checked={webhook.validateConnectivity || false}
+              onChange={(event) => setWebhook(webhook => ({...webhook, validateConnectivity: event.target.checked}))}
+            />
+            <label className="form-check-label" htmlFor={`webhook_validateConnectivity`} >
+              Validate connectivity
+            </label>
           </div>
         </div>
         <div className="col-4">

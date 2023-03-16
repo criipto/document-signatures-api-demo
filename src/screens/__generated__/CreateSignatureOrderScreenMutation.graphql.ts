@@ -112,6 +112,7 @@ export type SignatureOrderUILogoInput = {
 };
 export type CreateSignatureOrderWebhookInput = {
     url: string;
+    validateConnectivity?: boolean | null;
 };
 export type CreateSignatureOrderScreenMutationVariables = {
     input: CreateSignatureOrderInput;
