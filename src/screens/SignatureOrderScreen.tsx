@@ -182,7 +182,7 @@ export default function SignatureOrdersScreen() {
     const interval = setInterval(() => {
       if (data.signatureOrder?.status !== "OPEN") return;
       setFetchKey(Math.random().toString());
-    }, 5000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, [params.signatureOrderId, data.signatureOrder?.status]);
