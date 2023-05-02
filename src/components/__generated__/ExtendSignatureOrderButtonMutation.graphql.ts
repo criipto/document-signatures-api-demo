@@ -6,8 +6,8 @@ import { ConcreteRequest } from "relay-runtime";
 
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type ExtendSignatureOrderInput = {
-    signatureOrderId: string;
     additionalExpirationInDays: number;
+    signatureOrderId: string;
 };
 export type ExtendSignatureOrderButtonMutationVariables = {
     input: ExtendSignatureOrderInput;

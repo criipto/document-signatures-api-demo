@@ -5,21 +5,21 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "%future added value";
+export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type ChangeSignatoryInput = {
-    signatoryId: string;
-    reference?: string | null;
-    role?: string | null;
     documents?: Array<SignatoryDocumentInput> | null;
     evidenceProviders?: Array<SignatoryEvidenceProviderInput> | null;
     evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
+    reference?: string | null;
+    role?: string | null;
+    signatoryId: string;
     signatureAppearance?: SignatureAppearanceInput | null;
 };
 export type SignatoryDocumentInput = {
     id: string;
-    preapproved?: boolean | null;
     pdfSealPosition?: PdfSealPosition | null;
+    preapproved?: boolean | null;
 };
 export type PdfSealPosition = {
     page: number;
@@ -34,16 +34,16 @@ export type SignatoryEvidenceValidationInput = {
     value: string;
 };
 export type SignatureAppearanceInput = {
-    identifierFromEvidence: Array<string>;
     displayName?: Array<SignatureAppearanceTemplateInput> | null;
+    identifierFromEvidence: Array<string>;
 };
 export type SignatureAppearanceTemplateInput = {
-    template: string;
     replacements?: Array<SignatureAppearanceTemplateReplacementInput> | null;
+    template: string;
 };
 export type SignatureAppearanceTemplateReplacementInput = {
-    placeholder: string;
     fromEvidence: Array<string>;
+    placeholder: string;
 };
 export type SignatoryModalChangeMutationVariables = {
     input: ChangeSignatoryInput;
@@ -118,6 +118,7 @@ mutation SignatoryModalChangeMutation(
         }
         evidenceProviders {
           __typename
+          id
         }
         ...SignatoryModal_signatory
       }
@@ -160,6 +161,7 @@ fragment SignatoryModal_signatory on Signatory {
       id
       requireName
     }
+    id
   }
   documents {
     edges {
@@ -200,6 +202,7 @@ fragment SignatoryModal_signatureOrder on SignatureOrder {
       id
       requireName
     }
+    id
   }
   ...SignatoryDocumentInput_signatureOrder
 }
@@ -325,10 +328,10 @@ v16 = {
   "plural": true,
   "selections": [
     (v11/*: any*/),
+    (v3/*: any*/),
     {
       "kind": "InlineFragment",
       "selections": [
-        (v3/*: any*/),
         (v12/*: any*/),
         (v13/*: any*/),
         (v14/*: any*/),
@@ -340,7 +343,6 @@ v16 = {
     {
       "kind": "InlineFragment",
       "selections": [
-        (v3/*: any*/),
         (v12/*: any*/),
         (v13/*: any*/),
         (v14/*: any*/),
@@ -359,7 +361,6 @@ v16 = {
     {
       "kind": "InlineFragment",
       "selections": [
-        (v3/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -644,12 +645,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "23097ef8c1582ebc5f1f2ab75cc90441",
+    "cacheID": "8a508be1e4d53332702f22765880c7f5",
     "id": null,
     "metadata": {},
     "name": "SignatoryModalChangeMutation",
     "operationKind": "mutation",
-    "text": "mutation SignatoryModalChangeMutation(\n  $input: ChangeSignatoryInput!\n) {\n  changeSignatory(input: $input) {\n    signatory {\n      ...SignatoryModal_signatory\n      id\n    }\n    signatureOrder {\n      ...SignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n        ...SignatoryModal_signatory\n      }\n      id\n    }\n  }\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatory on Signatory {\n  id\n  status\n  reference\n  role\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  documents {\n    edges {\n      status\n      node {\n        __typename\n        id\n      }\n    }\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
+    "text": "mutation SignatoryModalChangeMutation(\n  $input: ChangeSignatoryInput!\n) {\n  changeSignatory(input: $input) {\n    signatory {\n      ...SignatoryModal_signatory\n      id\n    }\n    signatureOrder {\n      ...SignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n        ...SignatoryModal_signatory\n      }\n      id\n    }\n  }\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatory on Signatory {\n  id\n  status\n  reference\n  role\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n    id\n  }\n  documents {\n    edges {\n      status\n      node {\n        __typename\n        id\n      }\n    }\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n    id\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
   }
 };
 })();

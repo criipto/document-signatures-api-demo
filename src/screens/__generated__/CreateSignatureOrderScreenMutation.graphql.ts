@@ -9,32 +9,71 @@ export type EvidenceValidationStage = "SIGN" | "VIEW" | "%future added value";
 export type Language = "DA_DK" | "EN_US" | "NB_NO" | "SV_SE" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CreateSignatureOrderInput = {
-    title?: string | null;
     disableVerifyEvidenceProvider?: boolean | null;
-    fixDocumentFormattingErrors?: boolean | null;
-    maxSignatories?: number | null;
-    expiresInDays?: number | null;
-    timezone?: string | null;
-    signatories?: Array<CreateSignatureOrderSignatoryInput> | null;
     documents: Array<DocumentInput>;
     evidenceProviders?: Array<EvidenceProviderInput> | null;
     evidenceValidationStages?: Array<EvidenceValidationStage> | null;
+    expiresInDays?: number | null;
+    fixDocumentFormattingErrors?: boolean | null;
+    maxSignatories?: number | null;
+    signatories?: Array<CreateSignatureOrderSignatoryInput> | null;
+    signatureAppearance?: SignatureAppearanceInput | null;
+    timezone?: string | null;
+    title?: string | null;
     ui?: CreateSignatureOrderUIInput | null;
     webhook?: CreateSignatureOrderWebhookInput | null;
-    signatureAppearance?: SignatureAppearanceInput | null;
+};
+export type DocumentInput = {
+    pdf: PadesDocumentInput;
+    removePreviousSignatures?: boolean | null;
+};
+export type PadesDocumentInput = {
+    blob: string;
+    reference?: string | null;
+    storageMode: DocumentStorageMode;
+    title: string;
+};
+export type EvidenceProviderInput = {
+    criiptoVerify?: CriiptoVerifyProviderInput | null;
+    drawable?: DrawableEvidenceProviderInput | null;
+    enabledByDefault?: boolean | null;
+    noop?: NoopEvidenceProviderInput | null;
+    oidc?: OidcEvidenceProviderInput | null;
+};
+export type CriiptoVerifyProviderInput = {
+    acrValues?: Array<string> | null;
+    alwaysRedirect?: boolean | null;
+    loginHint?: string | null;
+    message?: string | null;
+    uniqueEvidenceKey?: string | null;
+};
+export type DrawableEvidenceProviderInput = {
+    requireName?: boolean | null;
+};
+export type NoopEvidenceProviderInput = {
+    name: string;
+};
+export type OidcEvidenceProviderInput = {
+    acrValues?: Array<string> | null;
+    alwaysRedirect?: boolean | null;
+    audience: string;
+    clientID: string;
+    domain: string;
+    name: string;
+    uniqueEvidenceKey?: string | null;
 };
 export type CreateSignatureOrderSignatoryInput = {
-    reference?: string | null;
-    role?: string | null;
     documents?: Array<SignatoryDocumentInput> | null;
     evidenceProviders?: Array<SignatoryEvidenceProviderInput> | null;
     evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
+    reference?: string | null;
+    role?: string | null;
     signatureAppearance?: SignatureAppearanceInput | null;
 };
 export type SignatoryDocumentInput = {
     id: string;
-    preapproved?: boolean | null;
     pdfSealPosition?: PdfSealPosition | null;
+    preapproved?: boolean | null;
 };
 export type PdfSealPosition = {
     page: number;
@@ -49,66 +88,27 @@ export type SignatoryEvidenceValidationInput = {
     value: string;
 };
 export type SignatureAppearanceInput = {
-    identifierFromEvidence: Array<string>;
     displayName?: Array<SignatureAppearanceTemplateInput> | null;
+    identifierFromEvidence: Array<string>;
 };
 export type SignatureAppearanceTemplateInput = {
-    template: string;
     replacements?: Array<SignatureAppearanceTemplateReplacementInput> | null;
+    template: string;
 };
 export type SignatureAppearanceTemplateReplacementInput = {
-    placeholder: string;
     fromEvidence: Array<string>;
-};
-export type DocumentInput = {
-    pdf: PadesDocumentInput;
-    removePreviousSignatures?: boolean | null;
-};
-export type PadesDocumentInput = {
-    title: string;
-    reference?: string | null;
-    blob: string;
-    storageMode: DocumentStorageMode;
-};
-export type EvidenceProviderInput = {
-    oidc?: OidcEvidenceProviderInput | null;
-    criiptoVerify?: CriiptoVerifyProviderInput | null;
-    noop?: NoopEvidenceProviderInput | null;
-    enabledByDefault?: boolean | null;
-    drawable?: DrawableEvidenceProviderInput | null;
-};
-export type OidcEvidenceProviderInput = {
-    name: string;
-    domain: string;
-    clientID: string;
-    audience: string;
-    acrValues?: Array<string> | null;
-    alwaysRedirect?: boolean | null;
-    uniqueEvidenceKey?: string | null;
-};
-export type CriiptoVerifyProviderInput = {
-    acrValues?: Array<string> | null;
-    alwaysRedirect?: boolean | null;
-    uniqueEvidenceKey?: string | null;
-    message?: string | null;
-    loginHint?: string | null;
-};
-export type NoopEvidenceProviderInput = {
-    name: string;
-};
-export type DrawableEvidenceProviderInput = {
-    requireName?: boolean | null;
+    placeholder: string;
 };
 export type CreateSignatureOrderUIInput = {
-    signatoryRedirectUri?: string | null;
+    disableRejection?: boolean | null;
     language?: Language | null;
     logo?: SignatureOrderUILogoInput | null;
+    signatoryRedirectUri?: string | null;
     stylesheet?: string | null;
-    disableRejection?: boolean | null;
 };
 export type SignatureOrderUILogoInput = {
-    src: string;
     href?: string | null;
+    src: string;
 };
 export type CreateSignatureOrderWebhookInput = {
     url: string;

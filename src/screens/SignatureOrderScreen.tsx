@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {useParams} from 'react-router-dom';
+import {Link, useRouteMatch} from 'react-router-dom';
 import { useLazyLoadQuery } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import {get, isBoolean, isPlainObject} from 'lodash';
@@ -90,6 +90,10 @@ const Query = graphql`
         disableRejection
       }
 
+      webhook {
+        url
+      }
+
       signatories {
         ...SignatureOrderScreenSignatory @relay(mask: false)
         ...DeleteSignatoryButton_signatory
@@ -150,7 +154,8 @@ const SETTINGS = [
   'ui.stylesheet',
   'ui.logo.src',
   'ui.logo.href',
-  'ui.disableRejection'
+  'ui.disableRejection',
+  'webhook.url'
 ];
 
 function displaySetting(signatureOrder: SignatureOrderScreenQuery["response"]["signatureOrder"], setting: string) {
@@ -163,8 +168,9 @@ function displaySetting(signatureOrder: SignatureOrderScreenQuery["response"]["s
 }
 
 export default function SignatureOrdersScreen() {
+  const match = useRouteMatch<{signatureOrderId: string}>();
   const [fetchKey, setFetchKey] = useState(Math.random().toString());
-  const params = useParams<{signatureOrderId: string}>();
+  const params = match.params;
   const data = useLazyLoadQuery<SignatureOrderScreenQuery>(Query, {
     id: params.signatureOrderId
   }, {
@@ -208,6 +214,12 @@ export default function SignatureOrdersScreen() {
 
                 {setting === 'expiresAt' ? (
                   <ExtendSignatureOrderButton signatureOrder={data.signatureOrder!} />
+                ) : null}
+                {setting === 'webhook.url' ? (
+                  <React.Fragment>
+                    <br />
+                    <Link to={`${match.url}/webhook-logs`}>Logs</Link>
+                  </React.Fragment>
                 ) : null}
               </td>
             </tr>

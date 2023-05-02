@@ -4,12 +4,12 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
-export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "%future added value";
+export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CloseSignatureOrderInput = {
-    signatureOrderId: string;
     retainDocumentsForDays?: number | null;
+    signatureOrderId: string;
 };
 export type CloseSignatureOrderButtonMutationVariables = {
     input: CloseSignatureOrderInput;
@@ -84,6 +84,7 @@ mutation CloseSignatureOrderButtonMutation(
         }
         evidenceProviders {
           __typename
+          id
         }
       }
       id
@@ -176,18 +177,6 @@ v11 = {
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
-},
-v12 = {
-  "alias": null,
-  "args": null,
-  "concreteType": null,
-  "kind": "LinkedField",
-  "name": "evidenceProviders",
-  "plural": true,
-  "selections": [
-    (v11/*: any*/)
-  ],
-  "storageKey": null
 };
 return {
   "fragment": {
@@ -276,7 +265,18 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v12/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "evidenceProviders",
+                    "plural": true,
+                    "selections": [
+                      (v11/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               }
@@ -379,7 +379,19 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v12/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "evidenceProviders",
+                    "plural": true,
+                    "selections": [
+                      (v11/*: any*/),
+                      (v4/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               },
@@ -393,12 +405,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "75afdd94d2452785450c6bf128853164",
+    "cacheID": "049079a4bcecba80ea75794dd9875245",
     "id": null,
     "metadata": {},
     "name": "CloseSignatureOrderButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation CloseSignatureOrderButtonMutation(\n  $input: CloseSignatureOrderInput!\n) {\n  closeSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      documents {\n        __typename\n        blob\n        id\n      }\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "mutation CloseSignatureOrderButtonMutation(\n  $input: CloseSignatureOrderInput!\n) {\n  closeSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      documents {\n        __typename\n        blob\n        id\n      }\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

@@ -15,6 +15,7 @@
     "bootstrap": "^5.1.0",
     "graphql": "^15.5.1",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.2",
     "react-dom": "^17.0.2",
@@ -28,8 +29,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "schema": "curl -s https://signatures-api-test.criipto.com/v1/graphql > schema.json",
-    "schema:local": "curl -s http://localhost:7071/v1/graphql > schema.json",
+    "schema": "curl -s https://signatures-api-test.criipto.com/v1/graphql > src/schema.json && npx graphql-json-to-sdl ./src/schema.json ./src/schema.graphql",
+    "schema:local": "curl -s http://localhost:7071/v1/graphql > src/schema.json && npx graphql-json-to-sdl ./src/schema.json ./src/schema.graphql",
     "relay": "relay-compiler",
     "start": "react-scripts start",
     "build": "react-scripts build && cp netlify/_redirects build/_redirects",

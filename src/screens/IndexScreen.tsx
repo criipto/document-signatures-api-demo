@@ -8,6 +8,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import CreateSignatureOrderScreen from './CreateSignatureOrderScreen';
 import SignatureOrdersScreen from './SignatureOrdersScreen';
 import SignatureOrderScreen from './SignatureOrderScreen';
+import SignatureOrdersWebhookLogsScreen from './SignatureOrdersWebhookLogsScreen';
 
 export default function IndexScreen() {
   const data = useLazyLoadQuery<IndexScreenQuery>(
@@ -42,6 +43,9 @@ export default function IndexScreen() {
     <Switch>
       <Route path="/signatureorders/create">
         <CreateSignatureOrderScreen  />
+      </Route>
+      <Route path="/signatureorders/:signatureOrderId/webhook-logs">
+        <SignatureOrdersWebhookLogsScreen />
       </Route>
       <Route path="/signatureorders/:signatureOrderId">
         <SignatureOrderScreen  />
