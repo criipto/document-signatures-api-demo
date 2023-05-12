@@ -487,6 +487,7 @@ type Mutation {
 
   """Used by Signatory frontends to reject a signature order in full."""
   rejectSignatureOrder(input: RejectSignatureOrderInput!): RejectSignatureOrderOutput
+  retrySignatureOrderWebhook(input: RetrySignatureOrderWebhookInput!): RetrySignatureOrderWebhookOutput
 
   """
   Used by Signatory frontends to sign the documents in a signature order.
@@ -616,6 +617,15 @@ input RejectSignatureOrderInput {
 
 type RejectSignatureOrderOutput {
   viewer: Viewer!
+}
+
+input RetrySignatureOrderWebhookInput {
+  retryPayload: String!
+  signatureOrderId: ID!
+}
+
+type RetrySignatureOrderWebhookOutput {
+  invocation: WebhookInvocation!
 }
 
 input SignActingAsInput {
@@ -949,27 +959,35 @@ interface Viewer {
 }
 
 type WebhookExceptionInvocation implements WebhookInvocation {
+  correlationId: String!
   event: WebhookInvocationEvent
   exception: String!
   requestBody: String!
   responseBody: String!
+  retryPayload: String!
+  signatureOrderId: String
   timestamp: String!
   url: String!
 }
 
 type WebhookHttpErrorInvocation implements WebhookInvocation {
+  correlationId: String!
   event: WebhookInvocationEvent
   requestBody: String!
   responseBody: String!
   responseStatusCode: Int!
+  retryPayload: String!
+  signatureOrderId: String
   timestamp: String!
   url: String!
 }
 
 interface WebhookInvocation {
+  correlationId: String!
   event: WebhookInvocationEvent
   requestBody: String!
   responseBody: String!
+  signatureOrderId: String
   timestamp: String!
   url: String!
 }
@@ -985,19 +1003,24 @@ enum WebhookInvocationEvent {
 }
 
 type WebhookSuccessfulInvocation implements WebhookInvocation {
+  correlationId: String!
   event: WebhookInvocationEvent
   requestBody: String!
   responseBody: String!
   responseStatusCode: Int!
+  signatureOrderId: String
   timestamp: String!
   url: String!
 }
 
 type WebhookTimeoutInvocation implements WebhookInvocation {
+  correlationId: String!
   event: WebhookInvocationEvent
   requestBody: String!
   responseBody: String!
   responseTimeout: Int!
+  retryPayload: String!
+  signatureOrderId: String
   timestamp: String!
   url: String!
 }

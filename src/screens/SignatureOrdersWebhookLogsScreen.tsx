@@ -1,11 +1,14 @@
 import { Link, useRouteMatch } from "react-router-dom";
 import moment from "moment";
 import graphql from 'babel-plugin-relay/macro';
-import { usePreloadedQuery, useQueryLoader } from "react-relay";
-import React, { useEffect, useState } from "react";
+import { PreloadedQuery, useFragment, usePreloadedQuery, useQueryLoader } from "react-relay";
+import React, { useEffect, useReducer, useState } from "react";
 import { SignatureOrdersWebhookLogsScreenQuery, WebhookInvocationEvent } from "./__generated__/SignatureOrdersWebhookLogsScreenQuery.graphql";
 
 import schema from '../schema.json';
+import { SignatureOrdersWebhookLogsScreen_invocation$key } from "./__generated__/SignatureOrdersWebhookLogsScreen_invocation.graphql";
+import useMutationExtra from "../hooks/useMutation";
+import { SignatureOrdersWebhookLogsScreen_retry_Mutation } from "./__generated__/SignatureOrdersWebhookLogsScreen_retry_Mutation.graphql";
 
 const EVENTS = schema.data.__schema.types.find(s => s.name === 'WebhookInvocationEvent')?.enumValues?.map(s => s.name) ?? [];
 const Query = graphql`
@@ -15,24 +18,9 @@ const Query = graphql`
         url
 
         logs(from: $from, to: $to, succeeded: $succeeded) {
-          timestamp
-          url
-          responseBody
           event
-
-          ... on WebhookSuccessfulInvocation {
-            responseStatusCode
-          }
-          ... on WebhookHttpErrorInvocation {
-            responseStatusCode
-          }
-
-          ... on WebhookExceptionInvocation {
-            exception
-          }
-          ... on WebhookTimeoutInvocation {
-            responseTimeout
-          }
+          timestamp
+          ...SignatureOrdersWebhookLogsScreen_invocation
         }
       }
     }
@@ -51,7 +39,7 @@ export default function SignatureOrdersWebhookLogsScreen() {
     if (key === 'to') setTo(new Date(event.target.value));
   }
 
-  const [queryReference, loadQuery] = useQueryLoader(Query, null);
+  const [queryReference, loadQuery] = useQueryLoader<SignatureOrdersWebhookLogsScreenQuery>(Query, null);
   useEffect(() => {
     loadQuery({
       id: match.params.signatureOrderId,
@@ -104,49 +92,164 @@ export default function SignatureOrdersWebhookLogsScreen() {
   )
 }
 
-function Logs(props: {queryReference: any, event: WebhookInvocationEvent | null}) {
+function Logs(props: {queryReference: PreloadedQuery<SignatureOrdersWebhookLogsScreenQuery>, event: WebhookInvocationEvent | null}) {
   const data = usePreloadedQuery<SignatureOrdersWebhookLogsScreenQuery>(Query, props.queryReference);
   
   return (
-    <table className="table">
+    <table className="table" style={{tableLayout: 'fixed'}}>
       <thead>
         <tr>
-          <th></th>
-          <th>Timestamp</th>
-          <th>Event</th>
-          <th>URL</th>
+          <th style={{width: '50px'}}></th>
+          <th style={{width: '25%'}}>Timestamp</th>
+          <th style={{width: '25%'}}>Event</th>
+          <th style={{width: '50%'}}>URL</th>
+          <th style={{width: '50px'}}></th>
         </tr>
       </thead>
       <tbody>
         {data.signatureOrder?.webhook?.logs.filter(e => !props.event || e.event === props.event).map(e => (
-          <React.Fragment>
-            <tr key={e.event+e.timestamp}>
-              <td>
-                {e.responseTimeout ? (
-                  <span className="badge bg-danger">Timeout</span>
-                ) : e.exception ? (
-                  <span className="badge bg-danger">Error</span>
-                ) : (e.responseStatusCode ?? 0) >= 400 ? (
-                  <span className="badge bg-danger">{e.responseStatusCode}</span>
-                ) : (e.responseStatusCode ?? 0) >= 300 ? (
-                  <span className="badge bg-warning">{e.responseStatusCode}</span>
-                ) : (e.responseStatusCode ?? 0) >= 200 ? (
-                  <span className="badge bg-success">{e.responseStatusCode}</span>
-                ) : null}
-              </td>
-              <td>
-                {e.timestamp}
-              </td>
-              <td>
-                {e.event}
-              </td>
-              <td>
-                {e.url}
-              </td>
-            </tr>
-          </React.Fragment>
+          <LogEntry
+            key={e.event+e.timestamp}
+            invocation={e}
+            variables={{
+              from: props.queryReference.variables.from,
+              to: props.queryReference.variables.to,
+              succeeded: props.queryReference.variables.succeeded,
+            }}
+          />
         ))}
       </tbody>
     </table>
   );
+}
+
+function LogEntry(props: {
+  invocation: SignatureOrdersWebhookLogsScreen_invocation$key,
+  variables: Omit<SignatureOrdersWebhookLogsScreenQuery["variables"], "id">
+}) {
+  const invocation = useFragment(
+    graphql`
+      fragment SignatureOrdersWebhookLogsScreen_invocation on WebhookInvocation {
+        timestamp
+        url
+        requestBody
+        responseBody
+        event
+        correlationId
+        signatureOrderId
+
+        ... on WebhookSuccessfulInvocation {
+          responseStatusCode
+        }
+        ... on WebhookHttpErrorInvocation {
+          responseStatusCode
+          retryPayload
+        }
+
+        ... on WebhookExceptionInvocation {
+          exception
+          retryPayload
+        }
+        ... on WebhookTimeoutInvocation {
+          responseTimeout
+          retryPayload
+        }
+      }
+    `,
+    props.invocation
+  );
+
+  const [executor, status] = useMutationExtra<SignatureOrdersWebhookLogsScreen_retry_Mutation>(
+    graphql`
+      mutation SignatureOrdersWebhookLogsScreen_retry_Mutation($input: RetrySignatureOrderWebhookInput!) {
+        retrySignatureOrderWebhook(input: $input) {
+          invocation {
+            signatureOrderId
+            ...SignatureOrdersWebhookLogsScreen_invocation
+          }
+        }
+      }
+    `,
+    {
+      updater: (store, data) => {
+        const invocation = store.getRootField('retrySignatureOrderWebhook').getLinkedRecord('invocation');
+        const signatureOrderId = invocation.getValue('signatureOrderId');
+        if (!signatureOrderId) return;
+        const existing = store.get(signatureOrderId)?.getLinkedRecord('webhook')?.getLinkedRecords('logs', props.variables);
+        const logs = [invocation as any].concat(existing ?? []);
+        store.get(signatureOrderId)?.getLinkedRecord('webhook')?.setLinkedRecords(logs, 'logs', props.variables);
+      }
+    }
+  );
+
+  const handleRetry = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (!invocation.signatureOrderId || !invocation.retryPayload) return;
+    executor.execute({
+      input: {
+        signatureOrderId: invocation.signatureOrderId,
+        retryPayload: invocation.retryPayload
+      }
+    });
+  };
+
+  const [showDetails, toggleDetails] = useReducer(value => !value, false);
+
+  return (
+    <React.Fragment>
+      <tr key={invocation.event+invocation.timestamp} onClick={toggleDetails} style={{cursor: 'pointer'}}>
+        <td>
+          {invocation.responseTimeout ? (
+            <span className="badge bg-danger">Timeout</span>
+          ) : invocation.exception ? (
+            <span className="badge bg-danger">Error</span>
+          ) : (invocation.responseStatusCode ?? 0) >= 400 ? (
+            <span className="badge bg-danger">{invocation.responseStatusCode}</span>
+          ) : (invocation.responseStatusCode ?? 0) >= 300 ? (
+            <span className="badge bg-warning">{invocation.responseStatusCode}</span>
+          ) : (invocation.responseStatusCode ?? 0) >= 200 ? (
+            <span className="badge bg-success">{invocation.responseStatusCode}</span>
+          ) : null}
+        </td>
+        <td>
+          {invocation.timestamp}
+        </td>
+        <td style={{textOverflow: 'ellipsis', overflow: 'hidden'}}>
+          {invocation.event}
+        </td>
+        <td>
+          {invocation.url}
+        </td>
+        <td>
+          {invocation.signatureOrderId && invocation.retryPayload && (
+            <button className="btn btn-secondary btn-sm" disabled={status.pending} onClick={handleRetry}>
+              Retry
+            </button>
+          )}
+        </td>
+      </tr>
+      {showDetails && (
+        <tr>
+          <td colSpan={3}>
+            <strong>Request</strong><br />
+            <pre style={{overflowX: 'auto'}}><code>{tryParseJSON(invocation.requestBody) ? JSON.stringify(JSON.parse(invocation.requestBody), null, 2) : invocation.requestBody}</code></pre>
+          </td>
+          <td colSpan={2}>
+            <strong>Response</strong><br />
+            {invocation.responseStatusCode}{invocation.responseTimeout}
+            <pre style={{overflowX: 'auto'}}><code>{invocation.responseBody ?? invocation.exception ?? 'Response timed out'}</code></pre>
+          </td>
+        </tr>
+      )}
+    </React.Fragment>
+  )
+}
+
+function tryParseJSON(input: string) {
+  try {
+    return JSON.parse(input);
+  }
+  catch {
+    return null;
+  }
 }
