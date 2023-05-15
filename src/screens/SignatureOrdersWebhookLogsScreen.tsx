@@ -144,15 +144,18 @@ function LogEntry(props: {
         ... on WebhookHttpErrorInvocation {
           responseStatusCode
           retryPayload
+          retryingAt
         }
 
         ... on WebhookExceptionInvocation {
           exception
           retryPayload
+          retryingAt
         }
         ... on WebhookTimeoutInvocation {
           responseTimeout
           retryPayload
+          retryingAt
         }
       }
     `,
@@ -236,7 +239,8 @@ function LogEntry(props: {
           </td>
           <td colSpan={2}>
             <strong>Response</strong><br />
-            {invocation.responseStatusCode}{invocation.responseTimeout}
+            {invocation.responseStatusCode}{invocation.responseTimeout}<br />
+            {invocation.retryingAt ? (<span>Retrying at: {invocation.retryingAt}<br /></span>) : null}
             <pre style={{overflowX: 'auto'}}><code>{invocation.responseBody ?? invocation.exception ?? 'Response timed out'}</code></pre>
           </td>
         </tr>

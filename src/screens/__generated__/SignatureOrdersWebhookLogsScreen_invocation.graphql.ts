@@ -16,6 +16,7 @@ export type SignatureOrdersWebhookLogsScreen_invocation = {
     readonly signatureOrderId: string | null;
     readonly responseStatusCode?: number;
     readonly retryPayload?: string;
+    readonly retryingAt?: string | null;
     readonly exception?: string;
     readonly responseTimeout?: number;
     readonly " $refType": "SignatureOrdersWebhookLogsScreen_invocation";
@@ -41,6 +42,13 @@ v1 = {
   "args": null,
   "kind": "ScalarField",
   "name": "retryPayload",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "retryingAt",
   "storageKey": null
 };
 return {
@@ -110,7 +118,8 @@ return {
       "kind": "InlineFragment",
       "selections": [
         (v0/*: any*/),
-        (v1/*: any*/)
+        (v1/*: any*/),
+        (v2/*: any*/)
       ],
       "type": "WebhookHttpErrorInvocation",
       "abstractKey": null
@@ -125,7 +134,8 @@ return {
           "name": "exception",
           "storageKey": null
         },
-        (v1/*: any*/)
+        (v1/*: any*/),
+        (v2/*: any*/)
       ],
       "type": "WebhookExceptionInvocation",
       "abstractKey": null
@@ -140,7 +150,8 @@ return {
           "name": "responseTimeout",
           "storageKey": null
         },
-        (v1/*: any*/)
+        (v1/*: any*/),
+        (v2/*: any*/)
       ],
       "type": "WebhookTimeoutInvocation",
       "abstractKey": null
@@ -150,5 +161,5 @@ return {
   "abstractKey": "__isWebhookInvocation"
 };
 })();
-(node as any).hash = 'aabd05799e313192df02c8658388249b';
+(node as any).hash = '069874750dbf720a034ddd764e4ecad6';
 export default node;
