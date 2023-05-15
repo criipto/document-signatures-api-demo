@@ -963,7 +963,8 @@ type WebhookExceptionInvocation implements WebhookInvocation {
   event: WebhookInvocationEvent
   exception: String!
   requestBody: String!
-  responseBody: String!
+  responseBody: String
+  retryingAt: String
   retryPayload: String!
   signatureOrderId: String
   timestamp: String!
@@ -974,8 +975,9 @@ type WebhookHttpErrorInvocation implements WebhookInvocation {
   correlationId: String!
   event: WebhookInvocationEvent
   requestBody: String!
-  responseBody: String!
+  responseBody: String
   responseStatusCode: Int!
+  retryingAt: String
   retryPayload: String!
   signatureOrderId: String
   timestamp: String!
@@ -986,7 +988,7 @@ interface WebhookInvocation {
   correlationId: String!
   event: WebhookInvocationEvent
   requestBody: String!
-  responseBody: String!
+  responseBody: String
   signatureOrderId: String
   timestamp: String!
   url: String!
@@ -1006,7 +1008,7 @@ type WebhookSuccessfulInvocation implements WebhookInvocation {
   correlationId: String!
   event: WebhookInvocationEvent
   requestBody: String!
-  responseBody: String!
+  responseBody: String
   responseStatusCode: Int!
   signatureOrderId: String
   timestamp: String!
@@ -1017,8 +1019,9 @@ type WebhookTimeoutInvocation implements WebhookInvocation {
   correlationId: String!
   event: WebhookInvocationEvent
   requestBody: String!
-  responseBody: String!
+  responseBody: String
   responseTimeout: Int!
+  retryingAt: String
   retryPayload: String!
   signatureOrderId: String
   timestamp: String!

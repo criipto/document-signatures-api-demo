@@ -10,7 +10,7 @@ export type SignatureOrdersWebhookLogsScreen_invocation = {
     readonly timestamp: string;
     readonly url: string;
     readonly requestBody: string;
-    readonly responseBody: string;
+    readonly responseBody: string | null;
     readonly event: WebhookInvocationEvent | null;
     readonly correlationId: string;
     readonly signatureOrderId: string | null;
