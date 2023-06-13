@@ -333,6 +333,13 @@ interface Document {
   title: String!
 }
 
+enum DocumentIDLocation {
+  LEFT
+  TOP
+  RIGHT
+  BOTTOM
+}
+
 input DocumentInput {
   pdf: PadesDocumentInput!
 
@@ -547,6 +554,11 @@ type OidcJWTSignatureEvidenceProvider implements SignatureEvidenceProvider {
 
 input PadesDocumentInput {
   blob: Blob!
+
+  """
+  Will add a unique identifier for the document to the specified margin of each page. Useful when printing signed documents.
+  """
+  displayDocumentID: DocumentIDLocation
 
   """
   Will not be displayed to signatories, can be used as a reference to your own system.

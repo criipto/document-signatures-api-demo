@@ -4,6 +4,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
+export type DocumentIDLocation = "BOTTOM" | "LEFT" | "RIGHT" | "TOP" | "%future added value";
 export type DocumentStorageMode = "Temporary" | "%future added value";
 export type EvidenceValidationStage = "SIGN" | "VIEW" | "%future added value";
 export type Language = "DA_DK" | "EN_US" | "NB_NO" | "SV_SE" | "%future added value";
@@ -29,6 +30,7 @@ export type DocumentInput = {
 };
 export type PadesDocumentInput = {
     blob: string;
+    displayDocumentID?: DocumentIDLocation | null;
     reference?: string | null;
     storageMode: DocumentStorageMode;
     title: string;

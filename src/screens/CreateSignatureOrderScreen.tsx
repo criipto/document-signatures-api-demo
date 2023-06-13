@@ -118,7 +118,7 @@ export default function CreateSignatureOrderScreen() {
       });
     })
   };
-  const handleChangePdfDocument = (document : LocalDocumentInput, key : string, value : string) => {
+  const handleChangePdfDocument = (document : LocalDocumentInput, key : string, value : string | null) => {
     setDocuments(documents => {
       return documents.map(search => {
         if (search === document) {
@@ -528,6 +528,7 @@ export default function CreateSignatureOrderScreen() {
                 />
                 <label className="form-label">Document title</label>
               </div>
+              
               <div className="form-check mb-2">
                 <input
                   className="form-check-input"
@@ -539,6 +540,23 @@ export default function CreateSignatureOrderScreen() {
                   Remove previous signatures
                 </label>
               </div>
+
+              <div className="mb-3 form-floating">
+                <select
+                  className="form-control"
+                  onChange={(event) => handleChangePdfDocument(document, 'displayDocumentID', (event.target.value?.length ? event.target.value : null))}
+                  value={document.pdf.displayDocumentID ?? ""}
+                  placeholder="Display Document ID"
+                >
+                  <option value="">No</option>
+                  <option value="LEFT">LEFT</option>
+                  <option value="TOP">TOP</option>
+                  <option value="RIGHT">RIGHT</option>
+                  <option value="BOTTOM">BOTTOM</option>
+                </select>
+                <label className="form-label">Display Document ID</label>
+              </div>
+              
               <button type="button" className="btn btn-secondary btn-small" onClick={() => handleRemoveDocument(document)}>Remove</button>
             </div>
           ))}
