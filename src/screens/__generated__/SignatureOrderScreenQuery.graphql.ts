@@ -84,6 +84,7 @@ export type SignatureOrderScreenQueryResponse = {
             readonly __typename: "%other";
         }>;
         readonly documents: ReadonlyArray<{
+            readonly __typename: string;
             readonly id: string;
             readonly title: string;
             readonly blob: string | null;
@@ -818,6 +819,7 @@ return {
             "name": "documents",
             "plural": true,
             "selections": [
+              (v16/*: any*/),
               (v2/*: any*/),
               (v4/*: any*/),
               (v25/*: any*/),

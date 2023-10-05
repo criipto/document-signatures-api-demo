@@ -6,6 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SignatureOrderScreenDocument = {
+    readonly __typename: string;
     readonly id: string;
     readonly title: string;
     readonly blob: string | null;
@@ -32,6 +33,13 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 };
@@ -42,6 +50,7 @@ return {
   "name": "SignatureOrderScreenDocument",
   "selections": [
     (v0/*: any*/),
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -64,13 +73,7 @@ return {
       "name": "signatures",
       "plural": true,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "__typename",
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -79,7 +82,7 @@ return {
           "name": "signatory",
           "plural": false,
           "selections": [
-            (v0/*: any*/),
+            (v1/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -105,5 +108,5 @@ return {
   "abstractKey": "__isDocument"
 };
 })();
-(node as any).hash = 'a3c982fbbc00a43e4311a701d5ab56a4';
+(node as any).hash = 'c57d157cb8767655d642cae4044aef5d';
 export default node;
