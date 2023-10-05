@@ -868,7 +868,9 @@ input SignatureOrderUILogoInput {
   """Turns your logo into a link with the defined href."""
   href: String
 
-  """The image source for the logo. Must be an absolute HTTPS URL."""
+  """
+  The image source for the logo. Must be an absolute HTTPS URL or a valid data: url
+  """
   src: String!
 }
 
