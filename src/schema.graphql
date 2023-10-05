@@ -341,12 +341,15 @@ enum DocumentIDLocation {
 }
 
 input DocumentInput {
-  pdf: PadesDocumentInput!
+  pdf: PadesDocumentInput
 
   """
-  When enabled, will remove any existing signatures from the document before storing.
+  When enabled, will remove any existing signatures from the document before storing. (PDF only)
   """
   removePreviousSignatures: Boolean
+
+  """XML signing is coming soon, reach out to learn more."""
+  xml: XadesDocumentInput
 }
 
 """
@@ -868,7 +871,9 @@ input SignatureOrderUILogoInput {
   """Turns your logo into a link with the defined href."""
   href: String
 
-  """The image source for the logo. Must be an absolute HTTPS URL."""
+  """
+  The image source for the logo. Must be an absolute HTTPS URL or a valid data: url
+  """
   src: String!
 }
 
@@ -1038,4 +1043,24 @@ type WebhookTimeoutInvocation implements WebhookInvocation {
   signatureOrderId: String
   timestamp: String!
   url: String!
+}
+
+input XadesDocumentInput {
+  blob: Blob!
+
+  """
+  Will not be displayed to signatories, can be used as a reference to your own system.
+  """
+  reference: String
+  storageMode: DocumentStorageMode!
+  title: String!
+}
+
+type XmlDocument implements Document {
+  blob: Blob
+  id: ID!
+  reference: String
+  signatoryViewerStatus: SignatoryDocumentStatus
+  signatures: [Signature!]
+  title: String!
 }

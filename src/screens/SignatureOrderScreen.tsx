@@ -53,6 +53,7 @@ graphql`
 
 graphql`
   fragment SignatureOrderScreenDocument on Document {
+    __typename
     id
     title
     blob
@@ -239,7 +240,7 @@ export default function SignatureOrdersScreen() {
         <tbody>
           {data.signatureOrder.documents.map((document, index) => (
             <tr key={document.id}>
-              <th scope="row" >#{index + 1}</th>
+              <th scope="row" >#{index + 1} ({document.__typename === 'XmlDocument' ? 'XML' : 'PDF'})</th>
               <td>{document.title}</td>
               <td>
                 <ul>
@@ -253,7 +254,7 @@ export default function SignatureOrdersScreen() {
               </td>
               <td>
                 {document.blob && (
-                  <a href={URL.createObjectURL(base64ToBlob(document.blob))} target="_blank" rel="noreferrer">Download</a>
+                  <a href={URL.createObjectURL(base64ToBlob(document.blob, document.__typename === 'XmlDocument' ? 'text/xml' : 'application/pdf'))} target="_blank" rel="noreferrer">Download</a>
                 )}
               </td>
             </tr>
