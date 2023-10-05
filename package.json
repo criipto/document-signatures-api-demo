@@ -29,8 +29,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "schema": "curl -s https://signatures-api-test.criipto.com/v1/schema > src/schema.graphql",
-    "schema:local": "curl -s http://localhost:7071/v1/schema > src/schema.graphql",
+    "schema": "curl -s https://signatures-api-test.criipto.com/v1/graphql > src/schema.json && npx graphql-json-to-sdl ./src/schema.json ./src/schema.graphql",
+    "schema:local": "curl -s http://localhost:7071/v1/graphql > src/schema.json && npx graphql-json-to-sdl ./src/schema.json ./src/schema.graphql",
     "relay": "relay-compiler",
     "start": "react-scripts start",
     "build": "react-scripts build && cp netlify/_redirects build/_redirects",

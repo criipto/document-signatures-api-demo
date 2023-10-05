@@ -25,12 +25,19 @@ export type CreateSignatureOrderInput = {
     webhook?: CreateSignatureOrderWebhookInput | null;
 };
 export type DocumentInput = {
-    pdf: PadesDocumentInput;
+    pdf?: PadesDocumentInput | null;
     removePreviousSignatures?: boolean | null;
+    xml?: XadesDocumentInput | null;
 };
 export type PadesDocumentInput = {
     blob: string;
     displayDocumentID?: DocumentIDLocation | null;
+    reference?: string | null;
+    storageMode: DocumentStorageMode;
+    title: string;
+};
+export type XadesDocumentInput = {
+    blob: string;
     reference?: string | null;
     storageMode: DocumentStorageMode;
     title: string;
