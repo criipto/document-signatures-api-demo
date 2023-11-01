@@ -45,7 +45,7 @@ export default function CreateSignatureOrderScreen() {
   const [timezone, setTimezone] = useState('UTC');
   const [documents, setDocuments] = useState<LocalDocumentInput[]>([]);
   const [ui, setUI] = useState<CreateSignatureOrderUIInput>({});
-  const [signatureAppearance, setSignatureAppearance] = useState<SignatureAppearanceInput>({identifierFromEvidence: [], displayName: null});
+  const [signatureAppearance, setSignatureAppearance] = useState<SignatureAppearanceInput>({identifierFromEvidence: [], displayName: null, headerLeft: null});
   const [webhook, setWebhook] = useState<CreateSignatureOrderWebhookInput>({
     url: '',
     validateConnectivity: false
@@ -208,6 +208,10 @@ export default function CreateSignatureOrderScreen() {
       return;
     }
     if (key === 'displayName') {
+      setSignatureAppearance(a => a);
+      return;
+    }
+    if (key === 'headerLeft') {
       setSignatureAppearance(a => a);
       return;
     }

@@ -98,6 +98,7 @@ export type SignatoryEvidenceValidationInput = {
 };
 export type SignatureAppearanceInput = {
     displayName?: Array<SignatureAppearanceTemplateInput> | null;
+    headerLeft?: Array<SignatureAppearanceTemplateInput> | null;
     identifierFromEvidence: Array<string>;
 };
 export type SignatureAppearanceTemplateInput = {

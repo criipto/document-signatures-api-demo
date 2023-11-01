@@ -327,6 +327,7 @@ type DeleteSignatoryOutput {
 interface Document {
   blob: Blob
   id: ID!
+  originalBlob: Blob
   reference: String
   signatoryViewerStatus: SignatoryDocumentStatus
   signatures: [Signature!]
@@ -589,6 +590,7 @@ type PageInfo {
 type PdfDocument implements Document {
   blob: Blob
   id: ID!
+  originalBlob: Blob
   reference: String
   signatoryViewerStatus: SignatoryDocumentStatus
   signatures: [Signature!]
@@ -772,6 +774,7 @@ interface Signature {
 
 input SignatureAppearanceInput {
   displayName: [SignatureAppearanceTemplateInput!]
+  headerLeft: [SignatureAppearanceTemplateInput!]
 
   """
   Render evidence claim as identifier in the signature appearance inside the
@@ -1059,6 +1062,7 @@ input XadesDocumentInput {
 type XmlDocument implements Document {
   blob: Blob
   id: ID!
+  originalBlob: Blob
   reference: String
   signatoryViewerStatus: SignatoryDocumentStatus
   signatures: [Signature!]

@@ -14,13 +14,11 @@ import 'bootstrap/scss/bootstrap.scss';
 import App from './App';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <RelayEnvironmentProvider environment={RelayEnvironment}>
-        <React.Suspense fallback={'Loading...'}><App /></React.Suspense>
-      </RelayEnvironmentProvider>
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <RelayEnvironmentProvider environment={RelayEnvironment}>
+      <React.Suspense fallback={'Loading...'}><App /></React.Suspense>
+    </RelayEnvironmentProvider>
+  </Router>,
   document.getElementById('root')
 );
 
