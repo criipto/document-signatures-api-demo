@@ -9,6 +9,7 @@ import CreateSignatureOrderScreen from './CreateSignatureOrderScreen';
 import SignatureOrdersScreen from './SignatureOrdersScreen';
 import SignatureOrderScreen from './SignatureOrderScreen';
 import SignatureOrdersWebhookLogsScreen from './SignatureOrdersWebhookLogsScreen';
+import ValidateDocumentScreen from './ValidateDocumentScreen';
 
 export default function IndexScreen() {
   const data = useLazyLoadQuery<IndexScreenQuery>(
@@ -52,6 +53,9 @@ export default function IndexScreen() {
       </Route>
       <Route path="/signatureorders">
         <SignatureOrdersScreen />
+      </Route>
+      <Route path="/validate">
+        <ValidateDocumentScreen />
       </Route>
       <Route>
         <Redirect to="/signatureorders" />

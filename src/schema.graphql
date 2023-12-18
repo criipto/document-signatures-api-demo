@@ -520,6 +520,7 @@ type Mutation {
   Used by Signatory frontends to mark documents as opened, approved or rejected.
   """
   updateSignatoryDocumentStatus(input: UpdateSignatoryDocumentStatusInput!): UpdateSignatoryDocumentStatusOutput
+  validateDocument(input: ValidateDocumentInput!): ValidateDocumentOutput
 }
 
 """TEST only. Allows empty signatures for testing."""
@@ -955,6 +956,20 @@ type UserViewer implements Viewer {
   authenticated: Boolean!
   id: ID!
   tenants: [Tenant!]!
+}
+
+input ValidateDocumentInput {
+  pdf: Blob
+  xml: Blob
+}
+
+type ValidateDocumentOutput {
+  errors: [String!]!
+
+  """
+  Whether or not the errors are fixable using 'fixDocumentFormattingErrors'
+  """
+  fixable: Boolean!
 }
 
 type VerifyApplication {
