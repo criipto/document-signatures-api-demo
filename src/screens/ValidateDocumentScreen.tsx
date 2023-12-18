@@ -11,6 +11,7 @@ export default function ValidateDocumentScreen() {
     graphql`
       mutation ValidateDocumentScreenMutation($input: ValidateDocumentInput!) {
         validateDocument(input: $input) {
+          valid
           errors
           fixable
         }

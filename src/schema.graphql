@@ -964,12 +964,13 @@ input ValidateDocumentInput {
 }
 
 type ValidateDocumentOutput {
-  errors: [String!]!
+  errors: [String!]
 
   """
   Whether or not the errors are fixable using 'fixDocumentFormattingErrors'
   """
-  fixable: Boolean!
+  fixable: Boolean
+  valid: Boolean!
 }
 
 type VerifyApplication {
