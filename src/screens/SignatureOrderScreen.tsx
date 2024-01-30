@@ -127,6 +127,11 @@ const Query = graphql`
           id
           requireName
         }
+        ... on AllOfSignatureEvidenceProvider {
+          providers {
+            __typename
+          }
+        }
       }
 
       documents {
@@ -299,7 +304,11 @@ export default function SignatureOrdersScreen() {
                   <React.Fragment>
                     Require Name: {provider.requireName ? 'true' : 'false'}<br />
                   </React.Fragment>
-                ) : null}
+                ) : provider.__typename === 'AllOfSignatureEvidenceProvider' ? (
+                  <React.Fragment>
+                    {provider.providers?.map(s => s.__typename).join(', ')}
+                  </React.Fragment>
+                )  : null}
               </td>
             </tr>
           ))}

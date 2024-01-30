@@ -42,12 +42,13 @@ type AddSignatoryOutput {
   signatureOrder: SignatureOrder!
 }
 
-type AllOfEvidenceProvider implements SignatureEvidenceProvider {
-  id: ID!
-}
-
 input AllOfEvidenceProviderInput {
   providers: [SingleEvidenceProviderInput!]!
+}
+
+type AllOfSignatureEvidenceProvider implements SignatureEvidenceProvider {
+  id: ID!
+  providers: [SingleSignatureEvidenceProvider!]!
 }
 
 type AnonymousViewer implements Viewer {
@@ -293,7 +294,7 @@ input CriiptoVerifyProviderInput {
   uniqueEvidenceKey: String
 }
 
-type CriiptoVerifySignatureEvidenceProvider implements SignatureEvidenceProvider {
+type CriiptoVerifySignatureEvidenceProvider implements SignatureEvidenceProvider & SingleSignatureEvidenceProvider {
   acrValues: [String!]!
   alwaysRedirect: Boolean!
   clientID: String!
@@ -397,7 +398,7 @@ type DrawableSignature implements Signature {
   signatory: Signatory
 }
 
-type DrawableSignatureEvidenceProvider implements SignatureEvidenceProvider {
+type DrawableSignatureEvidenceProvider implements SignatureEvidenceProvider & SingleSignatureEvidenceProvider {
   id: ID!
   requireName: Boolean!
 }
@@ -542,7 +543,7 @@ input NoopEvidenceProviderInput {
   name: String!
 }
 
-type NoopSignatureEvidenceProvider implements SignatureEvidenceProvider {
+type NoopSignatureEvidenceProvider implements SignatureEvidenceProvider & SingleSignatureEvidenceProvider {
   id: ID!
   name: String!
 }
@@ -562,7 +563,7 @@ input OidcEvidenceProviderInput {
   uniqueEvidenceKey: String
 }
 
-type OidcJWTSignatureEvidenceProvider implements SignatureEvidenceProvider {
+type OidcJWTSignatureEvidenceProvider implements SignatureEvidenceProvider & SingleSignatureEvidenceProvider {
   acrValues: [String!]!
   alwaysRedirect: Boolean!
   clientID: String!
@@ -950,6 +951,10 @@ input SingleEvidenceProviderInput {
 
   """OIDC/JWT based evidence for signatures."""
   oidc: OidcEvidenceProviderInput
+}
+
+interface SingleSignatureEvidenceProvider {
+  id: ID!
 }
 
 type Tenant {
