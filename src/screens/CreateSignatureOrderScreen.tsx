@@ -54,6 +54,7 @@ export default function CreateSignatureOrderScreen() {
   const [disableVerifyEvidenceProvider, setDisableVerifyEvidenceProvider] = useState(false);
   const [addEvidenceProviderType, setAddEvidenceProviderType] = useState<EvidenceProviderType>("oidc");
   const [evidenceProviders, setEvidenceProviders] = useState<EvidenceProviderInput[]>([]);
+  const [evidenceProviderComposition, setEvidenceProviderComposition] = useState<'any' | 'all'>('any');
   const [evidenceValidationStages, setEvidenceValidationStages] = useState<EvidenceValidationStage[]>(['SIGN']);
   const history = useHistory();
 
@@ -255,7 +256,7 @@ export default function CreateSignatureOrderScreen() {
     executor.executePromise({
       input: {
         title,
-        disableVerifyEvidenceProvider,
+        disableVerifyEvidenceProvider: evidenceProviderComposition === 'all' ? true : disableVerifyEvidenceProvider,
         maxSignatories,
         timezone,
         expiresInDays,
@@ -266,7 +267,13 @@ export default function CreateSignatureOrderScreen() {
           }
         }),
         documents,
-        evidenceProviders,
+        evidenceProviders: evidenceProviderComposition === 'all' ? [
+          {
+            allOf: {
+              providers: evidenceProviders
+            }
+          }
+        ] : evidenceProviders,
         evidenceValidationStages,
         ui: {
           ...ui,
@@ -642,6 +649,13 @@ export default function CreateSignatureOrderScreen() {
         <label className="form-check-label" htmlFor="disableVerifyEvidenceProvider" >
           Include Criipto Verify as an evidence provider
         </label>
+      </div>
+      <div className="mb-3">
+        <label>Composition:&nbsp;</label>
+        <select className="form-control" style={{width: '250px', display: 'inline-block'}}  value={evidenceProviderComposition} onChange={event => setEvidenceProviderComposition(event.target.value as any)}>
+          <option value="any">Any</option>
+          <option value="all">All</option>
+        </select>
       </div>
       {evidenceProviders.length ? (
         <div className="row">

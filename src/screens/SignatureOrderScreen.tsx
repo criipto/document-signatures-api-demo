@@ -104,6 +104,7 @@ const Query = graphql`
 
       evidenceProviders {
         __typename
+        id
         ... on OidcJWTSignatureEvidenceProvider {
           id
           name
@@ -282,14 +283,14 @@ export default function SignatureOrdersScreen() {
                   <React.Fragment>
                     Domain: {provider.domain}<br />
                     ClientID: {provider.clientID}<br />
-                    Acr values: {provider.acrValues.join(', ')}<br />
+                    Acr values: {provider.acrValues?.join(', ')}<br />
                     Always redirect: {provider.alwaysRedirect ? 'true' : 'false'}
                   </React.Fragment>
                 ) : provider.__typename === 'CriiptoVerifySignatureEvidenceProvider' ? (
                   <React.Fragment>
                     Domain: {provider.domain}<br />
                     ClientID: {provider.clientID}<br />
-                    Acr values: {provider.acrValues.join(', ')}<br />
+                    Acr values: {provider.acrValues?.join(', ')}<br />
                     Always redirect: {provider.alwaysRedirect ? 'true' : 'false'}<br />
                     Message: {provider.message}<br />
                     login_hint: {provider.loginHint}<br />

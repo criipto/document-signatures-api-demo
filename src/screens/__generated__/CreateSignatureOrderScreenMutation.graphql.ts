@@ -43,9 +43,19 @@ export type XadesDocumentInput = {
     title: string;
 };
 export type EvidenceProviderInput = {
+    allOf?: AllOfEvidenceProviderInput | null;
     criiptoVerify?: CriiptoVerifyProviderInput | null;
     drawable?: DrawableEvidenceProviderInput | null;
     enabledByDefault?: boolean | null;
+    noop?: NoopEvidenceProviderInput | null;
+    oidc?: OidcEvidenceProviderInput | null;
+};
+export type AllOfEvidenceProviderInput = {
+    providers: Array<SingleEvidenceProviderInput>;
+};
+export type SingleEvidenceProviderInput = {
+    criiptoVerify?: CriiptoVerifyProviderInput | null;
+    drawable?: DrawableEvidenceProviderInput | null;
     noop?: NoopEvidenceProviderInput | null;
     oidc?: OidcEvidenceProviderInput | null;
 };

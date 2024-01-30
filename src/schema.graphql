@@ -42,6 +42,14 @@ type AddSignatoryOutput {
   signatureOrder: SignatureOrder!
 }
 
+type AllOfEvidenceProvider implements SignatureEvidenceProvider {
+  id: ID!
+}
+
+input AllOfEvidenceProviderInput {
+  providers: [SingleEvidenceProviderInput!]!
+}
+
 type AnonymousViewer implements Viewer {
   authenticated: Boolean!
   id: ID!
@@ -130,6 +138,10 @@ input CloseSignatureOrderInput {
 
 type CloseSignatureOrderOutput {
   signatureOrder: SignatureOrder!
+}
+
+type CompositeSignature implements Signature {
+  signatory: Signatory
 }
 
 input CreateApplicationApiKeyInput {
@@ -394,8 +406,10 @@ type EmptySignature implements Signature {
   signatory: Signatory
 }
 
-"""Must define either oidc or noop subsection."""
+"""Must define a evidence provider subsection."""
 input EvidenceProviderInput {
+  allOf: AllOfEvidenceProviderInput
+
   """Criipto Verify based evidence for signatures."""
   criiptoVerify: CriiptoVerifyProviderInput
 
@@ -656,6 +670,13 @@ type SignActingAsOutput {
   signatureOrder: SignatureOrder!
 }
 
+input SignAllOfInput {
+  criiptoVerify: SignCriiptoVerifyInput
+  drawable: SignDrawableInput
+  noop: Boolean
+  oidc: SignOidcInput
+}
+
 type Signatory {
   documents: SignatoryDocumentConnection!
 
@@ -896,6 +917,7 @@ input SignDrawableInput {
 }
 
 input SignInput {
+  allOf: SignAllOfInput
   criiptoVerify: SignCriiptoVerifyInput
   drawable: SignDrawableInput
 
@@ -911,6 +933,23 @@ input SignOidcInput {
 
 type SignOutput {
   viewer: Viewer!
+}
+
+"""Must define a evidence provider subsection."""
+input SingleEvidenceProviderInput {
+  """Criipto Verify based evidence for signatures."""
+  criiptoVerify: CriiptoVerifyProviderInput
+
+  """Hand drawn signature evidence for signatures."""
+  drawable: DrawableEvidenceProviderInput
+
+  """
+  TEST environment only. Does not manipulate the PDF, use for integration or webhook testing.
+  """
+  noop: NoopEvidenceProviderInput
+
+  """OIDC/JWT based evidence for signatures."""
+  oidc: OidcEvidenceProviderInput
 }
 
 type Tenant {

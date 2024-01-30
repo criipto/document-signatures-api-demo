@@ -13,28 +13,14 @@ export type SignatoryModal_signatory = {
     readonly reference: string | null;
     readonly role: string | null;
     readonly evidenceProviders: ReadonlyArray<{
-        readonly __typename: "OidcJWTSignatureEvidenceProvider";
+        readonly __typename: string;
         readonly id: string;
-        readonly name: string;
-        readonly domain: string;
-        readonly clientID: string;
-        readonly acrValues: ReadonlyArray<string>;
-    } | {
-        readonly __typename: "CriiptoVerifySignatureEvidenceProvider";
-        readonly id: string;
-        readonly name: string;
-        readonly domain: string;
-        readonly clientID: string;
-        readonly acrValues: ReadonlyArray<string>;
-        readonly message: string | null;
-    } | {
-        readonly __typename: "DrawableSignatureEvidenceProvider";
-        readonly id: string;
-        readonly requireName: boolean;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
+        readonly name?: string;
+        readonly domain?: string;
+        readonly clientID?: string;
+        readonly acrValues?: ReadonlyArray<string>;
+        readonly message?: string | null;
+        readonly requireName?: boolean;
     }>;
     readonly documents: {
         readonly edges: ReadonlyArray<{
@@ -134,10 +120,10 @@ return {
           "name": "__typename",
           "storageKey": null
         },
+        (v0/*: any*/),
         {
           "kind": "InlineFragment",
           "selections": [
-            (v0/*: any*/),
             (v2/*: any*/),
             (v3/*: any*/),
             (v4/*: any*/),
@@ -149,7 +135,6 @@ return {
         {
           "kind": "InlineFragment",
           "selections": [
-            (v0/*: any*/),
             (v2/*: any*/),
             (v3/*: any*/),
             (v4/*: any*/),
@@ -168,7 +153,6 @@ return {
         {
           "kind": "InlineFragment",
           "selections": [
-            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -223,5 +207,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '90605081c5c0f0c2a017724fb5d9bbc6';
+(node as any).hash = '88033c88822044a5a1a58656ba912986';
 export default node;

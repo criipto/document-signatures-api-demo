@@ -35,6 +35,7 @@ export default function SignatoryModal(props : Props) {
 
         evidenceProviders {
           __typename
+          id
           ... on OidcJWTSignatureEvidenceProvider {
             id
             name
@@ -71,6 +72,7 @@ export default function SignatoryModal(props : Props) {
 
         evidenceProviders {
           __typename
+          id
           ... on OidcJWTSignatureEvidenceProvider {
             id
             name

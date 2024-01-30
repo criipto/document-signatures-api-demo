@@ -12,9 +12,16 @@ export type SignActingAsInput = {
     signatoryId: string;
 };
 export type SignInput = {
+    allOf?: SignAllOfInput | null;
     criiptoVerify?: SignCriiptoVerifyInput | null;
     drawable?: SignDrawableInput | null;
     id: string;
+    noop?: boolean | null;
+    oidc?: SignOidcInput | null;
+};
+export type SignAllOfInput = {
+    criiptoVerify?: SignCriiptoVerifyInput | null;
+    drawable?: SignDrawableInput | null;
     noop?: boolean | null;
     oidc?: SignOidcInput | null;
 };

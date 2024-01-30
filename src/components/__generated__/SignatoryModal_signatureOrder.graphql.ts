@@ -13,28 +13,14 @@ export type SignatoryModal_signatureOrder = {
         readonly id: string;
     }>;
     readonly evidenceProviders: ReadonlyArray<{
-        readonly __typename: "OidcJWTSignatureEvidenceProvider";
+        readonly __typename: string;
         readonly id: string;
-        readonly name: string;
-        readonly domain: string;
-        readonly clientID: string;
-        readonly acrValues: ReadonlyArray<string>;
-    } | {
-        readonly __typename: "CriiptoVerifySignatureEvidenceProvider";
-        readonly id: string;
-        readonly name: string;
-        readonly domain: string;
-        readonly clientID: string;
-        readonly acrValues: ReadonlyArray<string>;
-        readonly message: string | null;
-    } | {
-        readonly __typename: "DrawableSignatureEvidenceProvider";
-        readonly id: string;
-        readonly requireName: boolean;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
+        readonly name?: string;
+        readonly domain?: string;
+        readonly clientID?: string;
+        readonly acrValues?: ReadonlyArray<string>;
+        readonly message?: string | null;
+        readonly requireName?: boolean;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"SignatoryDocumentInput_signatureOrder">;
     readonly " $refType": "SignatoryModal_signatureOrder";
@@ -124,10 +110,10 @@ return {
           "name": "__typename",
           "storageKey": null
         },
+        (v0/*: any*/),
         {
           "kind": "InlineFragment",
           "selections": [
-            (v0/*: any*/),
             (v1/*: any*/),
             (v2/*: any*/),
             (v3/*: any*/),
@@ -139,7 +125,6 @@ return {
         {
           "kind": "InlineFragment",
           "selections": [
-            (v0/*: any*/),
             (v1/*: any*/),
             (v2/*: any*/),
             (v3/*: any*/),
@@ -158,7 +143,6 @@ return {
         {
           "kind": "InlineFragment",
           "selections": [
-            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -183,5 +167,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'b3a872c44307559ea677872de407314e';
+(node as any).hash = '0d178f57b242cb27b57f1a7447927649';
 export default node;
