@@ -370,6 +370,35 @@ export default function CreateSignatureOrderScreen() {
     setEvidenceProviders(providers => providers.filter(search => search !== provider));
   }
 
+  const handleMoveEvidenceProvider = (provider: EvidenceProviderInput, direction: 'up' | 'down') => {
+    setEvidenceProviders(providers => {
+      const index = providers.indexOf(provider);
+      if (direction === 'up') {
+        const updatedProviders = providers.slice();
+        const from = index;
+        const to = index - 1;
+        updatedProviders.splice(
+          to, 
+          0, 
+          updatedProviders.splice(from, 1)[0]
+        );
+        return updatedProviders;
+      }
+      if (direction === 'down') {
+        const updatedProviders = providers.slice();
+        const from = index;
+        const to = index + 1;
+        updatedProviders.splice(
+          to, 
+          0, 
+          updatedProviders.splice(from, 1)[0]
+        );
+        return updatedProviders;
+      }
+      return providers;
+    });
+  }
+
   const handleEvidenceValidation = (participant: CreateSignatureOrderSignatoryInput, evidenceValidation: SignatoryEvidenceValidationInput[]) => {
     setSignatories(signatories => {
       return signatories.map(existing => {
@@ -816,8 +845,16 @@ export default function CreateSignatureOrderScreen() {
               ) : null}
 
               <div className="mt-2">
-                  <button type="button" className="btn btn-secondary btn-small" onClick={() => handleRemoveEvidenceProvider(evidenceProvider)}>Remove evidence provider</button>
-                </div>
+                <button type="button" className="btn btn-secondary btn-small" onClick={() => handleRemoveEvidenceProvider(evidenceProvider)}>Remove evidence provider</button>
+              </div>
+              <div className="mt-2">
+                {evidenceProvider !== evidenceProviders[0] ? (
+                  <button type="button" className="btn btn-secondary btn-small" onClick={() => handleMoveEvidenceProvider(evidenceProvider, 'up')}>Move up</button>
+                ) : null}
+                {evidenceProvider !== evidenceProviders[evidenceProviders.length - 1] ? (
+                  <button type="button" className="btn btn-secondary btn-small" onClick={() => handleMoveEvidenceProvider(evidenceProvider, 'down')}>Move down</button>
+                ) : null}
+              </div>
             </div>
           ))}  
         </div>
