@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import { useFragment } from 'react-relay';
-import graphql from 'babel-plugin-relay/macro';
+import { graphql } from "react-relay";
 
 import {SignActingAsButton_signatureOrder$key} from './__generated__/SignActingAsButton_signatureOrder.graphql';
 import {SignActingAsButton_signatory$key} from './__generated__/SignActingAsButton_signatory.graphql';

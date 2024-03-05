@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {Link, useRouteMatch} from 'react-router-dom';
 import { useLazyLoadQuery } from 'react-relay';
-import graphql from 'babel-plugin-relay/macro';
+import { graphql } from "react-relay";
 import {get, isBoolean, isPlainObject} from 'lodash';
 
 import {SignatureOrderScreenQuery} from './__generated__/SignatureOrderScreenQuery.graphql';

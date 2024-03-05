@@ -1,9 +1,9 @@
 import {getCredentials} from './authentication';
 
 async function fetchGraphQL(text : string, variables : any) {
-    if (!process.env.REACT_APP_GRAPHQL_URI) throw new Error('REACT_APP_GRAPHQL_URI not configured');
+    if (!import.meta.env.VITE_GRAPHQL_URI) throw new Error('VITE_GRAPHQL_URI not configured');
   
-    const response = await fetch(process.env.REACT_APP_GRAPHQL_URI!, {
+    const response = await fetch(import.meta.env.VITE_GRAPHQL_URI!, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

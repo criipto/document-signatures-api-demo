@@ -8,5 +8,6 @@ module.exports = {
     exclude: ["**/node_modules/**", "**/__mocks__/**", "**/__generated__/**"],
     customScalars: {
       "Blob": "string"
-    }
+    },
+    "eagerEsModules": true
   }

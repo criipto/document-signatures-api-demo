@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useFragment } from 'react-relay';
 import { Modal } from 'react-bootstrap';
 
-import graphql from 'babel-plugin-relay/macro';
+import { graphql } from "react-relay";
 
 import {CloseSignatureOrderButton_signatureOrder$key} from './__generated__/CloseSignatureOrderButton_signatureOrder.graphql';
 import {CloseSignatureOrderButtonMutation, CloseSignatureOrderInput} from './__generated__/CloseSignatureOrderButtonMutation.graphql';
