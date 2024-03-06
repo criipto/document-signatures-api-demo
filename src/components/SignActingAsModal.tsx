@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Modal } from 'react-bootstrap';
 
 import { useFragment } from 'react-relay';
-import graphql from 'babel-plugin-relay/macro';
+import { graphql } from "react-relay";
 
 import {SignActingAsModal_signatureOrder$key, SignActingAsModal_signatureOrder} from './__generated__/SignActingAsModal_signatureOrder.graphql';
 import {SignActingAsModal_signatory$key} from './__generated__/SignActingAsModal_signatory.graphql';

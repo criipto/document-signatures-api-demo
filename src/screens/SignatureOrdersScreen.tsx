@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import { useLazyLoadQuery } from 'react-relay';
-import graphql from 'babel-plugin-relay/macro';
+import { graphql } from "react-relay";
 
 import { Link } from 'react-router-dom';
 

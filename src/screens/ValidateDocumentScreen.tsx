@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import graphql from 'babel-plugin-relay/macro';
+import { graphql } from "react-relay";
 import useMutation from "../hooks/useMutation";
 import { ValidateDocumentScreenMutation } from './__generated__/ValidateDocumentScreenMutation.graphql';
 

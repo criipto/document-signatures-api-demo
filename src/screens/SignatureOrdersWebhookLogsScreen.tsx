@@ -1,6 +1,6 @@
 import { Link, useRouteMatch } from "react-router-dom";
 import moment from "moment";
-import graphql from 'babel-plugin-relay/macro';
+import { graphql } from "react-relay";
 import { PreloadedQuery, useFragment, usePreloadedQuery, useQueryLoader } from "react-relay";
 import React, { useEffect, useReducer, useState } from "react";
 import { SignatureOrdersWebhookLogsScreenQuery, WebhookInvocationEvent } from "./__generated__/SignatureOrdersWebhookLogsScreenQuery.graphql";

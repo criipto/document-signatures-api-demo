@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLazyLoadQuery } from 'react-relay';
-import graphql from 'babel-plugin-relay/macro';
+import { graphql } from "react-relay";
 
 import {IndexScreenQuery} from './__generated__/IndexScreenQuery.graphql';
 
@@ -53,10 +53,10 @@ export default function IndexScreen() {
       </Route>
       <Route path="/signatureorders">
         <SignatureOrdersScreen />
-      </Route>
+      </Route> 
       <Route path="/validate">
         <ValidateDocumentScreen />
-      </Route>
+      </Route> 
       <Route>
         <Redirect to="/signatureorders" />
       </Route>
