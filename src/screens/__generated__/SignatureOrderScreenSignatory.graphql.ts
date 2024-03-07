@@ -1,41 +1,43 @@
+/**
+ * @generated SignedSource<<34b92c5fe59204fb81210bf792c67212>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
-export type SignatureOrderScreenSignatory = {
-    readonly id: string;
-    readonly status: SignatoryStatus;
-    readonly statusReason: string | null;
-    readonly href: string;
-    readonly downloadHref: string | null;
-    readonly reference: string | null;
-    readonly role: string | null;
-    readonly documents: {
-        readonly edges: ReadonlyArray<{
-            readonly status: SignatoryDocumentStatus | null;
-            readonly node: {
-                readonly id: string;
-                readonly title: string;
-            };
-        }>;
-    };
-    readonly evidenceProviders: ReadonlyArray<{
-        readonly __typename: string;
+import { FragmentRefs } from "relay-runtime";
+export type SignatureOrderScreenSignatory$data = {
+  readonly documents: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly title: string;
+      };
+      readonly status: SignatoryDocumentStatus | null;
     }>;
-    readonly " $refType": "SignatureOrderScreenSignatory";
+  };
+  readonly downloadHref: string | null;
+  readonly evidenceProviders: ReadonlyArray<{
+    readonly __typename: string;
+  }>;
+  readonly href: string;
+  readonly id: string;
+  readonly reference: string | null;
+  readonly role: string | null;
+  readonly status: SignatoryStatus;
+  readonly statusReason: string | null;
+  readonly " $fragmentType": "SignatureOrderScreenSignatory";
 };
-export type SignatureOrderScreenSignatory$data = SignatureOrderScreenSignatory;
 export type SignatureOrderScreenSignatory$key = {
-    readonly " $data"?: SignatureOrderScreenSignatory$data;
-    readonly " $fragmentRefs": FragmentRefs<"SignatureOrderScreenSignatory">;
+  readonly " $data"?: SignatureOrderScreenSignatory$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SignatureOrderScreenSignatory">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -160,5 +162,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '39160d9ea6154a2a25fa2a2db6dabcf8';
+
+(node as any).hash = "39160d9ea6154a2a25fa2a2db6dabcf8";
+
 export default node;

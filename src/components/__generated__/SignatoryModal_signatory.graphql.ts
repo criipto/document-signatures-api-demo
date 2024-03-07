@@ -1,44 +1,46 @@
+/**
+ * @generated SignedSource<<2d216a8261bef9081134f488c3a8f0d4>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
-export type SignatoryModal_signatory = {
-    readonly id: string;
-    readonly status: SignatoryStatus;
-    readonly reference: string | null;
-    readonly role: string | null;
-    readonly evidenceProviders: ReadonlyArray<{
-        readonly __typename: string;
+import { FragmentRefs } from "relay-runtime";
+export type SignatoryModal_signatory$data = {
+  readonly documents: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
         readonly id: string;
-        readonly name?: string;
-        readonly domain?: string;
-        readonly clientID?: string;
-        readonly acrValues?: ReadonlyArray<string>;
-        readonly message?: string | null;
-        readonly requireName?: boolean;
+      };
+      readonly status: SignatoryDocumentStatus | null;
     }>;
-    readonly documents: {
-        readonly edges: ReadonlyArray<{
-            readonly status: SignatoryDocumentStatus | null;
-            readonly node: {
-                readonly id: string;
-            };
-        }>;
-    };
-    readonly " $refType": "SignatoryModal_signatory";
+  };
+  readonly evidenceProviders: ReadonlyArray<{
+    readonly __typename: string;
+    readonly acrValues?: ReadonlyArray<string>;
+    readonly clientID?: string;
+    readonly domain?: string;
+    readonly id: string;
+    readonly message?: string | null;
+    readonly name?: string;
+    readonly requireName?: boolean;
+  }>;
+  readonly id: string;
+  readonly reference: string | null;
+  readonly role: string | null;
+  readonly status: SignatoryStatus;
+  readonly " $fragmentType": "SignatoryModal_signatory";
 };
-export type SignatoryModal_signatory$data = SignatoryModal_signatory;
 export type SignatoryModal_signatory$key = {
-    readonly " $data"?: SignatoryModal_signatory$data;
-    readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatory">;
+  readonly " $data"?: SignatoryModal_signatory$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SignatoryModal_signatory">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -207,5 +209,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '88033c88822044a5a1a58656ba912986';
+
+(node as any).hash = "88033c88822044a5a1a58656ba912986";
+
 export default node;

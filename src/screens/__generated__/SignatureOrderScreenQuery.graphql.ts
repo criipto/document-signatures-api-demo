@@ -1,376 +1,102 @@
+/**
+ * @generated SignedSource<<a2b0d87c39e4b9d32beaa0f362dd97af>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Language = "DA_DK" | "EN_US" | "NB_NO" | "SV_SE" | "%future added value";
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
-export type SignatureOrderScreenQueryVariables = {
-    id: string;
+export type SignatureOrderScreenQuery$variables = {
+  id: string;
 };
-export type SignatureOrderScreenQueryResponse = {
-    readonly signatureOrder: {
-        readonly id: string;
-        readonly status: SignatureOrderStatus;
-        readonly title: string | null;
-        readonly timezone: string;
-        readonly createdAt: unknown;
-        readonly expiresAt: unknown;
-        readonly closedAt: unknown | null;
-        readonly ui: {
-            readonly signatoryRedirectUri: string | null;
-            readonly stylesheet: string | null;
-            readonly language: Language;
-            readonly logo: {
-                readonly src: string;
-                readonly href: string | null;
-            } | null;
-            readonly disableRejection: boolean;
-        };
-        readonly webhook: {
-            readonly url: string;
+export type SignatureOrderScreenQuery$data = {
+  readonly signatureOrder: {
+    readonly closedAt: any | null;
+    readonly createdAt: any;
+    readonly documents: ReadonlyArray<{
+      readonly __typename: string;
+      readonly blob: string | null;
+      readonly id: string;
+      readonly signatures: ReadonlyArray<{
+        readonly __typename: string;
+        readonly signatory: {
+          readonly id: string;
+          readonly reference: string | null;
+          readonly role: string | null;
         } | null;
-        readonly signatories: ReadonlyArray<{
-            readonly id: string;
-            readonly status: SignatoryStatus;
-            readonly statusReason: string | null;
-            readonly href: string;
-            readonly downloadHref: string | null;
-            readonly reference: string | null;
-            readonly role: string | null;
-            readonly documents: {
-                readonly edges: ReadonlyArray<{
-                    readonly status: SignatoryDocumentStatus | null;
-                    readonly node: {
-                        readonly id: string;
-                        readonly title: string;
-                    };
-                }>;
-            };
-            readonly evidenceProviders: ReadonlyArray<{
-                readonly __typename: string;
-            }>;
-            readonly " $fragmentRefs": FragmentRefs<"DeleteSignatoryButton_signatory" | "ChangeSignatoryButton_signatory" | "SignActingAsButton_signatory">;
-        }>;
-        readonly evidenceProviders: ReadonlyArray<{
-            readonly __typename: string;
-            readonly id: string;
-            readonly name?: string;
-            readonly domain?: string;
-            readonly clientID?: string;
-            readonly acrValues?: ReadonlyArray<string>;
-            readonly alwaysRedirect?: boolean;
-            readonly message?: string | null;
-            readonly loginHint?: string | null;
-            readonly requireName?: boolean;
-            readonly providers?: ReadonlyArray<{
-                readonly __typename: string;
-            }>;
-        }>;
-        readonly documents: ReadonlyArray<{
-            readonly __typename: string;
+      }> | null;
+      readonly title: string;
+    }>;
+    readonly evidenceProviders: ReadonlyArray<{
+      readonly __typename: string;
+      readonly acrValues?: ReadonlyArray<string>;
+      readonly alwaysRedirect?: boolean;
+      readonly clientID?: string;
+      readonly domain?: string;
+      readonly id: string;
+      readonly loginHint?: string | null;
+      readonly message?: string | null;
+      readonly name?: string;
+      readonly providers?: ReadonlyArray<{
+        readonly __typename: string;
+      }>;
+      readonly requireName?: boolean;
+    }>;
+    readonly expiresAt: any;
+    readonly id: string;
+    readonly signatories: ReadonlyArray<{
+      readonly documents: {
+        readonly edges: ReadonlyArray<{
+          readonly node: {
             readonly id: string;
             readonly title: string;
-            readonly blob: string | null;
-            readonly signatures: ReadonlyArray<{
-                readonly __typename: string;
-                readonly signatory: {
-                    readonly id: string;
-                    readonly reference: string | null;
-                    readonly role: string | null;
-                } | null;
-            }> | null;
+          };
+          readonly status: SignatoryDocumentStatus | null;
         }>;
-        readonly " $fragmentRefs": FragmentRefs<"CancelSignatureOrderButton_signatureOrder" | "AddSignatoryButton_signatureOrder" | "DeleteSignatoryButton_signatureOrder" | "ChangeSignatoryButton_signatureOrder" | "SignActingAsButton_signatureOrder" | "CloseSignatureOrderButton_signatureOrder" | "ExtendSignatureOrderButton_signatureOrder">;
+      };
+      readonly downloadHref: string | null;
+      readonly evidenceProviders: ReadonlyArray<{
+        readonly __typename: string;
+      }>;
+      readonly href: string;
+      readonly id: string;
+      readonly reference: string | null;
+      readonly role: string | null;
+      readonly status: SignatoryStatus;
+      readonly statusReason: string | null;
+      readonly " $fragmentSpreads": FragmentRefs<"ChangeSignatoryButton_signatory" | "DeleteSignatoryButton_signatory" | "SignActingAsButton_signatory">;
+    }>;
+    readonly status: SignatureOrderStatus;
+    readonly timezone: string;
+    readonly title: string | null;
+    readonly ui: {
+      readonly disableRejection: boolean;
+      readonly language: Language;
+      readonly logo: {
+        readonly href: string | null;
+        readonly src: string;
+      } | null;
+      readonly signatoryRedirectUri: string | null;
+      readonly stylesheet: string | null;
+    };
+    readonly webhook: {
+      readonly url: string;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"AddSignatoryButton_signatureOrder" | "CancelSignatureOrderButton_signatureOrder" | "ChangeSignatoryButton_signatureOrder" | "CloseSignatureOrderButton_signatureOrder" | "DeleteSignatoryButton_signatureOrder" | "ExtendSignatureOrderButton_signatureOrder" | "SignActingAsButton_signatureOrder">;
+  } | null;
 };
 export type SignatureOrderScreenQuery = {
-    readonly response: SignatureOrderScreenQueryResponse;
-    readonly variables: SignatureOrderScreenQueryVariables;
+  response: SignatureOrderScreenQuery$data;
+  variables: SignatureOrderScreenQuery$variables;
 };
-
-
-
-/*
-query SignatureOrderScreenQuery(
-  $id: ID!
-) {
-  signatureOrder(id: $id) {
-    id
-    status
-    title
-    timezone
-    createdAt
-    expiresAt
-    closedAt
-    ui {
-      signatoryRedirectUri
-      stylesheet
-      language
-      logo {
-        src
-        href
-      }
-      disableRejection
-    }
-    webhook {
-      url
-    }
-    signatories {
-      id
-      status
-      statusReason
-      href
-      downloadHref
-      reference
-      role
-      documents {
-        edges {
-          status
-          node {
-            __typename
-            id
-            title
-          }
-        }
-      }
-      evidenceProviders {
-        __typename
-        id
-      }
-      ...DeleteSignatoryButton_signatory
-      ...ChangeSignatoryButton_signatory
-      ...SignActingAsButton_signatory
-    }
-    evidenceProviders {
-      __typename
-      id
-      ... on OidcJWTSignatureEvidenceProvider {
-        id
-        name
-        domain
-        clientID
-        acrValues
-        alwaysRedirect
-      }
-      ... on CriiptoVerifySignatureEvidenceProvider {
-        id
-        name
-        domain
-        clientID
-        acrValues
-        alwaysRedirect
-        message
-        loginHint
-      }
-      ... on DrawableSignatureEvidenceProvider {
-        id
-        requireName
-      }
-      ... on AllOfSignatureEvidenceProvider {
-        providers {
-          __typename
-          id
-        }
-      }
-    }
-    documents {
-      __typename
-      __isDocument: __typename
-      id
-      title
-      blob
-      signatures {
-        __typename
-        signatory {
-          id
-          reference
-          role
-        }
-      }
-    }
-    ...CancelSignatureOrderButton_signatureOrder
-    ...AddSignatoryButton_signatureOrder
-    ...DeleteSignatoryButton_signatureOrder
-    ...ChangeSignatoryButton_signatureOrder
-    ...SignActingAsButton_signatureOrder
-    ...CloseSignatureOrderButton_signatureOrder
-    ...ExtendSignatureOrderButton_signatureOrder
-  }
-}
-
-fragment AddSignatoryButton_signatureOrder on SignatureOrder {
-  id
-  status
-  ...SignatoryModal_signatureOrder
-}
-
-fragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {
-  id
-  status
-}
-
-fragment ChangeSignatoryButton_signatory on Signatory {
-  id
-  status
-  ...SignatoryModal_signatory
-}
-
-fragment ChangeSignatoryButton_signatureOrder on SignatureOrder {
-  id
-  status
-  ...SignatoryModal_signatureOrder
-}
-
-fragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {
-  id
-  status
-}
-
-fragment DeleteSignatoryButton_signatory on Signatory {
-  id
-  status
-}
-
-fragment DeleteSignatoryButton_signatureOrder on SignatureOrder {
-  id
-}
-
-fragment ExtendSignatureOrderButton_signatureOrder on SignatureOrder {
-  id
-  status
-}
-
-fragment SignActingAsButton_signatory on Signatory {
-  id
-  status
-  documents {
-    edges {
-      status
-    }
-  }
-  ...SignActingAsModal_signatory
-}
-
-fragment SignActingAsButton_signatureOrder on SignatureOrder {
-  id
-  status
-  ...SignActingAsModal_signatureOrder
-}
-
-fragment SignActingAsModal_signatory on Signatory {
-  id
-  status
-  documents {
-    edges {
-      status
-    }
-  }
-}
-
-fragment SignActingAsModal_signatureOrder on SignatureOrder {
-  id
-  status
-  evidenceProviders {
-    __typename
-    ... on DrawableSignatureEvidenceProvider {
-      id
-      requireName
-    }
-    ... on OidcJWTSignatureEvidenceProvider {
-      id
-    }
-    ... on CriiptoVerifySignatureEvidenceProvider {
-      id
-    }
-    id
-  }
-}
-
-fragment SignatoryDocumentInput_signatureOrder on SignatureOrder {
-  documents {
-    __typename
-    id
-    title
-  }
-}
-
-fragment SignatoryModal_signatory on Signatory {
-  id
-  status
-  reference
-  role
-  evidenceProviders {
-    __typename
-    id
-    ... on OidcJWTSignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-    }
-    ... on CriiptoVerifySignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-      message
-    }
-    ... on DrawableSignatureEvidenceProvider {
-      id
-      requireName
-    }
-  }
-  documents {
-    edges {
-      status
-      node {
-        __typename
-        id
-      }
-    }
-  }
-}
-
-fragment SignatoryModal_signatureOrder on SignatureOrder {
-  id
-  status
-  documents {
-    __typename
-    id
-  }
-  evidenceProviders {
-    __typename
-    id
-    ... on OidcJWTSignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-    }
-    ... on CriiptoVerifySignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-      message
-    }
-    ... on DrawableSignatureEvidenceProvider {
-      id
-      requireName
-    }
-  }
-  ...SignatoryDocumentInput_signatureOrder
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -1058,5 +784,7 @@ return {
   }
 };
 })();
-(node as any).hash = '61475cab9124b8d2070fdbe0381111a3';
+
+(node as any).hash = "61475cab9124b8d2070fdbe0381111a3";
+
 export default node;

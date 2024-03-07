@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<c4c36defbd1996d333bad50e1069bbab>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
-export type ChangeSignatoryButton_signatory = {
-    readonly id: string;
-    readonly status: SignatoryStatus;
-    readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatory">;
-    readonly " $refType": "ChangeSignatoryButton_signatory";
+import { FragmentRefs } from "relay-runtime";
+export type ChangeSignatoryButton_signatory$data = {
+  readonly id: string;
+  readonly status: SignatoryStatus;
+  readonly " $fragmentSpreads": FragmentRefs<"SignatoryModal_signatory">;
+  readonly " $fragmentType": "ChangeSignatoryButton_signatory";
 };
-export type ChangeSignatoryButton_signatory$data = ChangeSignatoryButton_signatory;
 export type ChangeSignatoryButton_signatory$key = {
-    readonly " $data"?: ChangeSignatoryButton_signatory$data;
-    readonly " $fragmentRefs": FragmentRefs<"ChangeSignatoryButton_signatory">;
+  readonly " $data"?: ChangeSignatoryButton_signatory$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ChangeSignatoryButton_signatory">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -49,5 +51,7 @@ const node: ReaderFragment = {
   "type": "Signatory",
   "abstractKey": null
 };
-(node as any).hash = '2aed0b34651d3f475d051a4eccf6c770';
+
+(node as any).hash = "2aed0b34651d3f475d051a4eccf6c770";
+
 export default node;

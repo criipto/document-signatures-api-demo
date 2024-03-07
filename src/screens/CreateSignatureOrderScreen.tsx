@@ -104,14 +104,15 @@ export default function CreateSignatureOrderScreen() {
     event.target.value = '';
   };
 
-  const handleAddSamplePdfDocument = (sample: string) => {
+  const handleAddSamplePdfDocument = (sample: string, pdf?: LocalDocumentInput["pdf"]) => {
     const fileName = sample === samplePDFformFields ? `sample-form-fields.pdf` : `sample.pdf`;
     const newDocuments : LocalDocumentInput[] = new Array(sampleDocumentCount).fill(undefined).map(() => ({
       fileName,
       pdf: {
         title: fileName,
         blob: sample,
-        storageMode: 'Temporary'
+        storageMode: 'Temporary',
+        ...pdf
       }
     }));
 
@@ -143,10 +144,23 @@ export default function CreateSignatureOrderScreen() {
       });
     })
   };
-  const handleChangePdfDocument = (document : LocalDocumentInput, key : string, value : string | null) => {
+  const handleChangePdfDocument = (document : LocalDocumentInput, key : string, value : string | null | boolean) => {
     setDocuments(documents => {
       return documents.map(search => {
         if (search === document) {
+          if (key === 'form.enabled') {
+            return {
+              ...search,
+              pdf: {
+                ...search.pdf!,
+                form: {
+                  ...search.pdf?.form,
+                  enabled: value ? true : false
+                }
+              }
+            };
+          }
+
           return {
             ...search,
             pdf: {
@@ -264,7 +278,7 @@ export default function CreateSignatureOrderScreen() {
         signatories: signatories.map(signatory => {
           return {
             ...signatory,
-            evidenceValidation: filterEvidenceValidation(signatory.evidenceValidation)
+            evidenceValidation: filterEvidenceValidation(signatory.evidenceValidation?.slice())
           }
         }),
         documents,
@@ -637,21 +651,34 @@ export default function CreateSignatureOrderScreen() {
               </div>
               
               {"pdf" in document && document.pdf ? (
-                <div className="mb-3 form-floating">
-                  <select
-                    className="form-control"
-                    onChange={(event) => handleChangePdfDocument(document, 'displayDocumentID', (event.target.value?.length ? event.target.value : null))}
-                    value={document.pdf.displayDocumentID ?? ""}
-                    placeholder="Display Document ID"
-                  >
-                    <option value="">No</option>
-                    <option value="LEFT">LEFT</option>
-                    <option value="TOP">TOP</option>
-                    <option value="RIGHT">RIGHT</option>
-                    <option value="BOTTOM">BOTTOM</option>
-                  </select>
-                  <label className="form-label">Display Document ID</label>
-                </div>
+                <>
+                  <div className="form-check mb-2">
+                    <input
+                      className="form-check-input"
+                      id={`document_${document.fileName}_formEnabled`} type="checkbox"
+                      checked={document.pdf.form?.enabled ?? false}
+                      onChange={(event) => handleChangePdfDocument(document, 'form.enabled', event.target.checked)}
+                    />
+                    <label className="form-check-label" htmlFor={`document_${document.fileName}_formEnabled`} >
+                      Enable form filling
+                    </label>
+                  </div>
+                  <div className="mb-3 form-floating">
+                    <select
+                      className="form-control"
+                      onChange={(event) => handleChangePdfDocument(document, 'displayDocumentID', (event.target.value?.length ? event.target.value : null))}
+                      value={document.pdf.displayDocumentID ?? ""}
+                      placeholder="Display Document ID"
+                    >
+                      <option value="">No</option>
+                      <option value="LEFT">LEFT</option>
+                      <option value="TOP">TOP</option>
+                      <option value="RIGHT">RIGHT</option>
+                      <option value="BOTTOM">BOTTOM</option>
+                    </select>
+                    <label className="form-label">Display Document ID</label>
+                  </div>
+                </>
               ) : null}
               
               <button type="button" className="btn btn-secondary btn-small" onClick={() => handleRemoveDocument(document)}>Remove</button>
@@ -665,7 +692,7 @@ export default function CreateSignatureOrderScreen() {
         <div className="d-flex flex-row align-items-center mt-3 gap-1">
           <input style={{width: 100}} className="form-control" type="number" min={1} step={1} value={sampleDocumentCount} onChange={event => setSampleDocumentCount(parseInt(event.target.value, 10))} />
           <button type="button" className="btn btn-secondary btn-small" onClick={() => handleAddSamplePdfDocument(samplePDF)}>Add PDF sample</button>
-          <button type="button" className="btn btn-secondary btn-small" onClick={() => handleAddSamplePdfDocument(samplePDFformFields)}>Add PDF sample (with forms)</button>
+          <button type="button" className="btn btn-secondary btn-small" onClick={() => handleAddSamplePdfDocument(samplePDFformFields, {form: {enabled: true}})}>Add PDF sample (with forms)</button>
           <button type="button" className="btn btn-secondary btn-small" onClick={() => handleAddSampleXmlDocument()}>Add XML sample</button>
         </div>
       </div>

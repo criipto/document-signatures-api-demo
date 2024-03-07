@@ -1,136 +1,56 @@
+/**
+ * @generated SignedSource<<c9b4726a34665daa728bed896b7e6913>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type DeleteSignatoryInput = {
-    signatoryId: string;
-    signatureOrderId: string;
+  signatoryId: string;
+  signatureOrderId: string;
 };
-export type DeleteSignatoryButtonMutationVariables = {
-    input: DeleteSignatoryInput;
+export type DeleteSignatoryButtonMutation$variables = {
+  input: DeleteSignatoryInput;
 };
-export type DeleteSignatoryButtonMutationResponse = {
-    readonly deleteSignatory: {
-        readonly signatureOrder: {
-            readonly signatories: ReadonlyArray<{
-                readonly id: string;
-                readonly status: SignatoryStatus;
-                readonly statusReason: string | null;
-                readonly href: string;
-                readonly downloadHref: string | null;
-                readonly reference: string | null;
-                readonly role: string | null;
-                readonly documents: {
-                    readonly edges: ReadonlyArray<{
-                        readonly status: SignatoryDocumentStatus | null;
-                        readonly node: {
-                            readonly id: string;
-                            readonly title: string;
-                        };
-                    }>;
-                };
-                readonly evidenceProviders: ReadonlyArray<{
-                    readonly __typename: string;
-                }>;
-            }>;
-            readonly " $fragmentRefs": FragmentRefs<"AddSignatoryButton_signatureOrder">;
+export type DeleteSignatoryButtonMutation$data = {
+  readonly deleteSignatory: {
+    readonly signatureOrder: {
+      readonly signatories: ReadonlyArray<{
+        readonly documents: {
+          readonly edges: ReadonlyArray<{
+            readonly node: {
+              readonly id: string;
+              readonly title: string;
+            };
+            readonly status: SignatoryDocumentStatus | null;
+          }>;
         };
-    } | null;
+        readonly downloadHref: string | null;
+        readonly evidenceProviders: ReadonlyArray<{
+          readonly __typename: string;
+        }>;
+        readonly href: string;
+        readonly id: string;
+        readonly reference: string | null;
+        readonly role: string | null;
+        readonly status: SignatoryStatus;
+        readonly statusReason: string | null;
+      }>;
+      readonly " $fragmentSpreads": FragmentRefs<"AddSignatoryButton_signatureOrder">;
+    };
+  } | null;
 };
 export type DeleteSignatoryButtonMutation = {
-    readonly response: DeleteSignatoryButtonMutationResponse;
-    readonly variables: DeleteSignatoryButtonMutationVariables;
+  response: DeleteSignatoryButtonMutation$data;
+  variables: DeleteSignatoryButtonMutation$variables;
 };
-
-
-
-/*
-mutation DeleteSignatoryButtonMutation(
-  $input: DeleteSignatoryInput!
-) {
-  deleteSignatory(input: $input) {
-    signatureOrder {
-      ...AddSignatoryButton_signatureOrder
-      signatories {
-        id
-        status
-        statusReason
-        href
-        downloadHref
-        reference
-        role
-        documents {
-          edges {
-            status
-            node {
-              __typename
-              id
-              title
-            }
-          }
-        }
-        evidenceProviders {
-          __typename
-          id
-        }
-      }
-      id
-    }
-  }
-}
-
-fragment AddSignatoryButton_signatureOrder on SignatureOrder {
-  id
-  status
-  ...SignatoryModal_signatureOrder
-}
-
-fragment SignatoryDocumentInput_signatureOrder on SignatureOrder {
-  documents {
-    __typename
-    id
-    title
-  }
-}
-
-fragment SignatoryModal_signatureOrder on SignatureOrder {
-  id
-  status
-  documents {
-    __typename
-    id
-  }
-  evidenceProviders {
-    __typename
-    id
-    ... on OidcJWTSignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-    }
-    ... on CriiptoVerifySignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-      message
-    }
-    ... on DrawableSignatureEvidenceProvider {
-      id
-      requireName
-    }
-  }
-  ...SignatoryDocumentInput_signatureOrder
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -267,6 +187,11 @@ return {
             "plural": false,
             "selections": [
               {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "AddSignatoryButton_signatureOrder"
+              },
+              {
                 "alias": null,
                 "args": null,
                 "concreteType": "Signatory",
@@ -331,11 +256,6 @@ return {
                   }
                 ],
                 "storageKey": null
-              },
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "AddSignatoryButton_signatureOrder"
               }
             ],
             "storageKey": null
@@ -519,5 +439,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'dddc6a5c868815bed1dc3b4e87ddfb86';
+
+(node as any).hash = "dddc6a5c868815bed1dc3b4e87ddfb86";
+
 export default node;

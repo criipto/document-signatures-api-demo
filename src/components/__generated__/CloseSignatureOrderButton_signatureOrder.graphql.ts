@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<c44da71fd4a487ba2242fc53f9e8048a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
-export type CloseSignatureOrderButton_signatureOrder = {
-    readonly id: string;
-    readonly status: SignatureOrderStatus;
-    readonly " $refType": "CloseSignatureOrderButton_signatureOrder";
+import { FragmentRefs } from "relay-runtime";
+export type CloseSignatureOrderButton_signatureOrder$data = {
+  readonly id: string;
+  readonly status: SignatureOrderStatus;
+  readonly " $fragmentType": "CloseSignatureOrderButton_signatureOrder";
 };
-export type CloseSignatureOrderButton_signatureOrder$data = CloseSignatureOrderButton_signatureOrder;
 export type CloseSignatureOrderButton_signatureOrder$key = {
-    readonly " $data"?: CloseSignatureOrderButton_signatureOrder$data;
-    readonly " $fragmentRefs": FragmentRefs<"CloseSignatureOrderButton_signatureOrder">;
+  readonly " $data"?: CloseSignatureOrderButton_signatureOrder$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CloseSignatureOrderButton_signatureOrder">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -43,5 +45,7 @@ const node: ReaderFragment = {
   "type": "SignatureOrder",
   "abstractKey": null
 };
-(node as any).hash = '5e149f83314771c60ad70914904c6b49';
+
+(node as any).hash = "5e149f83314771c60ad70914904c6b49";
+
 export default node;

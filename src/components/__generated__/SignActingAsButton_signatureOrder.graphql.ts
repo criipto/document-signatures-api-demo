@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<501760fda8f1e9d4fd01d3b94488d9b7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
-export type SignActingAsButton_signatureOrder = {
-    readonly id: string;
-    readonly status: SignatureOrderStatus;
-    readonly " $fragmentRefs": FragmentRefs<"SignActingAsModal_signatureOrder">;
-    readonly " $refType": "SignActingAsButton_signatureOrder";
+import { FragmentRefs } from "relay-runtime";
+export type SignActingAsButton_signatureOrder$data = {
+  readonly id: string;
+  readonly status: SignatureOrderStatus;
+  readonly " $fragmentSpreads": FragmentRefs<"SignActingAsModal_signatureOrder">;
+  readonly " $fragmentType": "SignActingAsButton_signatureOrder";
 };
-export type SignActingAsButton_signatureOrder$data = SignActingAsButton_signatureOrder;
 export type SignActingAsButton_signatureOrder$key = {
-    readonly " $data"?: SignActingAsButton_signatureOrder$data;
-    readonly " $fragmentRefs": FragmentRefs<"SignActingAsButton_signatureOrder">;
+  readonly " $data"?: SignActingAsButton_signatureOrder$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SignActingAsButton_signatureOrder">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -49,5 +51,7 @@ const node: ReaderFragment = {
   "type": "SignatureOrder",
   "abstractKey": null
 };
-(node as any).hash = '805f439faaedff62f127917908f4b366';
+
+(node as any).hash = "805f439faaedff62f127917908f4b366";
+
 export default node;

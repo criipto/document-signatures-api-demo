@@ -1,37 +1,39 @@
+/**
+ * @generated SignedSource<<2b1f28431a1e95b499f02de5bf53e273>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
-export type SignatoryModal_signatureOrder = {
+import { FragmentRefs } from "relay-runtime";
+export type SignatoryModal_signatureOrder$data = {
+  readonly documents: ReadonlyArray<{
     readonly id: string;
-    readonly status: SignatureOrderStatus;
-    readonly documents: ReadonlyArray<{
-        readonly id: string;
-    }>;
-    readonly evidenceProviders: ReadonlyArray<{
-        readonly __typename: string;
-        readonly id: string;
-        readonly name?: string;
-        readonly domain?: string;
-        readonly clientID?: string;
-        readonly acrValues?: ReadonlyArray<string>;
-        readonly message?: string | null;
-        readonly requireName?: boolean;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"SignatoryDocumentInput_signatureOrder">;
-    readonly " $refType": "SignatoryModal_signatureOrder";
+  }>;
+  readonly evidenceProviders: ReadonlyArray<{
+    readonly __typename: string;
+    readonly acrValues?: ReadonlyArray<string>;
+    readonly clientID?: string;
+    readonly domain?: string;
+    readonly id: string;
+    readonly message?: string | null;
+    readonly name?: string;
+    readonly requireName?: boolean;
+  }>;
+  readonly id: string;
+  readonly status: SignatureOrderStatus;
+  readonly " $fragmentSpreads": FragmentRefs<"SignatoryDocumentInput_signatureOrder">;
+  readonly " $fragmentType": "SignatoryModal_signatureOrder";
 };
-export type SignatoryModal_signatureOrder$data = SignatoryModal_signatureOrder;
 export type SignatoryModal_signatureOrder$key = {
-    readonly " $data"?: SignatoryModal_signatureOrder$data;
-    readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatureOrder">;
+  readonly " $data"?: SignatoryModal_signatureOrder$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SignatoryModal_signatureOrder">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -167,5 +169,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '0d178f57b242cb27b57f1a7447927649';
+
+(node as any).hash = "0d178f57b242cb27b57f1a7447927649";
+
 export default node;

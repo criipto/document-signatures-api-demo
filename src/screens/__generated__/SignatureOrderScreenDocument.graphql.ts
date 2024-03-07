@@ -1,32 +1,34 @@
+/**
+ * @generated SignedSource<<a9166429f6b8137a830916c0e6bffc3c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SignatureOrderScreenDocument = {
+export type SignatureOrderScreenDocument$data = {
+  readonly __typename: string;
+  readonly blob: string | null;
+  readonly id: string;
+  readonly signatures: ReadonlyArray<{
     readonly __typename: string;
-    readonly id: string;
-    readonly title: string;
-    readonly blob: string | null;
-    readonly signatures: ReadonlyArray<{
-        readonly __typename: string;
-        readonly signatory: {
-            readonly id: string;
-            readonly reference: string | null;
-            readonly role: string | null;
-        } | null;
-    }> | null;
-    readonly " $refType": "SignatureOrderScreenDocument";
+    readonly signatory: {
+      readonly id: string;
+      readonly reference: string | null;
+      readonly role: string | null;
+    } | null;
+  }> | null;
+  readonly title: string;
+  readonly " $fragmentType": "SignatureOrderScreenDocument";
 };
-export type SignatureOrderScreenDocument$data = SignatureOrderScreenDocument;
 export type SignatureOrderScreenDocument$key = {
-    readonly " $data"?: SignatureOrderScreenDocument$data;
-    readonly " $fragmentRefs": FragmentRefs<"SignatureOrderScreenDocument">;
+  readonly " $data"?: SignatureOrderScreenDocument$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SignatureOrderScreenDocument">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -108,5 +110,7 @@ return {
   "abstractKey": "__isDocument"
 };
 })();
-(node as any).hash = 'c57d157cb8767655d642cae4044aef5d';
+
+(node as any).hash = "c57d157cb8767655d642cae4044aef5d";
+
 export default node;

@@ -1,45 +1,34 @@
+/**
+ * @generated SignedSource<<d1c9bda3f7e5ab00eb408aa582be78a0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type ExtendSignatureOrderInput = {
-    additionalExpirationInDays: number;
-    signatureOrderId: string;
+  additionalExpirationInDays: number;
+  signatureOrderId: string;
 };
-export type ExtendSignatureOrderButtonMutationVariables = {
-    input: ExtendSignatureOrderInput;
+export type ExtendSignatureOrderButtonMutation$variables = {
+  input: ExtendSignatureOrderInput;
 };
-export type ExtendSignatureOrderButtonMutationResponse = {
-    readonly extendSignatureOrder: {
-        readonly signatureOrder: {
-            readonly status: SignatureOrderStatus;
-            readonly expiresAt: unknown;
-        };
-    } | null;
+export type ExtendSignatureOrderButtonMutation$data = {
+  readonly extendSignatureOrder: {
+    readonly signatureOrder: {
+      readonly expiresAt: any;
+      readonly status: SignatureOrderStatus;
+    };
+  } | null;
 };
 export type ExtendSignatureOrderButtonMutation = {
-    readonly response: ExtendSignatureOrderButtonMutationResponse;
-    readonly variables: ExtendSignatureOrderButtonMutationVariables;
+  response: ExtendSignatureOrderButtonMutation$data;
+  variables: ExtendSignatureOrderButtonMutation$variables;
 };
-
-
-
-/*
-mutation ExtendSignatureOrderButtonMutation(
-  $input: ExtendSignatureOrderInput!
-) {
-  extendSignatureOrder(input: $input) {
-    signatureOrder {
-      status
-      expiresAt
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -154,5 +143,7 @@ return {
   }
 };
 })();
-(node as any).hash = '28010655775eaf5ca090c969f6e4dcab';
+
+(node as any).hash = "28010655775eaf5ca090c969f6e4dcab";
+
 export default node;

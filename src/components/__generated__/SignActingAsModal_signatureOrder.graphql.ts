@@ -1,38 +1,40 @@
+/**
+ * @generated SignedSource<<159ac7669772719d51279b08c1ce1383>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
-export type SignActingAsModal_signatureOrder = {
+import { FragmentRefs } from "relay-runtime";
+export type SignActingAsModal_signatureOrder$data = {
+  readonly evidenceProviders: ReadonlyArray<{
+    readonly __typename: "CriiptoVerifySignatureEvidenceProvider";
     readonly id: string;
-    readonly status: SignatureOrderStatus;
-    readonly evidenceProviders: ReadonlyArray<{
-        readonly __typename: "DrawableSignatureEvidenceProvider";
-        readonly id: string;
-        readonly requireName: boolean;
-    } | {
-        readonly __typename: "OidcJWTSignatureEvidenceProvider";
-        readonly id: string;
-    } | {
-        readonly __typename: "CriiptoVerifySignatureEvidenceProvider";
-        readonly id: string;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
-    }>;
-    readonly " $refType": "SignActingAsModal_signatureOrder";
+  } | {
+    readonly __typename: "DrawableSignatureEvidenceProvider";
+    readonly id: string;
+    readonly requireName: boolean;
+  } | {
+    readonly __typename: "OidcJWTSignatureEvidenceProvider";
+    readonly id: string;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
+  }>;
+  readonly id: string;
+  readonly status: SignatureOrderStatus;
+  readonly " $fragmentType": "SignActingAsModal_signatureOrder";
 };
-export type SignActingAsModal_signatureOrder$data = SignActingAsModal_signatureOrder;
 export type SignActingAsModal_signatureOrder$key = {
-    readonly " $data"?: SignActingAsModal_signatureOrder$data;
-    readonly " $fragmentRefs": FragmentRefs<"SignActingAsModal_signatureOrder">;
+  readonly " $data"?: SignActingAsModal_signatureOrder$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SignActingAsModal_signatureOrder">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -109,5 +111,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '959671c261a2cb24eae0d5c43dbc105b';
+
+(node as any).hash = "959671c261a2cb24eae0d5c43dbc105b";
+
 export default node;

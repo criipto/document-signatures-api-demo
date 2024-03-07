@@ -1,213 +1,95 @@
+/**
+ * @generated SignedSource<<7eb7d23a4cf1bb104362b4e10062ba8e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type ChangeSignatoryInput = {
-    documents?: Array<SignatoryDocumentInput> | null;
-    evidenceProviders?: Array<SignatoryEvidenceProviderInput> | null;
-    evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
-    reference?: string | null;
-    role?: string | null;
-    signatoryId: string;
-    signatureAppearance?: SignatureAppearanceInput | null;
+  documents?: ReadonlyArray<SignatoryDocumentInput> | null;
+  evidenceProviders?: ReadonlyArray<SignatoryEvidenceProviderInput> | null;
+  evidenceValidation?: ReadonlyArray<SignatoryEvidenceValidationInput> | null;
+  reference?: string | null;
+  role?: string | null;
+  signatoryId: string;
+  signatureAppearance?: SignatureAppearanceInput | null;
 };
 export type SignatoryDocumentInput = {
-    id: string;
-    pdfSealPosition?: PdfSealPosition | null;
-    preapproved?: boolean | null;
+  id: string;
+  pdfSealPosition?: PdfSealPosition | null;
+  preapproved?: boolean | null;
 };
 export type PdfSealPosition = {
-    page: number;
-    x: number;
-    y: number;
+  page: number;
+  x: number;
+  y: number;
 };
 export type SignatoryEvidenceProviderInput = {
-    id: string;
+  id: string;
 };
 export type SignatoryEvidenceValidationInput = {
-    key: string;
-    value: string;
+  key: string;
+  value: string;
 };
 export type SignatureAppearanceInput = {
-    displayName?: Array<SignatureAppearanceTemplateInput> | null;
-    headerLeft?: Array<SignatureAppearanceTemplateInput> | null;
-    identifierFromEvidence: Array<string>;
+  displayName?: ReadonlyArray<SignatureAppearanceTemplateInput> | null;
+  headerLeft?: ReadonlyArray<SignatureAppearanceTemplateInput> | null;
+  identifierFromEvidence: ReadonlyArray<string>;
 };
 export type SignatureAppearanceTemplateInput = {
-    replacements?: Array<SignatureAppearanceTemplateReplacementInput> | null;
-    template: string;
+  replacements?: ReadonlyArray<SignatureAppearanceTemplateReplacementInput> | null;
+  template: string;
 };
 export type SignatureAppearanceTemplateReplacementInput = {
-    fromEvidence: Array<string>;
-    placeholder: string;
+  fromEvidence: ReadonlyArray<string>;
+  placeholder: string;
 };
-export type SignatoryModalChangeMutationVariables = {
-    input: ChangeSignatoryInput;
+export type SignatoryModalChangeMutation$variables = {
+  input: ChangeSignatoryInput;
 };
-export type SignatoryModalChangeMutationResponse = {
-    readonly changeSignatory: {
-        readonly signatory: {
-            readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatory">;
+export type SignatoryModalChangeMutation$data = {
+  readonly changeSignatory: {
+    readonly signatory: {
+      readonly " $fragmentSpreads": FragmentRefs<"SignatoryModal_signatory">;
+    };
+    readonly signatureOrder: {
+      readonly signatories: ReadonlyArray<{
+        readonly documents: {
+          readonly edges: ReadonlyArray<{
+            readonly node: {
+              readonly id: string;
+              readonly title: string;
+            };
+            readonly status: SignatoryDocumentStatus | null;
+          }>;
         };
-        readonly signatureOrder: {
-            readonly signatories: ReadonlyArray<{
-                readonly id: string;
-                readonly status: SignatoryStatus;
-                readonly statusReason: string | null;
-                readonly href: string;
-                readonly downloadHref: string | null;
-                readonly reference: string | null;
-                readonly role: string | null;
-                readonly documents: {
-                    readonly edges: ReadonlyArray<{
-                        readonly status: SignatoryDocumentStatus | null;
-                        readonly node: {
-                            readonly id: string;
-                            readonly title: string;
-                        };
-                    }>;
-                };
-                readonly evidenceProviders: ReadonlyArray<{
-                    readonly __typename: string;
-                }>;
-                readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatory">;
-            }>;
-            readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatureOrder">;
-        };
-    } | null;
+        readonly downloadHref: string | null;
+        readonly evidenceProviders: ReadonlyArray<{
+          readonly __typename: string;
+        }>;
+        readonly href: string;
+        readonly id: string;
+        readonly reference: string | null;
+        readonly role: string | null;
+        readonly status: SignatoryStatus;
+        readonly statusReason: string | null;
+        readonly " $fragmentSpreads": FragmentRefs<"SignatoryModal_signatory">;
+      }>;
+      readonly " $fragmentSpreads": FragmentRefs<"SignatoryModal_signatureOrder">;
+    };
+  } | null;
 };
 export type SignatoryModalChangeMutation = {
-    readonly response: SignatoryModalChangeMutationResponse;
-    readonly variables: SignatoryModalChangeMutationVariables;
+  response: SignatoryModalChangeMutation$data;
+  variables: SignatoryModalChangeMutation$variables;
 };
-
-
-
-/*
-mutation SignatoryModalChangeMutation(
-  $input: ChangeSignatoryInput!
-) {
-  changeSignatory(input: $input) {
-    signatory {
-      ...SignatoryModal_signatory
-      id
-    }
-    signatureOrder {
-      ...SignatoryModal_signatureOrder
-      signatories {
-        id
-        status
-        statusReason
-        href
-        downloadHref
-        reference
-        role
-        documents {
-          edges {
-            status
-            node {
-              __typename
-              id
-              title
-            }
-          }
-        }
-        evidenceProviders {
-          __typename
-          id
-        }
-        ...SignatoryModal_signatory
-      }
-      id
-    }
-  }
-}
-
-fragment SignatoryDocumentInput_signatureOrder on SignatureOrder {
-  documents {
-    __typename
-    id
-    title
-  }
-}
-
-fragment SignatoryModal_signatory on Signatory {
-  id
-  status
-  reference
-  role
-  evidenceProviders {
-    __typename
-    id
-    ... on OidcJWTSignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-    }
-    ... on CriiptoVerifySignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-      message
-    }
-    ... on DrawableSignatureEvidenceProvider {
-      id
-      requireName
-    }
-  }
-  documents {
-    edges {
-      status
-      node {
-        __typename
-        id
-      }
-    }
-  }
-}
-
-fragment SignatoryModal_signatureOrder on SignatureOrder {
-  id
-  status
-  documents {
-    __typename
-    id
-  }
-  evidenceProviders {
-    __typename
-    id
-    ... on OidcJWTSignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-    }
-    ... on CriiptoVerifySignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-      message
-    }
-    ... on DrawableSignatureEvidenceProvider {
-      id
-      requireName
-    }
-  }
-  ...SignatoryDocumentInput_signatureOrder
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -417,6 +299,11 @@ return {
             "plural": false,
             "selections": [
               {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "SignatoryModal_signatureOrder"
+              },
+              {
                 "alias": null,
                 "args": null,
                 "concreteType": "Signatory",
@@ -482,11 +369,6 @@ return {
                   (v2/*: any*/)
                 ],
                 "storageKey": null
-              },
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "SignatoryModal_signatureOrder"
               }
             ],
             "storageKey": null
@@ -655,5 +537,7 @@ return {
   }
 };
 })();
-(node as any).hash = '938197a7d2ffb8742423ae0660603868';
+
+(node as any).hash = "938197a7d2ffb8742423ae0660603868";
+
 export default node;

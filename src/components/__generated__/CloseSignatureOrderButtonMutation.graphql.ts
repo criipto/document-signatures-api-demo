@@ -1,97 +1,59 @@
+/**
+ * @generated SignedSource<<afec778ba44375fe6c29b53aa329cf1b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CloseSignatureOrderInput = {
-    retainDocumentsForDays?: number | null;
-    signatureOrderId: string;
+  retainDocumentsForDays?: number | null;
+  signatureOrderId: string;
 };
-export type CloseSignatureOrderButtonMutationVariables = {
-    input: CloseSignatureOrderInput;
+export type CloseSignatureOrderButtonMutation$variables = {
+  input: CloseSignatureOrderInput;
 };
-export type CloseSignatureOrderButtonMutationResponse = {
-    readonly closeSignatureOrder: {
-        readonly signatureOrder: {
-            readonly status: SignatureOrderStatus;
-            readonly documents: ReadonlyArray<{
-                readonly blob: string | null;
-            }>;
-            readonly signatories: ReadonlyArray<{
-                readonly id: string;
-                readonly status: SignatoryStatus;
-                readonly statusReason: string | null;
-                readonly href: string;
-                readonly downloadHref: string | null;
-                readonly reference: string | null;
-                readonly role: string | null;
-                readonly documents: {
-                    readonly edges: ReadonlyArray<{
-                        readonly status: SignatoryDocumentStatus | null;
-                        readonly node: {
-                            readonly id: string;
-                            readonly title: string;
-                        };
-                    }>;
-                };
-                readonly evidenceProviders: ReadonlyArray<{
-                    readonly __typename: string;
-                }>;
-            }>;
+export type CloseSignatureOrderButtonMutation$data = {
+  readonly closeSignatureOrder: {
+    readonly signatureOrder: {
+      readonly documents: ReadonlyArray<{
+        readonly blob: string | null;
+      }>;
+      readonly signatories: ReadonlyArray<{
+        readonly documents: {
+          readonly edges: ReadonlyArray<{
+            readonly node: {
+              readonly id: string;
+              readonly title: string;
+            };
+            readonly status: SignatoryDocumentStatus | null;
+          }>;
         };
-    } | null;
+        readonly downloadHref: string | null;
+        readonly evidenceProviders: ReadonlyArray<{
+          readonly __typename: string;
+        }>;
+        readonly href: string;
+        readonly id: string;
+        readonly reference: string | null;
+        readonly role: string | null;
+        readonly status: SignatoryStatus;
+        readonly statusReason: string | null;
+      }>;
+      readonly status: SignatureOrderStatus;
+    };
+  } | null;
 };
 export type CloseSignatureOrderButtonMutation = {
-    readonly response: CloseSignatureOrderButtonMutationResponse;
-    readonly variables: CloseSignatureOrderButtonMutationVariables;
+  response: CloseSignatureOrderButtonMutation$data;
+  variables: CloseSignatureOrderButtonMutation$variables;
 };
-
-
-
-/*
-mutation CloseSignatureOrderButtonMutation(
-  $input: CloseSignatureOrderInput!
-) {
-  closeSignatureOrder(input: $input) {
-    signatureOrder {
-      status
-      documents {
-        __typename
-        blob
-        id
-      }
-      signatories {
-        id
-        status
-        statusReason
-        href
-        downloadHref
-        reference
-        role
-        documents {
-          edges {
-            status
-            node {
-              __typename
-              id
-              title
-            }
-          }
-        }
-        evidenceProviders {
-          __typename
-          id
-        }
-      }
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -414,5 +376,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'dccfc702a4d8739a2581c4c92a5029ff';
+
+(node as any).hash = "dccfc702a4d8739a2581c4c92a5029ff";
+
 export default node;

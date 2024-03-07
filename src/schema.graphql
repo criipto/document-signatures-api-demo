@@ -572,6 +572,10 @@ type OidcJWTSignatureEvidenceProvider implements SignatureEvidenceProvider & Sin
   name: String!
 }
 
+input PadesDocumentFormInput {
+  enabled: Boolean!
+}
+
 input PadesDocumentInput {
   blob: Blob!
 
@@ -579,6 +583,7 @@ input PadesDocumentInput {
   Will add a unique identifier for the document to the specified margin of each page. Useful when printing signed documents.
   """
   displayDocumentID: DocumentIDLocation
+  form: PadesDocumentFormInput
 
   """
   Will not be displayed to signatories, can be used as a reference to your own system.
@@ -605,12 +610,17 @@ type PageInfo {
 
 type PdfDocument implements Document {
   blob: Blob
+  form: PdfDocumentForm
   id: ID!
   originalBlob: Blob
   reference: String
   signatoryViewerStatus: SignatoryDocumentStatus
   signatures: [Signature!]
   title: String!
+}
+
+type PdfDocumentForm {
+  enabled: Boolean!
 }
 
 input PdfSealPosition {
@@ -912,6 +922,20 @@ input SignCriiptoVerifyInput {
   jwt: String!
 }
 
+input SignDocumentFormFieldInput {
+  field: String!
+  value: String!
+}
+
+input SignDocumentFormInput {
+  fields: [SignDocumentFormFieldInput!]!
+}
+
+input SignDocumentInput {
+  form: SignDocumentFormInput
+  id: ID!
+}
+
 input SignDrawableInput {
   image: Blob!
   name: String
@@ -920,6 +944,7 @@ input SignDrawableInput {
 input SignInput {
   allOf: SignAllOfInput
   criiptoVerify: SignCriiptoVerifyInput
+  documents: [SignDocumentInput!]
   drawable: SignDrawableInput
 
   """EvidenceProvider id"""

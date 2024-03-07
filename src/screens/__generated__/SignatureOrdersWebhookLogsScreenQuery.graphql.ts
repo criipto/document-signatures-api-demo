@@ -1,86 +1,38 @@
+/**
+ * @generated SignedSource<<dcba92d33adf94d6847f6e3203ebe270>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type WebhookInvocationEvent = "SIGNATORY_DOCUMENT_STATUS_CHANGED" | "SIGNATORY_DOWNLOAD_LINK_OPENED" | "SIGNATORY_REJECTED" | "SIGNATORY_SIGNED" | "SIGNATORY_SIGN_ERROR" | "SIGNATORY_SIGN_LINK_OPENED" | "SIGNATURE_ORDER_EXPIRED" | "%future added value";
-export type SignatureOrdersWebhookLogsScreenQueryVariables = {
-    id: string;
-    from: string;
-    to: string;
-    succeeded?: boolean | null;
+export type SignatureOrdersWebhookLogsScreenQuery$variables = {
+  from: string;
+  id: string;
+  succeeded?: boolean | null;
+  to: string;
 };
-export type SignatureOrdersWebhookLogsScreenQueryResponse = {
-    readonly signatureOrder: {
-        readonly webhook: {
-            readonly url: string;
-            readonly logs: ReadonlyArray<{
-                readonly event: WebhookInvocationEvent | null;
-                readonly timestamp: string;
-                readonly " $fragmentRefs": FragmentRefs<"SignatureOrdersWebhookLogsScreen_invocation">;
-            }>;
-        } | null;
+export type SignatureOrdersWebhookLogsScreenQuery$data = {
+  readonly signatureOrder: {
+    readonly webhook: {
+      readonly logs: ReadonlyArray<{
+        readonly event: WebhookInvocationEvent | null;
+        readonly timestamp: string;
+        readonly " $fragmentSpreads": FragmentRefs<"SignatureOrdersWebhookLogsScreen_invocation">;
+      }>;
+      readonly url: string;
     } | null;
+  } | null;
 };
 export type SignatureOrdersWebhookLogsScreenQuery = {
-    readonly response: SignatureOrdersWebhookLogsScreenQueryResponse;
-    readonly variables: SignatureOrdersWebhookLogsScreenQueryVariables;
+  response: SignatureOrdersWebhookLogsScreenQuery$data;
+  variables: SignatureOrdersWebhookLogsScreenQuery$variables;
 };
-
-
-
-/*
-query SignatureOrdersWebhookLogsScreenQuery(
-  $id: ID!
-  $from: String!
-  $to: String!
-  $succeeded: Boolean
-) {
-  signatureOrder(id: $id) {
-    webhook {
-      url
-      logs(from: $from, to: $to, succeeded: $succeeded) {
-        __typename
-        event
-        timestamp
-        ...SignatureOrdersWebhookLogsScreen_invocation
-      }
-    }
-    id
-  }
-}
-
-fragment SignatureOrdersWebhookLogsScreen_invocation on WebhookInvocation {
-  __isWebhookInvocation: __typename
-  timestamp
-  url
-  requestBody
-  responseBody
-  event
-  correlationId
-  signatureOrderId
-  ... on WebhookSuccessfulInvocation {
-    responseStatusCode
-  }
-  ... on WebhookHttpErrorInvocation {
-    responseStatusCode
-    retryPayload
-    retryingAt
-  }
-  ... on WebhookExceptionInvocation {
-    exception
-    retryPayload
-    retryingAt
-  }
-  ... on WebhookTimeoutInvocation {
-    responseTimeout
-    retryPayload
-    retryingAt
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -382,5 +334,7 @@ return {
   }
 };
 })();
-(node as any).hash = '1ccd72b038c562315c3bfff179a5ac33';
+
+(node as any).hash = "1ccd72b038c562315c3bfff179a5ac33";
+
 export default node;

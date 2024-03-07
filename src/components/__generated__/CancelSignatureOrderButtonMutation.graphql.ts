@@ -1,42 +1,32 @@
+/**
+ * @generated SignedSource<<3b5a1ff70bfff996126f19f81c774cb2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CancelSignatureOrderInput = {
-    signatureOrderId: string;
+  signatureOrderId: string;
 };
-export type CancelSignatureOrderButtonMutationVariables = {
-    input: CancelSignatureOrderInput;
+export type CancelSignatureOrderButtonMutation$variables = {
+  input: CancelSignatureOrderInput;
 };
-export type CancelSignatureOrderButtonMutationResponse = {
-    readonly cancelSignatureOrder: {
-        readonly signatureOrder: {
-            readonly status: SignatureOrderStatus;
-        };
-    } | null;
+export type CancelSignatureOrderButtonMutation$data = {
+  readonly cancelSignatureOrder: {
+    readonly signatureOrder: {
+      readonly status: SignatureOrderStatus;
+    };
+  } | null;
 };
 export type CancelSignatureOrderButtonMutation = {
-    readonly response: CancelSignatureOrderButtonMutationResponse;
-    readonly variables: CancelSignatureOrderButtonMutationVariables;
+  response: CancelSignatureOrderButtonMutation$data;
+  variables: CancelSignatureOrderButtonMutation$variables;
 };
-
-
-
-/*
-mutation CancelSignatureOrderButtonMutation(
-  $input: CancelSignatureOrderInput!
-) {
-  cancelSignatureOrder(input: $input) {
-    signatureOrder {
-      status
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -142,5 +132,7 @@ return {
   }
 };
 })();
-(node as any).hash = '7d1313da23d305f7cb7c493228d5d91b';
+
+(node as any).hash = "7d1313da23d305f7cb7c493228d5d91b";
+
 export default node;

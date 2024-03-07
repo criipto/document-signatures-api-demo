@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<beba5add1a95884a5252937cbef40ffc>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
-export type DeleteSignatoryButton_signatory = {
-    readonly id: string;
-    readonly status: SignatoryStatus;
-    readonly " $refType": "DeleteSignatoryButton_signatory";
+import { FragmentRefs } from "relay-runtime";
+export type DeleteSignatoryButton_signatory$data = {
+  readonly id: string;
+  readonly status: SignatoryStatus;
+  readonly " $fragmentType": "DeleteSignatoryButton_signatory";
 };
-export type DeleteSignatoryButton_signatory$data = DeleteSignatoryButton_signatory;
 export type DeleteSignatoryButton_signatory$key = {
-    readonly " $data"?: DeleteSignatoryButton_signatory$data;
-    readonly " $fragmentRefs": FragmentRefs<"DeleteSignatoryButton_signatory">;
+  readonly " $data"?: DeleteSignatoryButton_signatory$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DeleteSignatoryButton_signatory">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -43,5 +45,7 @@ const node: ReaderFragment = {
   "type": "Signatory",
   "abstractKey": null
 };
-(node as any).hash = 'c60a1c5a8520e6f75011e319b50977d5';
+
+(node as any).hash = "c60a1c5a8520e6f75011e319b50977d5";
+
 export default node;

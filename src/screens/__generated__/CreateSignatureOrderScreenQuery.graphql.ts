@@ -1,40 +1,30 @@
+/**
+ * @generated SignedSource<<230773b0f6e05553179c4a019ff2774f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type CreateSignatureOrderScreenQueryVariables = {};
-export type CreateSignatureOrderScreenQueryResponse = {
-    readonly viewer: {
-        readonly __typename: "Application";
-        readonly id: string;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
-    };
-    readonly timezones: ReadonlyArray<string>;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type CreateSignatureOrderScreenQuery$variables = {};
+export type CreateSignatureOrderScreenQuery$data = {
+  readonly timezones: ReadonlyArray<string>;
+  readonly viewer: {
+    readonly __typename: "Application";
+    readonly id: string;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
+  };
 };
 export type CreateSignatureOrderScreenQuery = {
-    readonly response: CreateSignatureOrderScreenQueryResponse;
-    readonly variables: CreateSignatureOrderScreenQueryVariables;
+  response: CreateSignatureOrderScreenQuery$data;
+  variables: CreateSignatureOrderScreenQuery$variables;
 };
-
-
-
-/*
-query CreateSignatureOrderScreenQuery {
-  viewer {
-    __typename
-    ... on Application {
-      id
-    }
-    id
-  }
-  timezones
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -122,5 +112,7 @@ return {
   }
 };
 })();
-(node as any).hash = '591e6be6c856e9bdff6b31b5c72ccc13';
+
+(node as any).hash = "591e6be6c856e9bdff6b31b5c72ccc13";
+
 export default node;

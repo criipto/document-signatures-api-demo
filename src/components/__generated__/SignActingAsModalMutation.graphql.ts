@@ -1,132 +1,92 @@
+/**
+ * @generated SignedSource<<ff29f81178cde29a78e59caa0e602739>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignActingAsInput = {
-    evidence: SignInput;
-    signatoryId: string;
+  evidence: SignInput;
+  signatoryId: string;
 };
 export type SignInput = {
-    allOf?: SignAllOfInput | null;
-    criiptoVerify?: SignCriiptoVerifyInput | null;
-    drawable?: SignDrawableInput | null;
-    id: string;
-    noop?: boolean | null;
-    oidc?: SignOidcInput | null;
+  allOf?: SignAllOfInput | null;
+  criiptoVerify?: SignCriiptoVerifyInput | null;
+  documents?: ReadonlyArray<SignDocumentInput> | null;
+  drawable?: SignDrawableInput | null;
+  id: string;
+  noop?: boolean | null;
+  oidc?: SignOidcInput | null;
 };
 export type SignAllOfInput = {
-    criiptoVerify?: SignCriiptoVerifyInput | null;
-    drawable?: SignDrawableInput | null;
-    noop?: boolean | null;
-    oidc?: SignOidcInput | null;
+  criiptoVerify?: SignCriiptoVerifyInput | null;
+  drawable?: SignDrawableInput | null;
+  noop?: boolean | null;
+  oidc?: SignOidcInput | null;
 };
 export type SignCriiptoVerifyInput = {
-    jwt: string;
+  jwt: string;
 };
 export type SignDrawableInput = {
-    image: string;
-    name?: string | null;
+  image: string;
+  name?: string | null;
 };
 export type SignOidcInput = {
-    jwt: string;
+  jwt: string;
 };
-export type SignActingAsModalMutationVariables = {
-    input: SignActingAsInput;
+export type SignDocumentInput = {
+  form?: SignDocumentFormInput | null;
+  id: string;
 };
-export type SignActingAsModalMutationResponse = {
-    readonly signActingAs: {
-        readonly signatureOrder: {
-            readonly signatories: ReadonlyArray<{
-                readonly id: string;
-                readonly status: SignatoryStatus;
-                readonly statusReason: string | null;
-                readonly href: string;
-                readonly downloadHref: string | null;
-                readonly reference: string | null;
-                readonly role: string | null;
-                readonly documents: {
-                    readonly edges: ReadonlyArray<{
-                        readonly status: SignatoryDocumentStatus | null;
-                        readonly node: {
-                            readonly id: string;
-                            readonly title: string;
-                        };
-                    }>;
-                };
-                readonly evidenceProviders: ReadonlyArray<{
-                    readonly __typename: string;
-                }>;
-            }>;
-            readonly " $fragmentRefs": FragmentRefs<"SignActingAsModal_signatureOrder">;
+export type SignDocumentFormInput = {
+  fields: ReadonlyArray<SignDocumentFormFieldInput>;
+};
+export type SignDocumentFormFieldInput = {
+  field: string;
+  value: string;
+};
+export type SignActingAsModalMutation$variables = {
+  input: SignActingAsInput;
+};
+export type SignActingAsModalMutation$data = {
+  readonly signActingAs: {
+    readonly signatureOrder: {
+      readonly signatories: ReadonlyArray<{
+        readonly documents: {
+          readonly edges: ReadonlyArray<{
+            readonly node: {
+              readonly id: string;
+              readonly title: string;
+            };
+            readonly status: SignatoryDocumentStatus | null;
+          }>;
         };
-    } | null;
+        readonly downloadHref: string | null;
+        readonly evidenceProviders: ReadonlyArray<{
+          readonly __typename: string;
+        }>;
+        readonly href: string;
+        readonly id: string;
+        readonly reference: string | null;
+        readonly role: string | null;
+        readonly status: SignatoryStatus;
+        readonly statusReason: string | null;
+      }>;
+      readonly " $fragmentSpreads": FragmentRefs<"SignActingAsModal_signatureOrder">;
+    };
+  } | null;
 };
 export type SignActingAsModalMutation = {
-    readonly response: SignActingAsModalMutationResponse;
-    readonly variables: SignActingAsModalMutationVariables;
+  response: SignActingAsModalMutation$data;
+  variables: SignActingAsModalMutation$variables;
 };
-
-
-
-/*
-mutation SignActingAsModalMutation(
-  $input: SignActingAsInput!
-) {
-  signActingAs(input: $input) {
-    signatureOrder {
-      ...SignActingAsModal_signatureOrder
-      signatories {
-        id
-        status
-        statusReason
-        href
-        downloadHref
-        reference
-        role
-        documents {
-          edges {
-            status
-            node {
-              __typename
-              id
-              title
-            }
-          }
-        }
-        evidenceProviders {
-          __typename
-          id
-        }
-      }
-      id
-    }
-  }
-}
-
-fragment SignActingAsModal_signatureOrder on SignatureOrder {
-  id
-  status
-  evidenceProviders {
-    __typename
-    ... on DrawableSignatureEvidenceProvider {
-      id
-      requireName
-    }
-    ... on OidcJWTSignatureEvidenceProvider {
-      id
-    }
-    ... on CriiptoVerifySignatureEvidenceProvider {
-      id
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -230,6 +190,11 @@ return {
             "plural": false,
             "selections": [
               {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "SignActingAsModal_signatureOrder"
+              },
+              {
                 "alias": null,
                 "args": null,
                 "concreteType": "Signatory",
@@ -294,11 +259,6 @@ return {
                   }
                 ],
                 "storageKey": null
-              },
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "SignActingAsModal_signatureOrder"
               }
             ],
             "storageKey": null
@@ -447,5 +407,7 @@ return {
   }
 };
 })();
-(node as any).hash = '46c90cceade6b52a3f50688ad608f826';
+
+(node as any).hash = "46c90cceade6b52a3f50688ad608f826";
+
 export default node;

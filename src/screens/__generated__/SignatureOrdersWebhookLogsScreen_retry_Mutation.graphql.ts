@@ -1,74 +1,34 @@
+/**
+ * @generated SignedSource<<47e8a0a8dc24bdc712678e39782a04bc>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RetrySignatureOrderWebhookInput = {
-    retryPayload: string;
-    signatureOrderId: string;
+  retryPayload: string;
+  signatureOrderId: string;
 };
-export type SignatureOrdersWebhookLogsScreen_retry_MutationVariables = {
-    input: RetrySignatureOrderWebhookInput;
+export type SignatureOrdersWebhookLogsScreen_retry_Mutation$variables = {
+  input: RetrySignatureOrderWebhookInput;
 };
-export type SignatureOrdersWebhookLogsScreen_retry_MutationResponse = {
-    readonly retrySignatureOrderWebhook: {
-        readonly invocation: {
-            readonly signatureOrderId: string | null;
-            readonly " $fragmentRefs": FragmentRefs<"SignatureOrdersWebhookLogsScreen_invocation">;
-        };
-    } | null;
+export type SignatureOrdersWebhookLogsScreen_retry_Mutation$data = {
+  readonly retrySignatureOrderWebhook: {
+    readonly invocation: {
+      readonly signatureOrderId: string | null;
+      readonly " $fragmentSpreads": FragmentRefs<"SignatureOrdersWebhookLogsScreen_invocation">;
+    };
+  } | null;
 };
 export type SignatureOrdersWebhookLogsScreen_retry_Mutation = {
-    readonly response: SignatureOrdersWebhookLogsScreen_retry_MutationResponse;
-    readonly variables: SignatureOrdersWebhookLogsScreen_retry_MutationVariables;
+  response: SignatureOrdersWebhookLogsScreen_retry_Mutation$data;
+  variables: SignatureOrdersWebhookLogsScreen_retry_Mutation$variables;
 };
-
-
-
-/*
-mutation SignatureOrdersWebhookLogsScreen_retry_Mutation(
-  $input: RetrySignatureOrderWebhookInput!
-) {
-  retrySignatureOrderWebhook(input: $input) {
-    invocation {
-      __typename
-      signatureOrderId
-      ...SignatureOrdersWebhookLogsScreen_invocation
-    }
-  }
-}
-
-fragment SignatureOrdersWebhookLogsScreen_invocation on WebhookInvocation {
-  __isWebhookInvocation: __typename
-  timestamp
-  url
-  requestBody
-  responseBody
-  event
-  correlationId
-  signatureOrderId
-  ... on WebhookSuccessfulInvocation {
-    responseStatusCode
-  }
-  ... on WebhookHttpErrorInvocation {
-    responseStatusCode
-    retryPayload
-    retryingAt
-  }
-  ... on WebhookExceptionInvocation {
-    exception
-    retryPayload
-    retryingAt
-  }
-  ... on WebhookTimeoutInvocation {
-    responseTimeout
-    retryPayload
-    retryingAt
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -296,5 +256,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'd9de5c901b1f01a48aed3cc9f82961df';
+
+(node as any).hash = "d9de5c901b1f01a48aed3cc9f82961df";
+
 export default node;

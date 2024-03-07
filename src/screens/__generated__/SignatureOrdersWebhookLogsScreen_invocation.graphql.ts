@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<eaadbdb9560891e3ba67dc46b4f6cd32>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type WebhookInvocationEvent = "SIGNATORY_DOCUMENT_STATUS_CHANGED" | "SIGNATORY_DOWNLOAD_LINK_OPENED" | "SIGNATORY_REJECTED" | "SIGNATORY_SIGNED" | "SIGNATORY_SIGN_ERROR" | "SIGNATORY_SIGN_LINK_OPENED" | "SIGNATURE_ORDER_EXPIRED" | "%future added value";
-export type SignatureOrdersWebhookLogsScreen_invocation = {
-    readonly timestamp: string;
-    readonly url: string;
-    readonly requestBody: string;
-    readonly responseBody: string | null;
-    readonly event: WebhookInvocationEvent | null;
-    readonly correlationId: string;
-    readonly signatureOrderId: string | null;
-    readonly responseStatusCode?: number;
-    readonly retryPayload?: string;
-    readonly retryingAt?: string | null;
-    readonly exception?: string;
-    readonly responseTimeout?: number;
-    readonly " $refType": "SignatureOrdersWebhookLogsScreen_invocation";
+import { FragmentRefs } from "relay-runtime";
+export type SignatureOrdersWebhookLogsScreen_invocation$data = {
+  readonly correlationId: string;
+  readonly event: WebhookInvocationEvent | null;
+  readonly exception?: string;
+  readonly requestBody: string;
+  readonly responseBody: string | null;
+  readonly responseStatusCode?: number;
+  readonly responseTimeout?: number;
+  readonly retryPayload?: string;
+  readonly retryingAt?: string | null;
+  readonly signatureOrderId: string | null;
+  readonly timestamp: string;
+  readonly url: string;
+  readonly " $fragmentType": "SignatureOrdersWebhookLogsScreen_invocation";
 };
-export type SignatureOrdersWebhookLogsScreen_invocation$data = SignatureOrdersWebhookLogsScreen_invocation;
 export type SignatureOrdersWebhookLogsScreen_invocation$key = {
-    readonly " $data"?: SignatureOrdersWebhookLogsScreen_invocation$data;
-    readonly " $fragmentRefs": FragmentRefs<"SignatureOrdersWebhookLogsScreen_invocation">;
+  readonly " $data"?: SignatureOrdersWebhookLogsScreen_invocation$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SignatureOrdersWebhookLogsScreen_invocation">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -161,5 +163,7 @@ return {
   "abstractKey": "__isWebhookInvocation"
 };
 })();
-(node as any).hash = '069874750dbf720a034ddd764e4ecad6';
+
+(node as any).hash = "069874750dbf720a034ddd764e4ecad6";
+
 export default node;

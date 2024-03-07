@@ -1,190 +1,173 @@
+/**
+ * @generated SignedSource<<56124a16d6479cafe56fe942dd5968b6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type DocumentIDLocation = "BOTTOM" | "LEFT" | "RIGHT" | "TOP" | "%future added value";
 export type DocumentStorageMode = "Temporary" | "%future added value";
 export type EvidenceValidationStage = "SIGN" | "VIEW" | "%future added value";
 export type Language = "DA_DK" | "EN_US" | "NB_NO" | "SV_SE" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CreateSignatureOrderInput = {
-    disableVerifyEvidenceProvider?: boolean | null;
-    documents: Array<DocumentInput>;
-    evidenceProviders?: Array<EvidenceProviderInput> | null;
-    evidenceValidationStages?: Array<EvidenceValidationStage> | null;
-    expiresInDays?: number | null;
-    fixDocumentFormattingErrors?: boolean | null;
-    maxSignatories?: number | null;
-    signatories?: Array<CreateSignatureOrderSignatoryInput> | null;
-    signatureAppearance?: SignatureAppearanceInput | null;
-    timezone?: string | null;
-    title?: string | null;
-    ui?: CreateSignatureOrderUIInput | null;
-    webhook?: CreateSignatureOrderWebhookInput | null;
+  disableVerifyEvidenceProvider?: boolean | null;
+  documents: ReadonlyArray<DocumentInput>;
+  evidenceProviders?: ReadonlyArray<EvidenceProviderInput> | null;
+  evidenceValidationStages?: ReadonlyArray<EvidenceValidationStage> | null;
+  expiresInDays?: number | null;
+  fixDocumentFormattingErrors?: boolean | null;
+  maxSignatories?: number | null;
+  signatories?: ReadonlyArray<CreateSignatureOrderSignatoryInput> | null;
+  signatureAppearance?: SignatureAppearanceInput | null;
+  timezone?: string | null;
+  title?: string | null;
+  ui?: CreateSignatureOrderUIInput | null;
+  webhook?: CreateSignatureOrderWebhookInput | null;
 };
 export type DocumentInput = {
-    pdf?: PadesDocumentInput | null;
-    removePreviousSignatures?: boolean | null;
-    xml?: XadesDocumentInput | null;
+  pdf?: PadesDocumentInput | null;
+  removePreviousSignatures?: boolean | null;
+  xml?: XadesDocumentInput | null;
 };
 export type PadesDocumentInput = {
-    blob: string;
-    displayDocumentID?: DocumentIDLocation | null;
-    reference?: string | null;
-    storageMode: DocumentStorageMode;
-    title: string;
+  blob: string;
+  displayDocumentID?: DocumentIDLocation | null;
+  form?: PadesDocumentFormInput | null;
+  reference?: string | null;
+  storageMode: DocumentStorageMode;
+  title: string;
+};
+export type PadesDocumentFormInput = {
+  enabled: boolean;
 };
 export type XadesDocumentInput = {
-    blob: string;
-    reference?: string | null;
-    storageMode: DocumentStorageMode;
-    title: string;
+  blob: string;
+  reference?: string | null;
+  storageMode: DocumentStorageMode;
+  title: string;
 };
 export type EvidenceProviderInput = {
-    allOf?: AllOfEvidenceProviderInput | null;
-    criiptoVerify?: CriiptoVerifyProviderInput | null;
-    drawable?: DrawableEvidenceProviderInput | null;
-    enabledByDefault?: boolean | null;
-    noop?: NoopEvidenceProviderInput | null;
-    oidc?: OidcEvidenceProviderInput | null;
+  allOf?: AllOfEvidenceProviderInput | null;
+  criiptoVerify?: CriiptoVerifyProviderInput | null;
+  drawable?: DrawableEvidenceProviderInput | null;
+  enabledByDefault?: boolean | null;
+  noop?: NoopEvidenceProviderInput | null;
+  oidc?: OidcEvidenceProviderInput | null;
 };
 export type AllOfEvidenceProviderInput = {
-    providers: Array<SingleEvidenceProviderInput>;
+  providers: ReadonlyArray<SingleEvidenceProviderInput>;
 };
 export type SingleEvidenceProviderInput = {
-    criiptoVerify?: CriiptoVerifyProviderInput | null;
-    drawable?: DrawableEvidenceProviderInput | null;
-    noop?: NoopEvidenceProviderInput | null;
-    oidc?: OidcEvidenceProviderInput | null;
+  criiptoVerify?: CriiptoVerifyProviderInput | null;
+  drawable?: DrawableEvidenceProviderInput | null;
+  noop?: NoopEvidenceProviderInput | null;
+  oidc?: OidcEvidenceProviderInput | null;
 };
 export type CriiptoVerifyProviderInput = {
-    acrValues?: Array<string> | null;
-    alwaysRedirect?: boolean | null;
-    loginHint?: string | null;
-    message?: string | null;
-    uniqueEvidenceKey?: string | null;
+  acrValues?: ReadonlyArray<string> | null;
+  alwaysRedirect?: boolean | null;
+  loginHint?: string | null;
+  message?: string | null;
+  uniqueEvidenceKey?: string | null;
 };
 export type DrawableEvidenceProviderInput = {
-    requireName?: boolean | null;
+  requireName?: boolean | null;
 };
 export type NoopEvidenceProviderInput = {
-    name: string;
+  name: string;
 };
 export type OidcEvidenceProviderInput = {
-    acrValues?: Array<string> | null;
-    alwaysRedirect?: boolean | null;
-    audience: string;
-    clientID: string;
-    domain: string;
-    name: string;
-    uniqueEvidenceKey?: string | null;
+  acrValues?: ReadonlyArray<string> | null;
+  alwaysRedirect?: boolean | null;
+  audience: string;
+  clientID: string;
+  domain: string;
+  name: string;
+  uniqueEvidenceKey?: string | null;
 };
 export type CreateSignatureOrderSignatoryInput = {
-    documents?: Array<SignatoryDocumentInput> | null;
-    evidenceProviders?: Array<SignatoryEvidenceProviderInput> | null;
-    evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
-    reference?: string | null;
-    role?: string | null;
-    signatureAppearance?: SignatureAppearanceInput | null;
+  documents?: ReadonlyArray<SignatoryDocumentInput> | null;
+  evidenceProviders?: ReadonlyArray<SignatoryEvidenceProviderInput> | null;
+  evidenceValidation?: ReadonlyArray<SignatoryEvidenceValidationInput> | null;
+  reference?: string | null;
+  role?: string | null;
+  signatureAppearance?: SignatureAppearanceInput | null;
 };
 export type SignatoryDocumentInput = {
-    id: string;
-    pdfSealPosition?: PdfSealPosition | null;
-    preapproved?: boolean | null;
+  id: string;
+  pdfSealPosition?: PdfSealPosition | null;
+  preapproved?: boolean | null;
 };
 export type PdfSealPosition = {
-    page: number;
-    x: number;
-    y: number;
+  page: number;
+  x: number;
+  y: number;
 };
 export type SignatoryEvidenceProviderInput = {
-    id: string;
+  id: string;
 };
 export type SignatoryEvidenceValidationInput = {
-    key: string;
-    value: string;
+  key: string;
+  value: string;
 };
 export type SignatureAppearanceInput = {
-    displayName?: Array<SignatureAppearanceTemplateInput> | null;
-    headerLeft?: Array<SignatureAppearanceTemplateInput> | null;
-    identifierFromEvidence: Array<string>;
+  displayName?: ReadonlyArray<SignatureAppearanceTemplateInput> | null;
+  headerLeft?: ReadonlyArray<SignatureAppearanceTemplateInput> | null;
+  identifierFromEvidence: ReadonlyArray<string>;
 };
 export type SignatureAppearanceTemplateInput = {
-    replacements?: Array<SignatureAppearanceTemplateReplacementInput> | null;
-    template: string;
+  replacements?: ReadonlyArray<SignatureAppearanceTemplateReplacementInput> | null;
+  template: string;
 };
 export type SignatureAppearanceTemplateReplacementInput = {
-    fromEvidence: Array<string>;
-    placeholder: string;
+  fromEvidence: ReadonlyArray<string>;
+  placeholder: string;
 };
 export type CreateSignatureOrderUIInput = {
-    disableRejection?: boolean | null;
-    language?: Language | null;
-    logo?: SignatureOrderUILogoInput | null;
-    signatoryRedirectUri?: string | null;
-    stylesheet?: string | null;
+  disableRejection?: boolean | null;
+  language?: Language | null;
+  logo?: SignatureOrderUILogoInput | null;
+  signatoryRedirectUri?: string | null;
+  stylesheet?: string | null;
 };
 export type SignatureOrderUILogoInput = {
-    href?: string | null;
-    src: string;
+  href?: string | null;
+  src: string;
 };
 export type CreateSignatureOrderWebhookInput = {
-    url: string;
-    validateConnectivity?: boolean | null;
+  url: string;
+  validateConnectivity?: boolean | null;
 };
-export type CreateSignatureOrderScreenMutationVariables = {
-    input: CreateSignatureOrderInput;
+export type CreateSignatureOrderScreenMutation$variables = {
+  input: CreateSignatureOrderInput;
 };
-export type CreateSignatureOrderScreenMutationResponse = {
-    readonly createSignatureOrder: {
-        readonly signatureOrder: {
+export type CreateSignatureOrderScreenMutation$data = {
+  readonly createSignatureOrder: {
+    readonly application: {
+      readonly signatureOrders: {
+        readonly edges: ReadonlyArray<{
+          readonly node: {
             readonly id: string;
-        };
-        readonly application: {
-            readonly signatureOrders: {
-                readonly edges: ReadonlyArray<{
-                    readonly node: {
-                        readonly id: string;
-                        readonly title: string | null;
-                        readonly status: SignatureOrderStatus;
-                    };
-                }>;
-            };
-        };
-    } | null;
+            readonly status: SignatureOrderStatus;
+            readonly title: string | null;
+          };
+        }>;
+      };
+    };
+    readonly signatureOrder: {
+      readonly id: string;
+    };
+  } | null;
 };
 export type CreateSignatureOrderScreenMutation = {
-    readonly response: CreateSignatureOrderScreenMutationResponse;
-    readonly variables: CreateSignatureOrderScreenMutationVariables;
+  response: CreateSignatureOrderScreenMutation$data;
+  variables: CreateSignatureOrderScreenMutation$variables;
 };
-
-
-
-/*
-mutation CreateSignatureOrderScreenMutation(
-  $input: CreateSignatureOrderInput!
-) {
-  createSignatureOrder(input: $input) {
-    signatureOrder {
-      id
-    }
-    application {
-      signatureOrders(status: OPEN) {
-        edges {
-          node {
-            id
-            title
-            status
-          }
-        }
-      }
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -352,5 +335,7 @@ return {
   }
 };
 })();
-(node as any).hash = '653606ac4c787446f41daa1ec3500880';
+
+(node as any).hash = "653606ac4c787446f41daa1ec3500880";
+
 export default node;

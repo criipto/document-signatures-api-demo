@@ -1,41 +1,32 @@
+/**
+ * @generated SignedSource<<bca2b7147b444d2719c8dbb0d753b4ec>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type ValidateDocumentInput = {
-    pdf?: string | null;
-    xml?: string | null;
+  pdf?: string | null;
+  xml?: string | null;
 };
-export type ValidateDocumentScreenMutationVariables = {
-    input: ValidateDocumentInput;
+export type ValidateDocumentScreenMutation$variables = {
+  input: ValidateDocumentInput;
 };
-export type ValidateDocumentScreenMutationResponse = {
-    readonly validateDocument: {
-        readonly valid: boolean;
-        readonly errors: ReadonlyArray<string> | null;
-        readonly fixable: boolean | null;
-    } | null;
+export type ValidateDocumentScreenMutation$data = {
+  readonly validateDocument: {
+    readonly errors: ReadonlyArray<string> | null;
+    readonly fixable: boolean | null;
+    readonly valid: boolean;
+  } | null;
 };
 export type ValidateDocumentScreenMutation = {
-    readonly response: ValidateDocumentScreenMutationResponse;
-    readonly variables: ValidateDocumentScreenMutationVariables;
+  response: ValidateDocumentScreenMutation$data;
+  variables: ValidateDocumentScreenMutation$variables;
 };
-
-
-
-/*
-mutation ValidateDocumentScreenMutation(
-  $input: ValidateDocumentInput!
-) {
-  validateDocument(input: $input) {
-    valid
-    errors
-    fixable
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -112,5 +103,7 @@ return {
   }
 };
 })();
-(node as any).hash = '3bca2d3e29cb29bfb6109f0dd2032393';
+
+(node as any).hash = "3bca2d3e29cb29bfb6109f0dd2032393";
+
 export default node;

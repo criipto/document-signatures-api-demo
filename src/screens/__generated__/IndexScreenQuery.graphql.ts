@@ -1,44 +1,32 @@
+/**
+ * @generated SignedSource<<2536e5eaa9daff75c60b60999b405a20>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type IndexScreenQueryVariables = {};
-export type IndexScreenQueryResponse = {
-    readonly viewer: {
-        readonly __typename: "Application";
-        readonly id: string;
-    } | {
-        readonly __typename: "AnonymousViewer";
-        readonly authenticated: boolean;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
-    };
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type IndexScreenQuery$variables = {};
+export type IndexScreenQuery$data = {
+  readonly viewer: {
+    readonly __typename: "AnonymousViewer";
+    readonly authenticated: boolean;
+  } | {
+    readonly __typename: "Application";
+    readonly id: string;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
+  };
 };
 export type IndexScreenQuery = {
-    readonly response: IndexScreenQueryResponse;
-    readonly variables: IndexScreenQueryVariables;
+  response: IndexScreenQuery$data;
+  variables: IndexScreenQuery$variables;
 };
-
-
-
-/*
-query IndexScreenQuery {
-  viewer {
-    __typename
-    ... on Application {
-      id
-    }
-    ... on AnonymousViewer {
-      authenticated
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -133,5 +121,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'e47b05799ef415ec9519644174daf82e';
+
+(node as any).hash = "e47b05799ef415ec9519644174daf82e";
+
 export default node;

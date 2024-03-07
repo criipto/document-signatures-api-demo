@@ -1,54 +1,35 @@
+/**
+ * @generated SignedSource<<282ddef99c98c10fadb8f60994e1e86a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
-export type SignatureOrdersScreenQueryVariables = {
-    status?: SignatureOrderStatus | null;
+export type SignatureOrdersScreenQuery$variables = {
+  status?: SignatureOrderStatus | null;
 };
-export type SignatureOrdersScreenQueryResponse = {
-    readonly viewer: {
-        readonly signatureOrders?: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly id: string;
-                    readonly title: string | null;
-                    readonly status: SignatureOrderStatus;
-                };
-            }>;
+export type SignatureOrdersScreenQuery$data = {
+  readonly viewer: {
+    readonly signatureOrders?: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly id: string;
+          readonly status: SignatureOrderStatus;
+          readonly title: string | null;
         };
+      }>;
     };
+  };
 };
 export type SignatureOrdersScreenQuery = {
-    readonly response: SignatureOrdersScreenQueryResponse;
-    readonly variables: SignatureOrdersScreenQueryVariables;
+  response: SignatureOrdersScreenQuery$data;
+  variables: SignatureOrdersScreenQuery$variables;
 };
-
-
-
-/*
-query SignatureOrdersScreenQuery(
-  $status: SignatureOrderStatus
-) {
-  viewer {
-    __typename
-    ... on Application {
-      signatureOrders(status: $status) {
-        edges {
-          node {
-            id
-            title
-            status
-          }
-        }
-      }
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -170,8 +151,8 @@ return {
             "name": "__typename",
             "storageKey": null
           },
-          (v1/*: any*/),
-          (v2/*: any*/)
+          (v2/*: any*/),
+          (v1/*: any*/)
         ],
         "storageKey": null
       }
@@ -187,5 +168,7 @@ return {
   }
 };
 })();
-(node as any).hash = '515657c797c19e01500536288bc7901a';
+
+(node as any).hash = "515657c797c19e01500536288bc7901a";
+
 export default node;

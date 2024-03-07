@@ -1,29 +1,31 @@
+/**
+ * @generated SignedSource<<6b47bf9eb8acad3ebc171f642aea9e0e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
-export type SignActingAsModal_signatory = {
-    readonly id: string;
-    readonly status: SignatoryStatus;
-    readonly documents: {
-        readonly edges: ReadonlyArray<{
-            readonly status: SignatoryDocumentStatus | null;
-        }>;
-    };
-    readonly " $refType": "SignActingAsModal_signatory";
+import { FragmentRefs } from "relay-runtime";
+export type SignActingAsModal_signatory$data = {
+  readonly documents: {
+    readonly edges: ReadonlyArray<{
+      readonly status: SignatoryDocumentStatus | null;
+    }>;
+  };
+  readonly id: string;
+  readonly status: SignatoryStatus;
+  readonly " $fragmentType": "SignActingAsModal_signatory";
 };
-export type SignActingAsModal_signatory$data = SignActingAsModal_signatory;
 export type SignActingAsModal_signatory$key = {
-    readonly " $data"?: SignActingAsModal_signatory$data;
-    readonly " $fragmentRefs": FragmentRefs<"SignActingAsModal_signatory">;
+  readonly " $data"?: SignActingAsModal_signatory$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SignActingAsModal_signatory">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -75,5 +77,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '6a01ff8cabde0c5b8ce61b22d573ad1d';
+
+(node as any).hash = "6a01ff8cabde0c5b8ce61b22d573ad1d";
+
 export default node;

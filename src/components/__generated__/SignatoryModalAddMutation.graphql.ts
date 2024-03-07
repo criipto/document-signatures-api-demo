@@ -1,165 +1,91 @@
+/**
+ * @generated SignedSource<<2ca59cc7d35323e2d28447a5ce4b1206>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type AddSignatoryInput = {
-    documents?: Array<SignatoryDocumentInput> | null;
-    evidenceProviders?: Array<SignatoryEvidenceProviderInput> | null;
-    evidenceValidation?: Array<SignatoryEvidenceValidationInput> | null;
-    reference?: string | null;
-    role?: string | null;
-    signatureAppearance?: SignatureAppearanceInput | null;
-    signatureOrderId: string;
+  documents?: ReadonlyArray<SignatoryDocumentInput> | null;
+  evidenceProviders?: ReadonlyArray<SignatoryEvidenceProviderInput> | null;
+  evidenceValidation?: ReadonlyArray<SignatoryEvidenceValidationInput> | null;
+  reference?: string | null;
+  role?: string | null;
+  signatureAppearance?: SignatureAppearanceInput | null;
+  signatureOrderId: string;
 };
 export type SignatoryDocumentInput = {
-    id: string;
-    pdfSealPosition?: PdfSealPosition | null;
-    preapproved?: boolean | null;
+  id: string;
+  pdfSealPosition?: PdfSealPosition | null;
+  preapproved?: boolean | null;
 };
 export type PdfSealPosition = {
-    page: number;
-    x: number;
-    y: number;
+  page: number;
+  x: number;
+  y: number;
 };
 export type SignatoryEvidenceProviderInput = {
-    id: string;
+  id: string;
 };
 export type SignatoryEvidenceValidationInput = {
-    key: string;
-    value: string;
+  key: string;
+  value: string;
 };
 export type SignatureAppearanceInput = {
-    displayName?: Array<SignatureAppearanceTemplateInput> | null;
-    headerLeft?: Array<SignatureAppearanceTemplateInput> | null;
-    identifierFromEvidence: Array<string>;
+  displayName?: ReadonlyArray<SignatureAppearanceTemplateInput> | null;
+  headerLeft?: ReadonlyArray<SignatureAppearanceTemplateInput> | null;
+  identifierFromEvidence: ReadonlyArray<string>;
 };
 export type SignatureAppearanceTemplateInput = {
-    replacements?: Array<SignatureAppearanceTemplateReplacementInput> | null;
-    template: string;
+  replacements?: ReadonlyArray<SignatureAppearanceTemplateReplacementInput> | null;
+  template: string;
 };
 export type SignatureAppearanceTemplateReplacementInput = {
-    fromEvidence: Array<string>;
-    placeholder: string;
+  fromEvidence: ReadonlyArray<string>;
+  placeholder: string;
 };
-export type SignatoryModalAddMutationVariables = {
-    input: AddSignatoryInput;
+export type SignatoryModalAddMutation$variables = {
+  input: AddSignatoryInput;
 };
-export type SignatoryModalAddMutationResponse = {
-    readonly addSignatory: {
-        readonly signatureOrder: {
-            readonly signatories: ReadonlyArray<{
-                readonly id: string;
-                readonly status: SignatoryStatus;
-                readonly statusReason: string | null;
-                readonly href: string;
-                readonly downloadHref: string | null;
-                readonly reference: string | null;
-                readonly role: string | null;
-                readonly documents: {
-                    readonly edges: ReadonlyArray<{
-                        readonly status: SignatoryDocumentStatus | null;
-                        readonly node: {
-                            readonly id: string;
-                            readonly title: string;
-                        };
-                    }>;
-                };
-                readonly evidenceProviders: ReadonlyArray<{
-                    readonly __typename: string;
-                }>;
-            }>;
-            readonly " $fragmentRefs": FragmentRefs<"SignatoryModal_signatureOrder">;
+export type SignatoryModalAddMutation$data = {
+  readonly addSignatory: {
+    readonly signatureOrder: {
+      readonly signatories: ReadonlyArray<{
+        readonly documents: {
+          readonly edges: ReadonlyArray<{
+            readonly node: {
+              readonly id: string;
+              readonly title: string;
+            };
+            readonly status: SignatoryDocumentStatus | null;
+          }>;
         };
-    } | null;
+        readonly downloadHref: string | null;
+        readonly evidenceProviders: ReadonlyArray<{
+          readonly __typename: string;
+        }>;
+        readonly href: string;
+        readonly id: string;
+        readonly reference: string | null;
+        readonly role: string | null;
+        readonly status: SignatoryStatus;
+        readonly statusReason: string | null;
+      }>;
+      readonly " $fragmentSpreads": FragmentRefs<"SignatoryModal_signatureOrder">;
+    };
+  } | null;
 };
 export type SignatoryModalAddMutation = {
-    readonly response: SignatoryModalAddMutationResponse;
-    readonly variables: SignatoryModalAddMutationVariables;
+  response: SignatoryModalAddMutation$data;
+  variables: SignatoryModalAddMutation$variables;
 };
-
-
-
-/*
-mutation SignatoryModalAddMutation(
-  $input: AddSignatoryInput!
-) {
-  addSignatory(input: $input) {
-    signatureOrder {
-      ...SignatoryModal_signatureOrder
-      signatories {
-        id
-        status
-        statusReason
-        href
-        downloadHref
-        reference
-        role
-        documents {
-          edges {
-            status
-            node {
-              __typename
-              id
-              title
-            }
-          }
-        }
-        evidenceProviders {
-          __typename
-          id
-        }
-      }
-      id
-    }
-  }
-}
-
-fragment SignatoryDocumentInput_signatureOrder on SignatureOrder {
-  documents {
-    __typename
-    id
-    title
-  }
-}
-
-fragment SignatoryModal_signatureOrder on SignatureOrder {
-  id
-  status
-  documents {
-    __typename
-    id
-  }
-  evidenceProviders {
-    __typename
-    id
-    ... on OidcJWTSignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-    }
-    ... on CriiptoVerifySignatureEvidenceProvider {
-      id
-      name
-      domain
-      clientID
-      acrValues
-      message
-    }
-    ... on DrawableSignatureEvidenceProvider {
-      id
-      requireName
-    }
-  }
-  ...SignatoryDocumentInput_signatureOrder
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -296,6 +222,11 @@ return {
             "plural": false,
             "selections": [
               {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "SignatoryModal_signatureOrder"
+              },
+              {
                 "alias": null,
                 "args": null,
                 "concreteType": "Signatory",
@@ -360,11 +291,6 @@ return {
                   }
                 ],
                 "storageKey": null
-              },
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "SignatoryModal_signatureOrder"
               }
             ],
             "storageKey": null
@@ -548,5 +474,7 @@ return {
   }
 };
 })();
-(node as any).hash = '2f7de82b7d6488842f8b428ec78ad1c3';
+
+(node as any).hash = "2f7de82b7d6488842f8b428ec78ad1c3";
+
 export default node;
