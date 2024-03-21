@@ -240,7 +240,8 @@ export default function SignatureOrdersScreen() {
             <th scope="col">Documents</th>
             <th scope="col">Title</th>
             <th scope="col">Signatures</th>
-            <th scope="col"></th>
+            <th scope="col">Blob</th>
+            <th scope="col">iText</th>
           </tr>
         </thead>
         <tbody>
@@ -262,6 +263,9 @@ export default function SignatureOrdersScreen() {
                 {document.blob && (
                   <a href={URL.createObjectURL(base64ToBlob(document.blob, document.__typename === 'XmlDocument' ? 'text/xml' : 'application/pdf'))} target="_blank" rel="noreferrer">Download</a>
                 )}
+              </td>
+              <td>
+                {document.blob ? iTextVersions(document.blob).join(', ') : null}
               </td>
             </tr>
           ))}
@@ -369,4 +373,9 @@ export default function SignatureOrdersScreen() {
       </div>
     </div>
   )
+}
+
+function iTextVersions(input: string) : string[] {
+  const buffer = atob(input);
+  return Array.from(buffer.matchAll(new RegExp(/Criipto#20#28iText#20(\d{1}).(\d{1}).(\d{1})#29/g))).map(m => `${m[1]}.${m[2]}.${m[3]}`);
 }
