@@ -122,6 +122,7 @@ const Query = graphql`
           alwaysRedirect
           message
           loginHint
+          scope
         }
         ... on DrawableSignatureEvidenceProvider {
           id
@@ -303,6 +304,7 @@ export default function SignatureOrdersScreen() {
                     Always redirect: {provider.alwaysRedirect ? 'true' : 'false'}<br />
                     Message: {provider.message}<br />
                     login_hint: {provider.loginHint}<br />
+                    scope: {provider.scope}<br />
                   </React.Fragment>
                 ) : provider.__typename === 'DrawableSignatureEvidenceProvider' ? (
                   <React.Fragment>

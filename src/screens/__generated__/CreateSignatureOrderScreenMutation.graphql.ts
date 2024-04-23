@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<56124a16d6479cafe56fe942dd5968b6>>
+ * @generated SignedSource<<c572517c666dd910c775bd443cbfd9af>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -73,6 +73,7 @@ export type CriiptoVerifyProviderInput = {
   alwaysRedirect?: boolean | null;
   loginHint?: string | null;
   message?: string | null;
+  scope?: string | null;
   uniqueEvidenceKey?: string | null;
 };
 export type DrawableEvidenceProviderInput = {

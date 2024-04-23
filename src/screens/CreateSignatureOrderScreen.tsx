@@ -854,6 +854,16 @@ export default function CreateSignatureOrderScreen() {
                     />
                     <label className="form-label">login_hint</label>
                   </div>
+                  <div className="mb-3 form-floating">
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, scope: event.target.value})}
+                      value={evidenceProvider.criiptoVerify?.scope || undefined}
+                      placeholder="scope"
+                    />
+                    <label className="form-label">scope</label>
+                  </div>
                 </React.Fragment>
               ) : null}
 

@@ -286,6 +286,9 @@ input CriiptoVerifyProviderInput {
   """
   message: String
 
+  """Set a custom scope for the underlying authentication request."""
+  scope: String
+
   """
   Enforces that signatories sign by unique evidence by comparing the values of
   previous evidence on the key you define. For Criipto Verify you likely want to
@@ -303,6 +306,7 @@ type CriiptoVerifySignatureEvidenceProvider implements SignatureEvidenceProvider
   loginHint: String
   message: String
   name: String!
+  scope: String
 }
 
 """
