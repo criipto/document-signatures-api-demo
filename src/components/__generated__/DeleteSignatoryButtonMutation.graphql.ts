@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c9b4726a34665daa728bed896b7e6913>>
+ * @generated SignedSource<<ae893c271cefa1c5bfffa200fb599658>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -335,6 +335,20 @@ return {
                         "kind": "ScalarField",
                         "name": "message",
                         "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "loginHint",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "scope",
+                        "storageKey": null
                       }
                     ],
                     "type": "CriiptoVerifySignatureEvidenceProvider",
@@ -430,12 +444,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2fffb8471e89040ad222224a59b6b7c3",
+    "cacheID": "05a95cac517f5b5a9ccbacfe71d3537e",
     "id": null,
     "metadata": {},
     "name": "DeleteSignatoryButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignatoryModal_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    id\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
+    "text": "mutation DeleteSignatoryButtonMutation(\n  $input: DeleteSignatoryInput!\n) {\n  deleteSignatory(input: $input) {\n    signatureOrder {\n      ...AddSignatoryButton_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignatoryModal_signatureOrder\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    id\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n      loginHint\n      scope\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
   }
 };
 })();

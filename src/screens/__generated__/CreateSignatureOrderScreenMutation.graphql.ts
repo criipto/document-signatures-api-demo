@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c572517c666dd910c775bd443cbfd9af>>
+ * @generated SignedSource<<29d90ae3dae19c6f510ee9c788c1e452>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -110,7 +110,12 @@ export type PdfSealPosition = {
   y: number;
 };
 export type SignatoryEvidenceProviderInput = {
+  allOf?: AllOfEvidenceProviderInput | null;
+  criiptoVerify?: CriiptoVerifyProviderInput | null;
+  drawable?: DrawableEvidenceProviderInput | null;
   id: string;
+  noop?: NoopEvidenceProviderInput | null;
+  oidc?: OidcEvidenceProviderInput | null;
 };
 export type SignatoryEvidenceValidationInput = {
   key: string;

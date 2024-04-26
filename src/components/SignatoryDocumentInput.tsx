@@ -33,7 +33,7 @@ export default function SignatoryDocumentInputComponent<T extends HasSignatoryDo
     `
   , props.signatureOrder);
 
-  const documents = useMemo(() => item.documents || [], [item.documents]);
+  const documents = useMemo(() => item.documents?.slice() || [], [item.documents]);
 
   const handleDocumentSelected = (document: SignatoryDocumentInput, event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;

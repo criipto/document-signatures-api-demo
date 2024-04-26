@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2b1f28431a1e95b499f02de5bf53e273>>
+ * @generated SignedSource<<f744203850ea8b0754674f00e29fbb47>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,9 +21,11 @@ export type SignatoryModal_signatureOrder$data = {
     readonly clientID?: string;
     readonly domain?: string;
     readonly id: string;
+    readonly loginHint?: string | null;
     readonly message?: string | null;
     readonly name?: string;
     readonly requireName?: boolean;
+    readonly scope?: string | null;
   }>;
   readonly id: string;
   readonly status: SignatureOrderStatus;
@@ -137,6 +139,20 @@ return {
               "kind": "ScalarField",
               "name": "message",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "loginHint",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "scope",
+              "storageKey": null
             }
           ],
           "type": "CriiptoVerifySignatureEvidenceProvider",
@@ -170,6 +186,6 @@ return {
 };
 })();
 
-(node as any).hash = "0d178f57b242cb27b57f1a7447927649";
+(node as any).hash = "e7f22d0270e932b9a714aeb713822779";
 
 export default node;

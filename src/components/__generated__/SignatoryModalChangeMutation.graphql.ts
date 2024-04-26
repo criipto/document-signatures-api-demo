@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7eb7d23a4cf1bb104362b4e10062ba8e>>
+ * @generated SignedSource<<2b377f497ecc2548649c9546a7a5d71f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -32,7 +32,44 @@ export type PdfSealPosition = {
   y: number;
 };
 export type SignatoryEvidenceProviderInput = {
+  allOf?: AllOfEvidenceProviderInput | null;
+  criiptoVerify?: CriiptoVerifyProviderInput | null;
+  drawable?: DrawableEvidenceProviderInput | null;
   id: string;
+  noop?: NoopEvidenceProviderInput | null;
+  oidc?: OidcEvidenceProviderInput | null;
+};
+export type AllOfEvidenceProviderInput = {
+  providers: ReadonlyArray<SingleEvidenceProviderInput>;
+};
+export type SingleEvidenceProviderInput = {
+  criiptoVerify?: CriiptoVerifyProviderInput | null;
+  drawable?: DrawableEvidenceProviderInput | null;
+  noop?: NoopEvidenceProviderInput | null;
+  oidc?: OidcEvidenceProviderInput | null;
+};
+export type CriiptoVerifyProviderInput = {
+  acrValues?: ReadonlyArray<string> | null;
+  alwaysRedirect?: boolean | null;
+  loginHint?: string | null;
+  message?: string | null;
+  scope?: string | null;
+  uniqueEvidenceKey?: string | null;
+};
+export type DrawableEvidenceProviderInput = {
+  requireName?: boolean | null;
+};
+export type NoopEvidenceProviderInput = {
+  name: string;
+};
+export type OidcEvidenceProviderInput = {
+  acrValues?: ReadonlyArray<string> | null;
+  alwaysRedirect?: boolean | null;
+  audience: string;
+  clientID: string;
+  domain: string;
+  name: string;
+  uniqueEvidenceKey?: string | null;
 };
 export type SignatoryEvidenceValidationInput = {
   key: string;
@@ -235,6 +272,20 @@ v16 = {
           "args": null,
           "kind": "ScalarField",
           "name": "message",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "loginHint",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "scope",
           "storageKey": null
         }
       ],
@@ -528,12 +579,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c21004bf9e87eff6eabbd01aecee8379",
+    "cacheID": "2bc332489268148bf0d49c9260550cc2",
     "id": null,
     "metadata": {},
     "name": "SignatoryModalChangeMutation",
     "operationKind": "mutation",
-    "text": "mutation SignatoryModalChangeMutation(\n  $input: ChangeSignatoryInput!\n) {\n  changeSignatory(input: $input) {\n    signatory {\n      ...SignatoryModal_signatory\n      id\n    }\n    signatureOrder {\n      ...SignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n        ...SignatoryModal_signatory\n      }\n      id\n    }\n  }\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatory on Signatory {\n  id\n  status\n  reference\n  role\n  evidenceProviders {\n    __typename\n    id\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  documents {\n    edges {\n      status\n      node {\n        __typename\n        id\n      }\n    }\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    id\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
+    "text": "mutation SignatoryModalChangeMutation(\n  $input: ChangeSignatoryInput!\n) {\n  changeSignatory(input: $input) {\n    signatory {\n      ...SignatoryModal_signatory\n      id\n    }\n    signatureOrder {\n      ...SignatoryModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n        ...SignatoryModal_signatory\n      }\n      id\n    }\n  }\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatory on Signatory {\n  id\n  status\n  reference\n  role\n  evidenceProviders {\n    __typename\n    id\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n      loginHint\n      scope\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  documents {\n    edges {\n      status\n      node {\n        __typename\n        id\n      }\n    }\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    id\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n      loginHint\n      scope\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
   }
 };
 })();

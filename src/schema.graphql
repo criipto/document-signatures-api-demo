@@ -763,7 +763,22 @@ enum SignatoryDocumentStatus {
 }
 
 input SignatoryEvidenceProviderInput {
+  allOf: AllOfEvidenceProviderInput
+
+  """Criipto Verify based evidence for signatures."""
+  criiptoVerify: CriiptoVerifyProviderInput
+
+  """Hand drawn signature evidence for signatures."""
+  drawable: DrawableEvidenceProviderInput
   id: ID!
+
+  """
+  TEST environment only. Does not manipulate the PDF, use for integration or webhook testing.
+  """
+  noop: NoopEvidenceProviderInput
+
+  """OIDC/JWT based evidence for signatures."""
+  oidc: OidcEvidenceProviderInput
 }
 
 input SignatoryEvidenceValidationInput {

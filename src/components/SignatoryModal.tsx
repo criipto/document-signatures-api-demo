@@ -50,6 +50,8 @@ export default function SignatoryModal(props : Props) {
             clientID
             acrValues
             message
+            loginHint
+            scope
           }
           ... on DrawableSignatureEvidenceProvider {
             id
@@ -87,6 +89,8 @@ export default function SignatoryModal(props : Props) {
             clientID
             acrValues
             message
+            loginHint
+            scope
           }
           ... on DrawableSignatureEvidenceProvider {
             id
@@ -172,7 +176,7 @@ export default function SignatoryModal(props : Props) {
         {
           input: {
             ...signatory,
-            evidenceValidation: filterEvidenceValidation(signatory.evidenceValidation),
+            evidenceValidation: filterEvidenceValidation(signatory.evidenceValidation?.slice()),
             signatureAppearance: filterSignatureAppearance(signatory.signatureAppearance)
           }
         } as {input: AddSignatoryInput}

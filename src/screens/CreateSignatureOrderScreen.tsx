@@ -10,6 +10,7 @@ import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOr
 import EvidenceValidationInput, { filterEvidenceValidation } from '../components/EvidenceValidationInput';
 
 import useMutation from '../hooks/useMutation';
+import EvidenceProviderInputComponent from '../components/EvidenceProviderInput';
 
 const ALL_EVIDENCE_VALIDATION_STAGES : EvidenceValidationStage[] = ['VIEW', 'SIGN'];
 
@@ -732,156 +733,10 @@ export default function CreateSignatureOrderScreen() {
                 </label>
               </div>
 
-              {evidenceProviderToType(evidenceProvider) === 'oidc' ? (
-                <React.Fragment>
-                  <div className="mb-3 form-floating">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, domain: event.target.value})}
-                      value={evidenceProvider.oidc?.domain}
-                      placeholder="Domain"
-                      required
-                    />
-                    <label className="form-label">Domain</label>
-                  </div>
-                  <div className="mb-3 form-floating">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, clientID: event.target.value})}
-                      value={evidenceProvider.oidc?.clientID}
-                      placeholder="ClientID"
-                      required
-                    />
-                    <label className="form-label">ClientID</label>
-                  </div>
-                  <div className="mb-3 form-floating">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, audience: event.target.value})}
-                      value={evidenceProvider.oidc?.audience}
-                      placeholder="Audience"
-                      required
-                    />
-                    <label className="form-label">Audience</label>
-                  </div>
-                  <div className="mb-3 form-floating">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, acrValues: event.target.value.split(',')})}
-                      value={evidenceProvider.oidc?.acrValues?.join(',') || ''}
-                      placeholder="Acr values (comma-seperated)"
-                    />
-                    <label className="form-label">Acr values (comma-seperated)</label>
-                  </div>
-                  <div className="mb-3 form-floating">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, uniqueEvidenceKey: event.target.value})}
-                      value={evidenceProvider.oidc?.uniqueEvidenceKey || undefined}
-                      placeholder="Unique Evidence Key"
-                    />
-                    <label className="form-label">Unique Evidence Key</label>
-                  </div>
-                  <div className="form-check mb-3">
-                    <input
-                      className="form-check-input"
-                      id={`evidenceProvider_${index}_alwaysRedirect`} type="checkbox"
-                      checked={evidenceProvider.oidc?.alwaysRedirect || false}
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'oidc', {...evidenceProvider.oidc, alwaysRedirect: event.target.checked})}
-                    />
-                    <label className="form-check-label" htmlFor={`evidenceProvider_${index}_alwaysRedirect`} >
-                      Always redirect
-                    </label>
-                  </div>
-                </React.Fragment>
-              ) : null}
-
-              {evidenceProviderToType(evidenceProvider) === 'criiptoVerify' ? (
-                <React.Fragment>
-                  <div className="mb-3 form-floating">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, acrValues: event.target.value.split(',')})}
-                      value={evidenceProvider.criiptoVerify?.acrValues?.join(',') || ''}
-                      placeholder="Acr values (comma-seperated)"
-                    />
-                    <label className="form-label">Acr values (comma-seperated)</label>
-                  </div>
-                  <div className="mb-3 form-floating">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, uniqueEvidenceKey: event.target.value})}
-                      value={evidenceProvider.criiptoVerify?.uniqueEvidenceKey || undefined}
-                      placeholder="Unique Evidence Key"
-                    />
-                    <label className="form-label">Unique Evidence Key</label>
-                  </div>
-                  <div className="form-check mb-3">
-                    <input
-                      className="form-check-input"
-                      id={`evidenceProvider_${index}_alwaysRedirect`} type="checkbox"
-                      checked={evidenceProvider.criiptoVerify?.alwaysRedirect || false}
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, alwaysRedirect: event.target.checked})}
-                    />
-                    <label className="form-check-label" htmlFor={`evidenceProvider_${index}_alwaysRedirect`} >
-                      Always redirect
-                    </label>
-                  </div>
-                  <div className="mb-3 form-floating">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, message: event.target.value})}
-                      value={evidenceProvider.criiptoVerify?.message || undefined}
-                      placeholder="Message (DK MitID)"
-                    />
-                    <label className="form-label">Message (DK MitID)</label>
-                  </div>
-                  <div className="mb-3 form-floating">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, loginHint: event.target.value})}
-                      value={evidenceProvider.criiptoVerify?.loginHint || undefined}
-                      placeholder="login_hint"
-                    />
-                    <label className="form-label">login_hint</label>
-                  </div>
-                  <div className="mb-3 form-floating">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, scope: event.target.value})}
-                      value={evidenceProvider.criiptoVerify?.scope || undefined}
-                      placeholder="scope"
-                    />
-                    <label className="form-label">scope</label>
-                  </div>
-                </React.Fragment>
-              ) : null}
-
-              {evidenceProviderToType(evidenceProvider) === 'drawable' ? (
-                <React.Fragment>
-                  <div className="form-check mb-3">
-                    <input
-                      className="form-check-input"
-                      id={`evidenceProvider_${index}_requireName`} type="checkbox"
-                      checked={evidenceProvider.drawable?.requireName || false}
-                      onChange={(event) => handleChangeEvidenceProvider(evidenceProvider, 'drawable', {...evidenceProvider.drawable, requireName: event.target.checked})}
-                    />
-                    <label className="form-check-label" htmlFor={`evidenceProvider_${index}_requireName`} >
-                      Require name
-                    </label>
-                  </div>
-                </React.Fragment>
-              ) : null}
+              <EvidenceProviderInputComponent
+                evidenceProvider={evidenceProvider}
+                onChange={(provider, key, value) => handleChangeEvidenceProvider(provider, key, value)}
+              />
 
               <div className="mt-2">
                 <button type="button" className="btn btn-secondary btn-small" onClick={() => handleRemoveEvidenceProvider(evidenceProvider)}>Remove evidence provider</button>
