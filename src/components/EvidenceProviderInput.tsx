@@ -3,13 +3,15 @@ import React from 'react';
 import { type EvidenceProviderInput as SignatureOrderEvidenceProviderInput } from '../screens/__generated__/CreateSignatureOrderScreenMutation.graphql';
 import { SignatoryEvidenceProviderInput } from './__generated__/SignatoryModalAddMutation.graphql';
 
-export type EvidenceProviderType = "oidc" | "criiptoVerify" | "drawable" | "noop";
+export type EvidenceProviderType = "oidc" | "criiptoVerify" | "drawable" | "noop" | "allOf";
 
-type EvidenceProviderInput = SignatureOrderEvidenceProviderInput | SignatoryEvidenceProviderInput
+export type EvidenceProviderInput = SignatureOrderEvidenceProviderInput | SignatoryEvidenceProviderInput
 export const evidenceProviderToType = (input: EvidenceProviderInput) : EvidenceProviderType | null => {
   if (input.oidc) return "oidc";
   if (input.criiptoVerify) return "criiptoVerify";
   if (input.drawable) return "drawable";
+  if (input.noop) return "noop";
+  if (input.allOf) return "allOf";
   return null;
 }
 

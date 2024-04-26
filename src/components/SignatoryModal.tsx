@@ -7,13 +7,14 @@ import { Modal } from 'react-bootstrap';
 
 import {SignatoryModal_signatureOrder$key} from './__generated__/SignatoryModal_signatureOrder.graphql';
 import {SignatoryModal_signatory$key} from './__generated__/SignatoryModal_signatory.graphql';
-import {SignatoryModalAddMutation, AddSignatoryInput, SignatoryDocumentInput, SignatoryEvidenceValidationInput, SignatureAppearanceInput as SignatureAppearanceInputType} from './__generated__/SignatoryModalAddMutation.graphql';
+import {SignatoryModalAddMutation, AddSignatoryInput, SignatoryDocumentInput, SignatoryEvidenceValidationInput, SignatureAppearanceInput as SignatureAppearanceInputType, SignatoryEvidenceProviderInput} from './__generated__/SignatoryModalAddMutation.graphql';
 import {SignatoryModalChangeMutation, ChangeSignatoryInput} from './__generated__/SignatoryModalChangeMutation.graphql';
 
 import EvidenceValidationInput, { filterEvidenceValidation } from './EvidenceValidationInput';
 import SignatoryDocumentInputComponent from './SignatoryDocumentInput';
 import SignatureAppearanceInput, { filterSignatureAppearance } from './SignatureAppearanceInput';
 import useMutation from '../hooks/useMutation';
+import EvidenceProviderInputComponent, { evidenceProviderToType, EvidenceProviderInput } from './EvidenceProviderInput';
 
 interface Props {
   signatureOrder: SignatoryModal_signatureOrder$key,
@@ -123,6 +124,22 @@ export default function SignatoryModal(props : Props) {
         data.evidenceProviders.map(d => ({id: (d as any).id}))
   });
 
+  const [evidenceProviders, setEvidenceProviders] = useState<{id: string, enabled: boolean, input: SignatoryEvidenceProviderInput}[]>(() => {
+    const evidenceProviders = 
+      existingSignatory ?
+      existingSignatory.evidenceProviders :
+      data.evidenceProviders;
+
+    return evidenceProviders.map(ep => {
+      const input = 
+        ep.__typename === 'OidcJWTSignatureEvidenceProvider' ? {oidc: {}} :
+        ep.__typename === 'CriiptoVerifySignatureEvidenceProvider' ? {criiptoVerify: {}} :
+        ep.__typename === 'DrawableSignatureEvidenceProvider' ? {drawable: {}} : 
+        {};
+      return {id: ep.id, enabled: true, input: {id: ep.id, ...input}}
+    });
+  })
+
   const [executor, status] = useMutation<SignatoryModalAddMutation | SignatoryModalChangeMutation>(
     existingSignatory ?
       graphql`
@@ -170,14 +187,16 @@ export default function SignatoryModal(props : Props) {
         {
           input: {
             ...signatory,
-            signatoryId: existingSignatory?.id
+            signatoryId: existingSignatory?.id,
+            evidenceProviders: evidenceProviders.filter(e => e.enabled).map(e => e.input)
           }
         } as {input: ChangeSignatoryInput} :
         {
           input: {
             ...signatory,
             evidenceValidation: filterEvidenceValidation(signatory.evidenceValidation?.slice()),
-            signatureAppearance: filterSignatureAppearance(signatory.signatureAppearance)
+            signatureAppearance: filterSignatureAppearance(signatory.signatureAppearance),
+            evidenceProviders: evidenceProviders.filter(e => e.enabled).map(e => e.input)
           }
         } as {input: AddSignatoryInput}
 
@@ -208,15 +227,33 @@ export default function SignatoryModal(props : Props) {
   }
 
   
-  const handleEvidenceProvider = (provider: any, checked: boolean) => {
-    setSignatory(signatory => ({
-      ...signatory,
-      evidenceProviders: 
-        checked ?
-          (signatory.evidenceProviders || []).concat([{id: (provider as any).id}]) :
-          (signatory.evidenceProviders || []).filter(s => s.id !== (provider as any).id)
-    }));
-  } 
+  const toggleEvidenceProvider = (provider: any, checked: boolean) => {
+    setEvidenceProviders(evidenceProviders => {
+      return evidenceProviders.map(evidenceProvider => {
+        if (evidenceProvider.id === provider.id) {
+          return {...evidenceProvider, enabled: checked};
+        }
+        return evidenceProvider;
+      });
+    });
+  }
+
+  const handleChangeEvidenceProvider = (provider : {id: string}, key : keyof EvidenceProviderInput, value : string | boolean | object) => {
+    setEvidenceProviders(providers => {
+      return providers.map(search => {
+        if (search.id === provider.id) {
+          return {
+            ...search,
+            input: {
+              ...search.input,
+              [key]: value
+            }
+          };
+        }
+        return search;
+      });
+    })
+  };
 
   const handlePreapproveAll = () => {
     setSignatory(signatory => ({
@@ -227,6 +264,8 @@ export default function SignatoryModal(props : Props) {
       }))
     }));
   };
+
+  console.log(evidenceProviders);
 
   return (
     <Modal
@@ -270,20 +309,26 @@ export default function SignatoryModal(props : Props) {
           Preapprove all
         </button>
         <div className="mt-3"><strong>Evidence Providers</strong></div>
-        <ul>
-          {data.evidenceProviders.map((provider, index) => (
+        <ul style={{listStyleType: 'none', padding: 0}}>
+          {evidenceProviders.map((provider, index) => (
             <li key={index}>
               <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
                   id={`${index}_providers_enabled`}
-                  checked={signatory.evidenceProviders?.find(s => s.id === (provider as any).id) !== undefined}
-                  onChange={(event) => handleEvidenceProvider(provider, event.target.checked)}
+                  checked={provider.enabled}
+                  onChange={(event) => toggleEvidenceProvider(provider, event.target.checked)}
                 />
                 <label className="form-check-label" htmlFor={`${index}_providers_enabled`}>
-                  {provider.__typename}
+                  {evidenceProviderToType(provider.input)}
                 </label>
+                {provider.enabled ? ( 
+                  <EvidenceProviderInputComponent
+                    evidenceProvider={provider.input}
+                    onChange={(input, key, value) => handleChangeEvidenceProvider(provider, key, value)}
+                  />
+                ) : null}
               </div>
             </li>
           ))}
