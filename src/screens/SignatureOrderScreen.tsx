@@ -65,6 +65,28 @@ graphql`
         reference
         role
       }
+      
+      ... on JWTSignature {
+        jwt
+        jwks
+      }
+      ... on DrawableSignature {
+        name
+        image
+      }
+      ... on CompositeSignature {
+        signatures {
+          __typename
+          ... on JWTSignature {
+            jwt
+            jwks
+          }
+          ... on DrawableSignature {
+            name
+            image
+          }
+        }
+      }
     }
   }
 `;
@@ -254,7 +276,9 @@ export default function SignatureOrdersScreen() {
                 <ul>
                   {document.signatures?.map(signature => (
                     <li>
-                      {signature.__typename}<br />
+                      {signature.__typename}
+                      {signature.signatures?.length ? ` (${signature.signatures?.map(s => s.__typename).join(', ')})` : ''}
+                      <br />
                       Signatory: {signature.signatory?.reference}
                     </li>
                   ))}

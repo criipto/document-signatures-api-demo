@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a9166429f6b8137a830916c0e6bffc3c>>
+ * @generated SignedSource<<162f9c4c2d94d8a6a3a47f7ffdf2bd31>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,11 +16,28 @@ export type SignatureOrderScreenDocument$data = {
   readonly id: string;
   readonly signatures: ReadonlyArray<{
     readonly __typename: string;
+    readonly image?: string;
+    readonly jwks?: string;
+    readonly jwt?: string;
+    readonly name?: string | null;
     readonly signatory: {
       readonly id: string;
       readonly reference: string | null;
       readonly role: string | null;
     } | null;
+    readonly signatures?: ReadonlyArray<{
+      readonly __typename: "DrawableSignature";
+      readonly image: string;
+      readonly name: string | null;
+    } | {
+      readonly __typename: "JWTSignature";
+      readonly jwks: string;
+      readonly jwt: string;
+    } | {
+      // This will never be '%other', but we need some
+      // value in case none of the concrete values match.
+      readonly __typename: "%other";
+    }>;
   }> | null;
   readonly title: string;
   readonly " $fragmentType": "SignatureOrderScreenDocument";
@@ -44,6 +61,48 @@ v1 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v2 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "jwt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "jwks",
+      "storageKey": null
+    }
+  ],
+  "type": "JWTSignature",
+  "abstractKey": null
+},
+v3 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "name",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "image",
+      "storageKey": null
+    }
+  ],
+  "type": "DrawableSignature",
+  "abstractKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -101,6 +160,29 @@ return {
             }
           ],
           "storageKey": null
+        },
+        (v2/*: any*/),
+        (v3/*: any*/),
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "signatures",
+              "plural": true,
+              "selections": [
+                (v0/*: any*/),
+                (v2/*: any*/),
+                (v3/*: any*/)
+              ],
+              "storageKey": null
+            }
+          ],
+          "type": "CompositeSignature",
+          "abstractKey": null
         }
       ],
       "storageKey": null
@@ -111,6 +193,6 @@ return {
 };
 })();
 
-(node as any).hash = "c57d157cb8767655d642cae4044aef5d";
+(node as any).hash = "8bf0480d098b4f6578ca556c8a0829d1";
 
 export default node;

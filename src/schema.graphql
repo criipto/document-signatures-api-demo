@@ -143,6 +143,7 @@ type CloseSignatureOrderOutput {
 
 type CompositeSignature implements Signature {
   signatory: Signatory
+  signatures: [SingleSignature!]!
 }
 
 input CreateApplicationApiKeyInput {
@@ -396,7 +397,7 @@ input DrawableEvidenceProviderInput {
   requireName: Boolean
 }
 
-type DrawableSignature implements Signature {
+type DrawableSignature implements Signature & SingleSignature {
   image: Blob!
   name: String
   signatory: Signatory
@@ -407,7 +408,7 @@ type DrawableSignatureEvidenceProvider implements SignatureEvidenceProvider & Si
   requireName: Boolean!
 }
 
-type EmptySignature implements Signature {
+type EmptySignature implements Signature & SingleSignature {
   signatory: Signatory
 }
 
@@ -451,7 +452,7 @@ type ExtendSignatureOrderOutput {
   signatureOrder: SignatureOrder!
 }
 
-type JWTSignature implements Signature {
+type JWTSignature implements Signature & SingleSignature {
   jwks: String!
   jwt: String!
   signatory: Signatory
@@ -782,8 +783,9 @@ input SignatoryEvidenceProviderInput {
 }
 
 input SignatoryEvidenceValidationInput {
+  boolean: Boolean
   key: String!
-  value: String!
+  value: String
 }
 
 enum SignatoryFrontendEvent {
@@ -995,6 +997,10 @@ input SingleEvidenceProviderInput {
 
   """OIDC/JWT based evidence for signatures."""
   oidc: OidcEvidenceProviderInput
+}
+
+interface SingleSignature {
+  signatory: Signatory
 }
 
 interface SingleSignatureEvidenceProvider {
