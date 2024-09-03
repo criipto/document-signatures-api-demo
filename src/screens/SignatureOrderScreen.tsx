@@ -149,6 +149,8 @@ const Query = graphql`
         ... on DrawableSignatureEvidenceProvider {
           id
           requireName
+          minimumWidth
+          minimumHeight
         }
         ... on AllOfSignatureEvidenceProvider {
           providers {
@@ -333,6 +335,12 @@ export default function SignatureOrdersScreen() {
                 ) : provider.__typename === 'DrawableSignatureEvidenceProvider' ? (
                   <React.Fragment>
                     Require Name: {provider.requireName ? 'true' : 'false'}<br />
+                    {provider.minimumWidth &&
+                      <>Minimum Width: {provider.minimumWidth}<br /></>
+                    }
+                    {provider.minimumHeight &&
+                      <>Minimum Height: {provider.minimumHeight}</>
+                    }
                   </React.Fragment>
                 ) : provider.__typename === 'AllOfSignatureEvidenceProvider' ? (
                   <React.Fragment>
