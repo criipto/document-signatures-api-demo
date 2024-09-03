@@ -18,6 +18,9 @@ type AddSignatoriesOutput {
 }
 
 input AddSignatoryInput {
+  """
+  Define a subset of documents for the signatory. Must be a non-empty list. Leave null for all documents.
+  """
   documents: [SignatoryDocumentInput!]
 
   """Selectively enable evidence providers for this signatory."""
@@ -95,6 +98,9 @@ type CancelSignatureOrderOutput {
 }
 
 input ChangeSignatoryInput {
+  """
+  Define a subset of documents for the signatory. Must be a non-empty list. Leave null for all documents.
+  """
   documents: [SignatoryDocumentInput!]
 
   """Selectively enable evidence providers for this signatory."""
@@ -223,6 +229,9 @@ type CreateSignatureOrderOutput {
 }
 
 input CreateSignatureOrderSignatoryInput {
+  """
+  Define a subset of documents for the signatory. Must be a non-empty list. Leave null for all documents.
+  """
   documents: [SignatoryDocumentInput!]
 
   """Selectively enable evidence providers for this signatory."""
@@ -394,6 +403,11 @@ input DownloadVerificationOidcInput {
 
 """Hand drawn signature evidence for signatures."""
 input DrawableEvidenceProviderInput {
+  """Required minimum height of drawed area in pixels."""
+  minimumHeight: Int
+
+  """Required minimum width of drawed area in pixels."""
+  minimumWidth: Int
   requireName: Boolean
 }
 
@@ -405,6 +419,8 @@ type DrawableSignature implements Signature & SingleSignature {
 
 type DrawableSignatureEvidenceProvider implements SignatureEvidenceProvider & SingleSignatureEvidenceProvider {
   id: ID!
+  minimumHeight: Int
+  minimumWidth: Int
   requireName: Boolean!
 }
 

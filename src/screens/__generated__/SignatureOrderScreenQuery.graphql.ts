@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fec48a84654b2f4cac83d2e6349474c6>>
+ * @generated SignedSource<<961dbfc8b594c02feb982d96fd786a27>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -61,6 +61,8 @@ export type SignatureOrderScreenQuery$data = {
       readonly id: string;
       readonly loginHint?: string | null;
       readonly message?: string | null;
+      readonly minimumHeight?: number | null;
+      readonly minimumWidth?: number | null;
       readonly name?: string;
       readonly providers?: ReadonlyArray<{
         readonly __typename: string;
@@ -385,27 +387,42 @@ v27 = {
   "abstractKey": null
 },
 v28 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "requireName",
+  "storageKey": null
+},
+v29 = {
   "kind": "InlineFragment",
   "selections": [
+    (v28/*: any*/),
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "requireName",
+      "name": "minimumWidth",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "minimumHeight",
       "storageKey": null
     }
   ],
   "type": "DrawableSignatureEvidenceProvider",
   "abstractKey": null
 },
-v29 = {
+v30 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "blob",
   "storageKey": null
 },
-v30 = {
+v31 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -426,7 +443,7 @@ v30 = {
   "type": "JWTSignature",
   "abstractKey": null
 },
-v31 = {
+v32 = {
   "kind": "InlineFragment",
   "selections": [
     (v18/*: any*/),
@@ -441,7 +458,7 @@ v31 = {
   "type": "DrawableSignature",
   "abstractKey": null
 },
-v32 = {
+v33 = {
   "alias": null,
   "args": null,
   "concreteType": null,
@@ -464,8 +481,8 @@ v32 = {
       ],
       "storageKey": null
     },
-    (v30/*: any*/),
     (v31/*: any*/),
+    (v32/*: any*/),
     {
       "kind": "InlineFragment",
       "selections": [
@@ -478,8 +495,8 @@ v32 = {
           "plural": true,
           "selections": [
             (v16/*: any*/),
-            (v30/*: any*/),
-            (v31/*: any*/)
+            (v31/*: any*/),
+            (v32/*: any*/)
           ],
           "storageKey": null
         }
@@ -605,7 +622,7 @@ return {
               (v2/*: any*/),
               (v23/*: any*/),
               (v27/*: any*/),
-              (v28/*: any*/),
+              (v29/*: any*/),
               {
                 "kind": "InlineFragment",
                 "selections": [
@@ -637,8 +654,8 @@ return {
               (v16/*: any*/),
               (v2/*: any*/),
               (v4/*: any*/),
-              (v29/*: any*/),
-              (v32/*: any*/)
+              (v30/*: any*/),
+              (v33/*: any*/)
             ],
             "storageKey": null
           },
@@ -794,7 +811,14 @@ return {
                     "type": "CriiptoVerifySignatureEvidenceProvider",
                     "abstractKey": null
                   },
-                  (v28/*: any*/)
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v28/*: any*/)
+                    ],
+                    "type": "DrawableSignatureEvidenceProvider",
+                    "abstractKey": null
+                  }
                 ],
                 "storageKey": null
               }
@@ -813,7 +837,7 @@ return {
               (v2/*: any*/),
               (v23/*: any*/),
               (v27/*: any*/),
-              (v28/*: any*/),
+              (v29/*: any*/),
               {
                 "kind": "InlineFragment",
                 "selections": [
@@ -852,8 +876,8 @@ return {
               },
               (v2/*: any*/),
               (v4/*: any*/),
-              (v29/*: any*/),
-              (v32/*: any*/)
+              (v30/*: any*/),
+              (v33/*: any*/)
             ],
             "storageKey": null
           }
@@ -863,16 +887,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5993ab3c20b85bb45b916e801fa38d8c",
+    "cacheID": "ec42d68f5939e6816a2c6682cc01f50a",
     "id": null,
     "metadata": {},
     "name": "SignatureOrderScreenQuery",
     "operationKind": "query",
-    "text": "query SignatureOrderScreenQuery(\n  $id: ID!\n) {\n  signatureOrder(id: $id) {\n    id\n    status\n    title\n    timezone\n    createdAt\n    expiresAt\n    closedAt\n    ui {\n      signatoryRedirectUri\n      stylesheet\n      language\n      logo {\n        src\n        href\n      }\n      disableRejection\n    }\n    webhook {\n      url\n    }\n    signatories {\n      id\n      status\n      statusReason\n      href\n      downloadHref\n      reference\n      role\n      documents {\n        edges {\n          status\n          node {\n            __typename\n            id\n            title\n          }\n        }\n      }\n      evidenceProviders {\n        __typename\n        id\n      }\n      ...DeleteSignatoryButton_signatory\n      ...ChangeSignatoryButton_signatory\n      ...SignActingAsButton_signatory\n    }\n    evidenceProviders {\n      __typename\n      id\n      ... on OidcJWTSignatureEvidenceProvider {\n        id\n        name\n        domain\n        clientID\n        acrValues\n        alwaysRedirect\n      }\n      ... on CriiptoVerifySignatureEvidenceProvider {\n        id\n        name\n        domain\n        clientID\n        acrValues\n        alwaysRedirect\n        message\n        loginHint\n        scope\n      }\n      ... on DrawableSignatureEvidenceProvider {\n        id\n        requireName\n      }\n      ... on AllOfSignatureEvidenceProvider {\n        providers {\n          __typename\n          id\n        }\n      }\n    }\n    documents {\n      __typename\n      __isDocument: __typename\n      id\n      title\n      blob\n      signatures {\n        __typename\n        signatory {\n          id\n          reference\n          role\n        }\n        ... on JWTSignature {\n          jwt\n          jwks\n        }\n        ... on DrawableSignature {\n          name\n          image\n        }\n        ... on CompositeSignature {\n          signatures {\n            __typename\n            ... on JWTSignature {\n              jwt\n              jwks\n            }\n            ... on DrawableSignature {\n              name\n              image\n            }\n          }\n        }\n      }\n    }\n    ...CancelSignatureOrderButton_signatureOrder\n    ...AddSignatoryButton_signatureOrder\n    ...DeleteSignatoryButton_signatureOrder\n    ...ChangeSignatoryButton_signatureOrder\n    ...SignActingAsButton_signatureOrder\n    ...CloseSignatureOrderButton_signatureOrder\n    ...ExtendSignatureOrderButton_signatureOrder\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignatoryModal_signatureOrder\n}\n\nfragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment ChangeSignatoryButton_signatory on Signatory {\n  id\n  status\n  ...SignatoryModal_signatory\n}\n\nfragment ChangeSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignatoryModal_signatureOrder\n}\n\nfragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatory on Signatory {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatureOrder on SignatureOrder {\n  id\n}\n\nfragment ExtendSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment SignActingAsButton_signatory on Signatory {\n  id\n  status\n  documents {\n    edges {\n      status\n    }\n  }\n  ...SignActingAsModal_signatory\n}\n\nfragment SignActingAsButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignActingAsModal_signatureOrder\n}\n\nfragment SignActingAsModal_signatory on Signatory {\n  id\n  status\n  documents {\n    edges {\n      status\n    }\n  }\n}\n\nfragment SignActingAsModal_signatureOrder on SignatureOrder {\n  id\n  status\n  evidenceProviders {\n    __typename\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n    }\n    id\n  }\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatory on Signatory {\n  id\n  status\n  reference\n  role\n  evidenceProviders {\n    __typename\n    id\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n      loginHint\n      scope\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  documents {\n    edges {\n      status\n      node {\n        __typename\n        id\n      }\n    }\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    id\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n      loginHint\n      scope\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
+    "text": "query SignatureOrderScreenQuery(\n  $id: ID!\n) {\n  signatureOrder(id: $id) {\n    id\n    status\n    title\n    timezone\n    createdAt\n    expiresAt\n    closedAt\n    ui {\n      signatoryRedirectUri\n      stylesheet\n      language\n      logo {\n        src\n        href\n      }\n      disableRejection\n    }\n    webhook {\n      url\n    }\n    signatories {\n      id\n      status\n      statusReason\n      href\n      downloadHref\n      reference\n      role\n      documents {\n        edges {\n          status\n          node {\n            __typename\n            id\n            title\n          }\n        }\n      }\n      evidenceProviders {\n        __typename\n        id\n      }\n      ...DeleteSignatoryButton_signatory\n      ...ChangeSignatoryButton_signatory\n      ...SignActingAsButton_signatory\n    }\n    evidenceProviders {\n      __typename\n      id\n      ... on OidcJWTSignatureEvidenceProvider {\n        id\n        name\n        domain\n        clientID\n        acrValues\n        alwaysRedirect\n      }\n      ... on CriiptoVerifySignatureEvidenceProvider {\n        id\n        name\n        domain\n        clientID\n        acrValues\n        alwaysRedirect\n        message\n        loginHint\n        scope\n      }\n      ... on DrawableSignatureEvidenceProvider {\n        id\n        requireName\n        minimumWidth\n        minimumHeight\n      }\n      ... on AllOfSignatureEvidenceProvider {\n        providers {\n          __typename\n          id\n        }\n      }\n    }\n    documents {\n      __typename\n      __isDocument: __typename\n      id\n      title\n      blob\n      signatures {\n        __typename\n        signatory {\n          id\n          reference\n          role\n        }\n        ... on JWTSignature {\n          jwt\n          jwks\n        }\n        ... on DrawableSignature {\n          name\n          image\n        }\n        ... on CompositeSignature {\n          signatures {\n            __typename\n            ... on JWTSignature {\n              jwt\n              jwks\n            }\n            ... on DrawableSignature {\n              name\n              image\n            }\n          }\n        }\n      }\n    }\n    ...CancelSignatureOrderButton_signatureOrder\n    ...AddSignatoryButton_signatureOrder\n    ...DeleteSignatoryButton_signatureOrder\n    ...ChangeSignatoryButton_signatureOrder\n    ...SignActingAsButton_signatureOrder\n    ...CloseSignatureOrderButton_signatureOrder\n    ...ExtendSignatureOrderButton_signatureOrder\n  }\n}\n\nfragment AddSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignatoryModal_signatureOrder\n}\n\nfragment CancelSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment ChangeSignatoryButton_signatory on Signatory {\n  id\n  status\n  ...SignatoryModal_signatory\n}\n\nfragment ChangeSignatoryButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignatoryModal_signatureOrder\n}\n\nfragment CloseSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatory on Signatory {\n  id\n  status\n}\n\nfragment DeleteSignatoryButton_signatureOrder on SignatureOrder {\n  id\n}\n\nfragment ExtendSignatureOrderButton_signatureOrder on SignatureOrder {\n  id\n  status\n}\n\nfragment SignActingAsButton_signatory on Signatory {\n  id\n  status\n  documents {\n    edges {\n      status\n    }\n  }\n  ...SignActingAsModal_signatory\n}\n\nfragment SignActingAsButton_signatureOrder on SignatureOrder {\n  id\n  status\n  ...SignActingAsModal_signatureOrder\n}\n\nfragment SignActingAsModal_signatory on Signatory {\n  id\n  status\n  documents {\n    edges {\n      status\n    }\n  }\n}\n\nfragment SignActingAsModal_signatureOrder on SignatureOrder {\n  id\n  status\n  evidenceProviders {\n    __typename\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n    }\n    id\n  }\n}\n\nfragment SignatoryDocumentInput_signatureOrder on SignatureOrder {\n  documents {\n    __typename\n    id\n    title\n  }\n}\n\nfragment SignatoryModal_signatory on Signatory {\n  id\n  status\n  reference\n  role\n  evidenceProviders {\n    __typename\n    id\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n      loginHint\n      scope\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  documents {\n    edges {\n      status\n      node {\n        __typename\n        id\n      }\n    }\n  }\n}\n\nfragment SignatoryModal_signatureOrder on SignatureOrder {\n  id\n  status\n  documents {\n    __typename\n    id\n  }\n  evidenceProviders {\n    __typename\n    id\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n      name\n      domain\n      clientID\n      acrValues\n      message\n      loginHint\n      scope\n    }\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n  }\n  ...SignatoryDocumentInput_signatureOrder\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0b072149dd9db3c38f9d7f62fb3f75e4";
+(node as any).hash = "7c6920d3c5ee43559710caa2953a1a57";
 
 export default node;
