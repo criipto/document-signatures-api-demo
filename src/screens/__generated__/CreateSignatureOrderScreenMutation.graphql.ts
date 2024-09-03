@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<99fa23f7eb92b922017ab71e26852d88>>
+ * @generated SignedSource<<24adc59eac75243c7a31d0586445edcb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -77,6 +77,8 @@ export type CriiptoVerifyProviderInput = {
   uniqueEvidenceKey?: string | null;
 };
 export type DrawableEvidenceProviderInput = {
+  minimumHeight?: number | null;
+  minimumWidth?: number | null;
   requireName?: boolean | null;
 };
 export type NoopEvidenceProviderInput = {
