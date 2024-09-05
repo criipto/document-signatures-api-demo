@@ -171,27 +171,25 @@ export default function EvidenceProviderInputComponent(props: {
           </label>
         </div>
         <div className="mb-3 form-floating">
-            <input
-              className="form-control"
-              type="number"
-              onChange={(event) => onChange(evidenceProvider, 'drawable', {...evidenceProvider.drawable, minimumWidth: parseInt(event.target.value, 10)})}
-              placeholder="Minimum width"
-              required
-            />
-            <label className="form-label">Minimum Width</label>
-            <small className="form-text text-muted">Specifies the required minimum width of drawable in pixels.</small>
-          </div>
-          <div className="mb-3 form-floating">
-            <input
-              className="form-control"
-              type="number"
-              onChange={(event) => onChange(evidenceProvider, 'drawable', {...evidenceProvider.drawable, minimumHeight: parseInt(event.target.value, 10)})}
-              placeholder="Minimum height"
-              required
-            />
-            <label className="form-label">Minimum Height</label>
-            <small className="form-text text-muted">Specifies the required minimum height of drawable in pixels.</small>
-          </div>
+          <input
+            className="form-control"
+            type="number"
+            onChange={(event) => onChange(evidenceProvider, 'drawable', {...evidenceProvider.drawable, minimumWidth: parseInt(event.target.value, 10)})}
+            placeholder="Minimum width"
+          />
+          <label className="form-label">Minimum Width</label>
+          <small className="form-text text-muted">Specifies the required minimum width of drawable in pixels.</small>
+        </div>
+        <div className="mb-3 form-floating">
+          <input
+            className="form-control"
+            type="number"
+            onChange={(event) => onChange(evidenceProvider, 'drawable', {...evidenceProvider.drawable, minimumHeight: parseInt(event.target.value, 10)})}
+            placeholder="Minimum height"
+          />
+          <label className="form-label">Minimum Height</label>
+          <small className="form-text text-muted">Specifies the required minimum height of drawable in pixels.</small>
+        </div>
       </React.Fragment>
     )
   }
