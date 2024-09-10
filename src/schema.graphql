@@ -195,8 +195,18 @@ input CreateSignatureOrderInput {
   """
   evidenceValidationStages: [EvidenceValidationStage!]
 
-  """When this signature order will auto-close/expire. Default 90 days."""
-  expiresInDays: Int = 90
+  """
+  When this signature order will auto-close/expire at exactly in one of the
+  following ISO-8601 formats: yyyy-MM-ddTHH:mm:ssZ, yyyy-MM-ddTHH:mm:ss.ffZ,
+  yyyy-MM-ddTHH:mm:ss.fffZ, yyyy-MM-ddTHH:mm:ssK, yyyy-MM-ddTHH:mm:ss.ffK,
+  yyyy-MM-ddTHH:mm:ss.fffK. Cannot be provided with `expiresInDays`.
+  """
+  expiresAt: String
+
+  """
+  When this signature order will auto-close/expire. Default 90 days. Cannot be provided with `expiresAt`
+  """
+  expiresInDays: Int
 
   """
   Attempt to automatically fix document formatting errors if possible. Default 'true'.

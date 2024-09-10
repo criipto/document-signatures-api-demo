@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<24adc59eac75243c7a31d0586445edcb>>
+ * @generated SignedSource<<af8490e5ead28ac7bb746966969b0ef5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,7 @@ export type CreateSignatureOrderInput = {
   documents: ReadonlyArray<DocumentInput>;
   evidenceProviders?: ReadonlyArray<EvidenceProviderInput> | null;
   evidenceValidationStages?: ReadonlyArray<EvidenceValidationStage> | null;
+  expiresAt?: string | null;
   expiresInDays?: number | null;
   fixDocumentFormattingErrors?: boolean | null;
   maxSignatories?: number | null;
