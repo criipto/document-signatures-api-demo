@@ -14,6 +14,7 @@ import CloseSignatureOrderButton from '../components/CloseSignatureOrderButton';
 import ChangeSignatoryButton from '../components/ChangeSignatoryButton';
 import SignActingAsButton from '../components/SignActingAsButton';
 import ExtendSignatureOrderButton from '../components/ExtendSignatureOrderButton';
+import CleanupSignatureOrderButton from '../components/CleanupSignatureOrderButton';
 
 function base64ToBlob( base64 : string, type = "application/pdf" ) {
   const binStr = atob( base64 );
@@ -164,6 +165,7 @@ const Query = graphql`
       }
 
       ...CancelSignatureOrderButton_signatureOrder
+      ...CleanupSignatureOrderButton_signatureOrder
       ...AddSignatoryButton_signatureOrder
       ...DeleteSignatoryButton_signatureOrder
       ...ChangeSignatoryButton_signatureOrder
@@ -403,6 +405,7 @@ export default function SignatureOrdersScreen() {
         <div>
           <CancelSignatureOrderButton signatureOrder={data.signatureOrder} />
           <CloseSignatureOrderButton signatureOrder={data.signatureOrder} className="ms-3" />
+          <CleanupSignatureOrderButton signatureOrder={data.signatureOrder} />
         </div>
       </div>
     </div>
