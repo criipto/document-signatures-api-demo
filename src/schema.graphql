@@ -854,6 +854,7 @@ interface Signature {
 
 input SignatureAppearanceInput {
   displayName: [SignatureAppearanceTemplateInput!]
+  footer: [SignatureAppearanceTemplateInput!]
   headerLeft: [SignatureAppearanceTemplateInput!]
 
   """
