@@ -22,7 +22,7 @@ export function filterSignatureAppearance(input: SignatureAppearanceInputType | 
   }
 }
 
-const templateTypes = ['displayName', 'headerLeft'] as const;
+const templateTypes = ['displayName', 'headerLeft', 'footer'] as const;
 type TemplateType = typeof templateTypes[number];
 
 export default function SignatureAppearanceInput(props: Props) {

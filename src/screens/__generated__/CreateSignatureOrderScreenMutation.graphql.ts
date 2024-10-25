@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<af8490e5ead28ac7bb746966969b0ef5>>
+ * @generated SignedSource<<46f91efdd9776913fba85cde1cde540a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -127,6 +127,7 @@ export type SignatoryEvidenceValidationInput = {
 };
 export type SignatureAppearanceInput = {
   displayName?: ReadonlyArray<SignatureAppearanceTemplateInput> | null;
+  footer?: ReadonlyArray<SignatureAppearanceTemplateInput> | null;
   headerLeft?: ReadonlyArray<SignatureAppearanceTemplateInput> | null;
   identifierFromEvidence: ReadonlyArray<string>;
 };
