@@ -606,6 +606,19 @@ export default function CreateSignatureOrderScreen() {
             </label>
           </div>
         </div>
+        <div className="col-4">
+          <div className="form-check mb-3">
+            <input
+              className="form-check-input"
+              id={`ui_renderPdfAnnotationLayer`} type="checkbox"
+              checked={ui.renderPdfAnnotationLayer ||false}
+              onChange={(event) => handleUI(event, 'renderPdfAnnotationLayer')}
+            />
+            <label className="form-check-label" htmlFor={`ui_renderPdfAnnotationLayer`} >
+              Render PDF annotation layer
+            </label>
+          </div>
+        </div>
       </div>
       <h4>Signature Appearance</h4>
       <div className="row">

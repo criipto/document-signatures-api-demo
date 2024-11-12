@@ -271,6 +271,11 @@ input CreateSignatureOrderUIInput {
   logo: SignatureOrderUILogoInput
 
   """
+  Renders a UI layer for PDF annotations, such as links, making them interactive in the UI/browser
+  """
+  renderPdfAnnotationLayer: Boolean
+
+  """
   The signatory will be redirected to this URL after signing or rejected the signature order.
   """
   signatoryRedirectUri: String
@@ -942,6 +947,7 @@ type SignatureOrderUI {
   disableRejection: Boolean!
   language: Language!
   logo: SignatureOrderUILogo
+  renderPdfAnnotationLayer: Boolean!
   signatoryRedirectUri: String
   stylesheet: String
 }

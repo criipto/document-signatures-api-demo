@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<46f91efdd9776913fba85cde1cde540a>>
+ * @generated SignedSource<<8f49acdc785c762b59ab460b04456117>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -143,6 +143,7 @@ export type CreateSignatureOrderUIInput = {
   disableRejection?: boolean | null;
   language?: Language | null;
   logo?: SignatureOrderUILogoInput | null;
+  renderPdfAnnotationLayer?: boolean | null;
   signatoryRedirectUri?: string | null;
   stylesheet?: string | null;
 };

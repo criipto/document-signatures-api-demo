@@ -112,6 +112,7 @@ const Query = graphql`
           href
         }
         disableRejection
+        renderPdfAnnotationLayer
       }
 
       webhook {
@@ -189,6 +190,7 @@ const SETTINGS = [
   'ui.logo.src',
   'ui.logo.href',
   'ui.disableRejection',
+  'ui.renderPdfAnnotationLayer',
   'webhook.url'
 ];
 
