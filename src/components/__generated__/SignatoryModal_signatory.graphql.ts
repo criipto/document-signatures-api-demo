@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1888287ab58a1ca3190ab106a22042dd>>
+ * @generated SignedSource<<2ff006a736fe79163a61131122446409>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type Language = "DA_DK" | "EN_US" | "NB_NO" | "SV_SE" | "%future added value";
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
@@ -37,6 +38,17 @@ export type SignatoryModal_signatory$data = {
   readonly reference: string | null;
   readonly role: string | null;
   readonly status: SignatoryStatus;
+  readonly ui: {
+    readonly disableRejection: boolean;
+    readonly language: Language;
+    readonly logo: {
+      readonly href: string | null;
+      readonly src: string;
+    } | null;
+    readonly renderPdfAnnotationLayer: boolean;
+    readonly signatoryRedirectUri: string | null;
+    readonly stylesheet: string | null;
+  };
   readonly " $fragmentType": "SignatoryModal_signatory";
 };
 export type SignatoryModal_signatory$key = {
@@ -219,6 +231,77 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SignatureOrderUI",
+      "kind": "LinkedField",
+      "name": "ui",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "signatoryRedirectUri",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "stylesheet",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "language",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SignatureOrderUILogo",
+          "kind": "LinkedField",
+          "name": "logo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "src",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "href",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "disableRejection",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "renderPdfAnnotationLayer",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Signatory",
@@ -226,6 +309,6 @@ return {
 };
 })();
 
-(node as any).hash = "212fbad6d1b48eba7e289282296ca959";
+(node as any).hash = "e852a8e105170cc26a8d7d775f43c266";
 
 export default node;

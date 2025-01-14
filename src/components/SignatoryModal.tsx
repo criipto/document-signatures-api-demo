@@ -15,6 +15,7 @@ import SignatoryDocumentInputComponent from './SignatoryDocumentInput';
 import SignatureAppearanceInput, { filterSignatureAppearance } from './SignatureAppearanceInput';
 import useMutation from '../hooks/useMutation';
 import EvidenceProviderInputComponent, { evidenceProviderToType, EvidenceProviderInput } from './EvidenceProviderInput';
+import UIInputFields from './UIInputFields';
 
 interface Props {
   signatureOrder: SignatoryModal_signatureOrder$key,
@@ -107,6 +108,18 @@ export default function SignatoryModal(props : Props) {
             }
           }
         }
+
+        ui {
+          signatoryRedirectUri
+          stylesheet
+          language
+          logo {
+            src
+            href
+          }
+          disableRejection
+          renderPdfAnnotationLayer
+        }
       }
     `
   , props.signatory || null)
@@ -121,7 +134,11 @@ export default function SignatoryModal(props : Props) {
     evidenceProviders: 
       existingSignatory ?
         existingSignatory.evidenceProviders.map(d => ({id: (d as any).id})) :
-        data.evidenceProviders.map(d => ({id: (d as any).id}))
+        data.evidenceProviders.map(d => ({id: (d as any).id})),
+  });
+
+  const [ui, setUI] = useState<NonNullable<AddSignatoryInput['ui']>>(existingSignatory?.ui ?? {
+
   });
 
   const [evidenceProviders, setEvidenceProviders] = useState<{id: string, enabled: boolean, input: SignatoryEvidenceProviderInput}[]>(() => {
@@ -188,7 +205,8 @@ export default function SignatoryModal(props : Props) {
           input: {
             ...signatory,
             signatoryId: existingSignatory?.id,
-            evidenceProviders: evidenceProviders.filter(e => e.enabled).map(e => e.input)
+            evidenceProviders: evidenceProviders.filter(e => e.enabled).map(e => e.input),
+            ui
           }
         } as {input: ChangeSignatoryInput} :
         {
@@ -196,7 +214,8 @@ export default function SignatoryModal(props : Props) {
             ...signatory,
             evidenceValidation: filterEvidenceValidation(signatory.evidenceValidation?.slice()),
             signatureAppearance: filterSignatureAppearance(signatory.signatureAppearance),
-            evidenceProviders: evidenceProviders.filter(e => e.enabled).map(e => e.input)
+            evidenceProviders: evidenceProviders.filter(e => e.enabled).map(e => e.input),
+            ui
           }
         } as {input: AddSignatoryInput}
 
@@ -345,6 +364,13 @@ export default function SignatoryModal(props : Props) {
             <SignatureAppearanceInput value={signatory.signatureAppearance} onChange={(i) => handleSignatureAppearance(i)} />
           </React.Fragment>
         ) : null}
+        <React.Fragment>
+          <div className="mt-3"><strong>UI Settings</strong></div>
+          <UIInputFields
+            ui={ui}
+            onChange={setUI}
+          />
+        </React.Fragment>
       </Modal.Body>
       <Modal.Footer>
         {status.error ? (

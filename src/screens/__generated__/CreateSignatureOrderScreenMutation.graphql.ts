@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8f49acdc785c762b59ab460b04456117>>
+ * @generated SignedSource<<19b099be2674247732db0df1f53efffe>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -101,6 +101,7 @@ export type CreateSignatureOrderSignatoryInput = {
   reference?: string | null;
   role?: string | null;
   signatureAppearance?: SignatureAppearanceInput | null;
+  ui?: SignatoryUIInput | null;
 };
 export type SignatoryDocumentInput = {
   id: string;
@@ -139,7 +140,7 @@ export type SignatureAppearanceTemplateReplacementInput = {
   fromEvidence: ReadonlyArray<string>;
   placeholder: string;
 };
-export type CreateSignatureOrderUIInput = {
+export type SignatoryUIInput = {
   disableRejection?: boolean | null;
   language?: Language | null;
   logo?: SignatureOrderUILogoInput | null;
@@ -151,7 +152,16 @@ export type SignatureOrderUILogoInput = {
   href?: string | null;
   src: string;
 };
+export type CreateSignatureOrderUIInput = {
+  disableRejection?: boolean | null;
+  language?: Language | null;
+  logo?: SignatureOrderUILogoInput | null;
+  renderPdfAnnotationLayer?: boolean | null;
+  signatoryRedirectUri?: string | null;
+  stylesheet?: string | null;
+};
 export type CreateSignatureOrderWebhookInput = {
+  secret?: string | null;
   url: string;
   validateConnectivity?: boolean | null;
 };

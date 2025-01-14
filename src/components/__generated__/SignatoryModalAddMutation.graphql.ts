@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<046fea1b15d9096ace9cff04b36daaac>>
+ * @generated SignedSource<<407cee7293cc7205b52371f02ef58746>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,6 +10,7 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type Language = "DA_DK" | "EN_US" | "NB_NO" | "SV_SE" | "%future added value";
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 export type AddSignatoryInput = {
@@ -20,6 +21,7 @@ export type AddSignatoryInput = {
   role?: string | null;
   signatureAppearance?: SignatureAppearanceInput | null;
   signatureOrderId: string;
+  ui?: SignatoryUIInput | null;
 };
 export type SignatoryDocumentInput = {
   id: string;
@@ -91,6 +93,18 @@ export type SignatureAppearanceTemplateInput = {
 export type SignatureAppearanceTemplateReplacementInput = {
   fromEvidence: ReadonlyArray<string>;
   placeholder: string;
+};
+export type SignatoryUIInput = {
+  disableRejection?: boolean | null;
+  language?: Language | null;
+  logo?: SignatureOrderUILogoInput | null;
+  renderPdfAnnotationLayer?: boolean | null;
+  signatoryRedirectUri?: string | null;
+  stylesheet?: string | null;
+};
+export type SignatureOrderUILogoInput = {
+  href?: string | null;
+  src: string;
 };
 export type SignatoryModalAddMutation$variables = {
   input: AddSignatoryInput;

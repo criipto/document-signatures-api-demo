@@ -38,6 +38,11 @@ input AddSignatoryInput {
   role: String
   signatureAppearance: SignatureAppearanceInput
   signatureOrderId: ID!
+
+  """
+  Override UI settings for signatory, defaults to UI settings for signature order
+  """
+  ui: SignatoryUIInput
 }
 
 type AddSignatoryOutput {
@@ -118,6 +123,11 @@ input ChangeSignatoryInput {
   role: String
   signatoryId: ID!
   signatureAppearance: SignatureAppearanceInput
+
+  """
+  Override UI settings for signatory, defaults to UI settings for signature order
+  """
+  ui: SignatoryUIInput
 }
 
 type ChangeSignatoryOutput {
@@ -258,6 +268,11 @@ input CreateSignatureOrderSignatoryInput {
   """
   role: String
   signatureAppearance: SignatureAppearanceInput
+
+  """
+  Override UI settings for signatory, defaults to UI settings for signature order
+  """
+  ui: SignatoryUIInput
 }
 
 input CreateSignatureOrderUIInput {
@@ -285,6 +300,13 @@ input CreateSignatureOrderUIInput {
 }
 
 input CreateSignatureOrderWebhookInput {
+  """
+  If defined, webhook invocations will have a X-Criipto-Signature header
+  containing a HMAC-SHA256 signature (as a base64 string) of the webhook request
+  body (utf-8). The secret should be between 256 and 512 bits.
+  """
+  secret: Blob
+
   """
   Webhook url. POST requests will be executed towards this URL on certain signatory events.
   """
@@ -756,6 +778,7 @@ type Signatory {
   The signature frontend authentication token, only required if you need to build a custom url.
   """
   token: String!
+  ui: SignatureOrderUI!
 }
 
 input SignatoryBeaconInput {
@@ -830,6 +853,30 @@ enum SignatoryStatus {
   REJECTED
   ERROR
   DELETED
+}
+
+input SignatoryUIInput {
+  """Removes the UI options to reject a document or signature order."""
+  disableRejection: Boolean
+
+  """The language of texts rendered to the signatory."""
+  language: Language = EN_US
+
+  """Define a logo to be shown in the signatory UI."""
+  logo: SignatureOrderUILogoInput
+
+  """
+  Renders a UI layer for PDF annotations, such as links, making them interactive in the UI/browser
+  """
+  renderPdfAnnotationLayer: Boolean
+
+  """
+  The signatory will be redirected to this URL after signing or rejected the signature order.
+  """
+  signatoryRedirectUri: String
+
+  """Add stylesheet/css via an absolute HTTPS URL."""
+  stylesheet: String
 }
 
 type SignatoryViewer implements Viewer {
