@@ -89,6 +89,37 @@ enum ApplicationApiKeyMode {
   READ_ONLY
 }
 
+type BatchSignatory {
+  href: String!
+  id: ID!
+  items: [BatchSignatoryItem!]!
+
+  """The authentication token required for performing batch operations."""
+  token: String!
+  ui: SignatureOrderUI!
+}
+
+type BatchSignatoryItem {
+  signatory: Signatory!
+  signatureOrder: SignatureOrder!
+}
+
+input BatchSignatoryItemInput {
+  signatoryId: String!
+  signatureOrderId: String!
+}
+
+type BatchSignatoryViewer implements Viewer {
+  authenticated: Boolean!
+  batchSignatoryId: ID!
+  documents: [SignatoryDocumentConnection!]!
+  evidenceProviders: [SignatureEvidenceProvider!]!
+  id: ID!
+  signer: Boolean!
+  status: SignatoryStatus!
+  ui: SignatureOrderUI!
+}
+
 """
 The `Blob` scalar type represents a byte array. The Blob type appears in a JSON response as a Base64 String.
 """
@@ -185,6 +216,19 @@ type CreateApplicationOutput {
   apiKey: ApplicationApiKey!
   application: Application!
   tenant: Tenant!
+}
+
+input CreateBatchSignatoryInput {
+  items: [BatchSignatoryItemInput!]!
+
+  """
+  UI settings for batch signatory, will use defaults otherwise (will not use UI settings from sub signatories)
+  """
+  ui: SignatoryUIInput
+}
+
+type CreateBatchSignatoryOutput {
+  batchSignatory: BatchSignatory!
 }
 
 input CreateSignatureOrderInput {
@@ -485,7 +529,7 @@ input EvidenceProviderInput {
   """
   noop: NoopEvidenceProviderInput
 
-  """OIDC/JWT based evidence for signatures."""
+  """Deprecated"""
   oidc: OidcEvidenceProviderInput
 }
 
@@ -550,6 +594,7 @@ type Mutation {
 
   """Creates a new set of api credentials for an existing application."""
   createApplicationApiKey(input: CreateApplicationApiKeyInput!): CreateApplicationApiKeyOutput
+  createBatchSignatory(input: CreateBatchSignatoryInput!): CreateBatchSignatoryOutput
 
   """Creates a signature order to be signed."""
   createSignatureOrder(input: CreateSignatureOrderInput!): CreateSignatureOrderOutput
@@ -689,6 +734,7 @@ input PdfSealPosition {
 
 type Query {
   application(id: ID, verifyApplication: VerifyApplicationQueryInput): Application
+  batchSignatory(id: ID!): BatchSignatory
   document(id: ID!): Document
 
   """Query a signatory by id. Useful when using webhooks."""
@@ -832,7 +878,7 @@ input SignatoryEvidenceProviderInput {
   """
   noop: NoopEvidenceProviderInput
 
-  """OIDC/JWT based evidence for signatures."""
+  """Deprecated"""
   oidc: OidcEvidenceProviderInput
 }
 
@@ -1075,7 +1121,7 @@ input SingleEvidenceProviderInput {
   """
   noop: NoopEvidenceProviderInput
 
-  """OIDC/JWT based evidence for signatures."""
+  """Deprecated"""
   oidc: OidcEvidenceProviderInput
 }
 

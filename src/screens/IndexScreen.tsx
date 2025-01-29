@@ -6,10 +6,12 @@ import {IndexScreenQuery} from './__generated__/IndexScreenQuery.graphql';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 import CreateSignatureOrderScreen from './CreateSignatureOrderScreen';
+import CreateBatchSignatoryScreen from './CreateBatchSignatoryScreen';
 import SignatureOrdersScreen from './SignatureOrdersScreen';
 import SignatureOrderScreen from './SignatureOrderScreen';
 import SignatureOrdersWebhookLogsScreen from './SignatureOrdersWebhookLogsScreen';
 import ValidateDocumentScreen from './ValidateDocumentScreen';
+import BatchSignatoryScreen from './BatchSignatoryScreen';
 
 export default function IndexScreen() {
   const data = useLazyLoadQuery<IndexScreenQuery>(
@@ -54,6 +56,12 @@ export default function IndexScreen() {
       <Route path="/signatureorders">
         <SignatureOrdersScreen />
       </Route> 
+      <Route path="/batchsignatories/create">
+        <CreateBatchSignatoryScreen  />
+      </Route>
+      <Route path="/batchsignatories/:batchSignatoryId">
+        <BatchSignatoryScreen />
+      </Route>
       <Route path="/validate">
         <ValidateDocumentScreen />
       </Route> 

@@ -74,6 +74,9 @@ export default function SignatureOrdersScreen() {
       <Link className="btn btn-primary" to="/signatureorders/create">
         Create signature order
       </Link>
+      <Link className="btn btn-primary" style={{marginLeft: '10px'}} to="/batchsignatories/create">
+        Create batch signatory
+      </Link>
     </div>
   )
 }
