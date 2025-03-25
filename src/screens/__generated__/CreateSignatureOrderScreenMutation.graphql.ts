@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<19b099be2674247732db0df1f53efffe>>
+ * @generated SignedSource<<ca00a270b638b34e3c7ea64bcff0e847>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -40,11 +40,22 @@ export type PadesDocumentInput = {
   displayDocumentID?: DocumentIDLocation | null;
   form?: PadesDocumentFormInput | null;
   reference?: string | null;
+  sealsPageTemplate?: PadesDocumentSealsPageTemplateInput | null;
   storageMode: DocumentStorageMode;
   title: string;
 };
 export type PadesDocumentFormInput = {
   enabled: boolean;
+};
+export type PadesDocumentSealsPageTemplateInput = {
+  area: PdfBoundingBoxInput;
+  blob: string;
+};
+export type PdfBoundingBoxInput = {
+  x1: number;
+  x2: number;
+  y1: number;
+  y2: number;
 };
 export type XadesDocumentInput = {
   blob: string;

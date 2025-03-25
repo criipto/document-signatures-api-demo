@@ -5,7 +5,7 @@ import { graphql } from "react-relay";
 
 import { useHistory } from 'react-router-dom';
 
-import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput, SignatureAppearanceInput, EvidenceValidationStage, CreateSignatureOrderWebhookInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
+import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput, SignatureAppearanceInput, EvidenceValidationStage, CreateSignatureOrderWebhookInput, PdfBoundingBoxInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
 import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOrderScreenQuery.graphql';
 import EvidenceValidationInput, { filterEvidenceValidation } from '../components/EvidenceValidationInput';
 
@@ -108,7 +108,7 @@ export default function CreateSignatureOrderScreen() {
     event.target.value = '';
   };
 
-  const handleAddSamplePdfDocument = (sample: string, pdf?: LocalDocumentInput["pdf"]) => {
+  const handleAddSamplePdfDocument = (sample: string, pdf?: Partial<LocalDocumentInput["pdf"]>) => {
     const fileName = sample === samplePDFformFields ? `sample-form-fields.pdf` : `sample.pdf`;
     const newDocuments : LocalDocumentInput[] = new Array(sampleDocumentCount).fill(undefined).map(() => ({
       fileName,
@@ -148,7 +148,7 @@ export default function CreateSignatureOrderScreen() {
       });
     })
   };
-  const handleChangePdfDocument = (document : LocalDocumentInput, key : string, value : string | null | boolean) => {
+  const handleChangePdfDocument = (document : LocalDocumentInput, key : string, value : string | null | boolean | number) => {
     setDocuments(documents => {
       return documents.map(search => {
         if (search === document) {
@@ -163,6 +163,34 @@ export default function CreateSignatureOrderScreen() {
                 }
               }
             };
+          }
+          if (key === 'sealsPageTemplate.blob') {
+            return {
+              ...search,
+              pdf: {
+                ...search.pdf!,
+                sealsPageTemplate: {
+                  ...search.pdf?.sealsPageTemplate,
+                  blob: value
+                }
+              }
+            }
+          }
+          if (key.startsWith('sealsPageTemplate.area.')) {
+            const coord = key.replace('sealsPageTemplate.area.', '')
+            return {
+              ...search,
+              pdf: {
+                ...search.pdf!,
+                sealsPageTemplate: {
+                  ...search.pdf?.sealsPageTemplate,
+                  area: {
+                    ...search.pdf?.sealsPageTemplate?.area,
+                    [coord]: (value ?? undefined) as number | undefined
+                  }
+                }
+              }
+            }
           }
 
           return {
@@ -258,6 +286,23 @@ export default function CreateSignatureOrderScreen() {
     if (!formValid) return;
     if (status.pending) return;
 
+    const documentsInput = documents.map(document => {
+      if (!document.pdf) return document;
+
+      let sealsPageTemplate = document.pdf.sealsPageTemplate;
+      if (!sealsPageTemplate?.blob || sealsPageTemplate.area.x1 == null || sealsPageTemplate.area.y1 == null || sealsPageTemplate.area.x2 == null || sealsPageTemplate.area.y2 == null) {
+        sealsPageTemplate = null;
+      }
+
+      return {
+        ...document,
+        pdf: {
+          ...document.pdf,
+          sealsPageTemplate
+        } 
+      };
+    });
+
     executor.executePromise({
       input: {
         title,
@@ -272,7 +317,7 @@ export default function CreateSignatureOrderScreen() {
             evidenceValidation: filterEvidenceValidation(signatory.evidenceValidation?.slice())
           }
         }),
-        documents,
+        documents: documentsInput,
         evidenceProviders: evidenceProviderComposition === 'all' ? [
           {
             allOf: {
@@ -456,7 +501,7 @@ export default function CreateSignatureOrderScreen() {
               className="form-control"
               type="number"
               onChange={(event) => setExpiresInDays(parseInt(event.target.value, 10))}
-              value={expiresInDays}
+              value={expiresInDays ?? undefined}
               placeholder="Expires In (Days)"
             />
             <label className="form-label">Expires In (Days)</label>
@@ -467,7 +512,7 @@ export default function CreateSignatureOrderScreen() {
               className="form-control"
               type="datetime-local"
               onChange={(event) => setExpiresAt(event.target.value)}
-              value={expiresAtDate}
+              value={expiresAtDate ?? undefined}
               placeholder="Expires At"
             />
             <label className="form-label">Expires At</label>
@@ -561,7 +606,7 @@ export default function CreateSignatureOrderScreen() {
         <div className="row">
           {documents.map((document, index) => (
             <div className="col-4 mb-3" key={index}>
-              {"xml" in document ? "XML: " : "PDF: "} {document.fileName}
+              <strong>{"xml" in document ? "XML: " : "PDF: "} {document.fileName}</strong>
               {"pdf" in document && document.pdf ? (
                 <div className="mb-2 form-floating">
                   <input
@@ -628,6 +673,39 @@ export default function CreateSignatureOrderScreen() {
                       <option value="BOTTOM">BOTTOM</option>
                     </select>
                     <label className="form-label">Display Document ID</label>
+                  </div>
+                </>
+              ) : null}
+
+              {"pdf" in document && document.pdf ? (
+                <>
+                  <div className="mb-2">
+                    <em>Seal template</em>
+                    <input className="form-control" type="file" id="pdf_file_select" onChange={async event => {
+                      try {
+                        const base64 = await toBase64(event.target.files![0]);
+                        handleChangePdfDocument(document, `sealsPageTemplate.blob`, base64);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }} accept=".pdf" />
+                    <div className="row">
+                      {(['x1', 'y1', 'x2', 'y2'] as const).map((coord: keyof PdfBoundingBoxInput) => (
+                        <div className="col-3">
+                          <div className="form-floating">
+                            <input
+                              className="form-control"
+                              type="number"
+                              onChange={(event) => handleChangePdfDocument(document, `sealsPageTemplate.area.${coord}`, event.target.value ? parseInt(event.target.value, 10) : null)}
+                              value={document.pdf?.sealsPageTemplate?.area?.[coord]}
+                              placeholder={coord}
+                              required
+                            />
+                            <label className="form-label">{coord}</label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </>
               ) : null}
