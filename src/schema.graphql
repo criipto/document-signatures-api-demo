@@ -112,7 +112,7 @@ input BatchSignatoryItemInput {
 type BatchSignatoryViewer implements Viewer {
   authenticated: Boolean!
   batchSignatoryId: ID!
-  documents: [SignatoryDocumentConnection!]!
+  documents: SignatoryDocumentConnection!
   evidenceProviders: [SignatureEvidenceProvider!]!
   id: ID!
   signer: Boolean!
@@ -692,8 +692,17 @@ input PadesDocumentInput {
   Will not be displayed to signatories, can be used as a reference to your own system.
   """
   reference: String
+  sealsPageTemplate: PadesDocumentSealsPageTemplateInput
   storageMode: DocumentStorageMode!
   title: String!
+}
+
+input PadesDocumentSealsPageTemplateInput {
+  """Using the PDF coordinate system, with (x1, y1) being bottom-left"""
+  area: PdfBoundingBoxInput!
+
+  """Must be a PDF containing a SINGLE page"""
+  blob: Blob!
 }
 
 """Information about pagination in a connection."""
@@ -711,8 +720,18 @@ type PageInfo {
   startCursor: String
 }
 
+input PdfBoundingBoxInput {
+  x1: Float!
+  x2: Float!
+  y1: Float!
+  y2: Float!
+}
+
 type PdfDocument implements Document {
   blob: Blob
+
+  """Same value as stamped on document when using displayDocumentID"""
+  documentID: String!
   form: PdfDocumentForm
   id: ID!
   originalBlob: Blob
