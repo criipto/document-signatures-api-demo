@@ -699,7 +699,6 @@ export default function CreateSignatureOrderScreen() {
                               onChange={(event) => handleChangePdfDocument(document, `sealsPageTemplate.area.${coord}`, event.target.value ? parseInt(event.target.value, 10) : null)}
                               value={document.pdf?.sealsPageTemplate?.area?.[coord]}
                               placeholder={coord}
-                              required
                             />
                             <label className="form-label">{coord}</label>
                           </div>
