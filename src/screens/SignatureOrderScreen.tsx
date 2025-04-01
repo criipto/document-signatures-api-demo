@@ -15,6 +15,7 @@ import ChangeSignatoryButton from '../components/ChangeSignatoryButton';
 import SignActingAsButton from '../components/SignActingAsButton';
 import ExtendSignatureOrderButton from '../components/ExtendSignatureOrderButton';
 import CleanupSignatureOrderButton from '../components/CleanupSignatureOrderButton';
+import ChangeSignatureOrderButton from '../components/ChangeSignatureOrderButton';
 
 function base64ToBlob( base64 : string, type = "application/pdf" ) {
   const binStr = atob( base64 );
@@ -45,7 +46,7 @@ graphql`
         }
       }
     }
-    
+
     evidenceProviders {
       __typename
     }
@@ -66,7 +67,7 @@ graphql`
         reference
         role
       }
-      
+
       ... on JWTSignature {
         jwt
         jwks
@@ -99,6 +100,7 @@ const Query = graphql`
       status
       title
       timezone
+      maxSignatories
       createdAt
       expiresAt
       closedAt
@@ -173,6 +175,7 @@ const Query = graphql`
       ...SignActingAsButton_signatureOrder
       ...CloseSignatureOrderButton_signatureOrder
       ...ExtendSignatureOrderButton_signatureOrder
+      ...ChangeSignatureOrderButton_signatureOrder
     }
   }
 `;
@@ -180,6 +183,7 @@ const Query = graphql`
 const SETTINGS = [
   'title',
   'status',
+  'maxSignatories',
   'timezone',
   'createdAt',
   'closedAt',
@@ -302,7 +306,7 @@ export default function SignatureOrdersScreen() {
           ))}
         </tbody>
       </table>
-      
+
       <table className="table table-striped">
         <thead>
           <tr>
@@ -405,7 +409,8 @@ export default function SignatureOrdersScreen() {
           &nbsp;
         </div>
         <div>
-          <CancelSignatureOrderButton signatureOrder={data.signatureOrder} />
+          <ChangeSignatureOrderButton signatureOrder={data.signatureOrder} />
+          <CancelSignatureOrderButton signatureOrder={data.signatureOrder} className="ms-3" />
           <CloseSignatureOrderButton signatureOrder={data.signatureOrder} className="ms-3" />
           <CleanupSignatureOrderButton signatureOrder={data.signatureOrder} />
         </div>
