@@ -166,6 +166,18 @@ type ChangeSignatoryOutput {
   signatureOrder: SignatureOrder!
 }
 
+input ChangeSignatureOrderInput {
+  """
+  Max allowed signatories (as it influences pages needed for seals). Cannot be changed after first signer.
+  """
+  maxSignatories: Int
+  signatureOrderId: ID!
+}
+
+type ChangeSignatureOrderOutput {
+  signatureOrder: SignatureOrder!
+}
+
 input CleanupSignatureOrderInput {
   signatureOrderId: ID!
 }
@@ -577,6 +589,9 @@ type Mutation {
 
   """Change an existing signatory"""
   changeSignatory(input: ChangeSignatoryInput!): ChangeSignatoryOutput
+
+  """Change an existing signature order"""
+  changeSignatureOrder(input: ChangeSignatureOrderInput!): ChangeSignatureOrderOutput
 
   """
   Cleans up the signature order and removes any saved documents from the servers.
@@ -1004,6 +1019,9 @@ type SignatureOrder {
   evidenceProviders: [SignatureEvidenceProvider!]!
   expiresAt: DateTime!
   id: ID!
+
+  """Number of max signatories for the signature order"""
+  maxSignatories: Int!
 
   """List of signatories for the signature order."""
   signatories: [Signatory!]!

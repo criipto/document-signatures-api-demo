@@ -10,6 +10,7 @@ import useMutation from '../hooks/useMutation';
 
 interface Props {
   signatureOrder: CancelSignatureOrderButton_signatureOrder$key
+  className?: string
 }
 
 export default function CancelSignatureOrderButton(props : Props) {
@@ -45,7 +46,7 @@ export default function CancelSignatureOrderButton(props : Props) {
   };
 
   return (
-    <button className="btn btn-secondary" disabled={status.pending} onClick={handleClick}>
+    <button className={`btn btn-secondary ${props.className}`} disabled={status.pending} onClick={handleClick}>
       Cancel signature order
     </button>
   )
