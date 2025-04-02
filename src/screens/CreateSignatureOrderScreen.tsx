@@ -5,7 +5,7 @@ import { graphql } from "react-relay";
 
 import { useHistory } from 'react-router-dom';
 
-import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput, SignatureAppearanceInput, EvidenceValidationStage, CreateSignatureOrderWebhookInput, PdfBoundingBoxInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
+import {CreateSignatureOrderScreenMutation, DocumentInput, SignatoryEvidenceValidationInput, EvidenceProviderInput, CreateSignatureOrderUIInput, CreateSignatureOrderSignatoryInput, SignatureOrderUILogoInput, SignatureAppearanceInput, EvidenceValidationStage, CreateSignatureOrderWebhookInput, PdfBoundingBoxInput, PadesDocumentSealsPageTemplateInput} from './__generated__/CreateSignatureOrderScreenMutation.graphql';
 import {CreateSignatureOrderScreenQuery} from './__generated__/CreateSignatureOrderScreenQuery.graphql';
 import EvidenceValidationInput, { filterEvidenceValidation } from '../components/EvidenceValidationInput';
 
@@ -192,6 +192,19 @@ export default function CreateSignatureOrderScreen() {
               }
             }
           }
+          if (key.startsWith('sealsPageTemplate.expected.')) {
+            const exp = key.replace('sealsPageTemplate.expected.', '');
+            return {
+              ...search,
+              pdf: {
+                ...search.pdf!,
+                sealsPageTemplate: {
+                  ...search.pdf?.sealsPageTemplate,
+                  [exp]: (value ?? undefined) as number | undefined
+                }
+              }
+            }
+          }
 
           return {
             ...search,
@@ -299,7 +312,7 @@ export default function CreateSignatureOrderScreen() {
         pdf: {
           ...document.pdf,
           sealsPageTemplate
-        } 
+        }
       };
     });
 
@@ -432,8 +445,8 @@ export default function CreateSignatureOrderScreen() {
         const from = index;
         const to = index - 1;
         updatedProviders.splice(
-          to, 
-          0, 
+          to,
+          0,
           updatedProviders.splice(from, 1)[0]
         );
         return updatedProviders;
@@ -443,8 +456,8 @@ export default function CreateSignatureOrderScreen() {
         const from = index;
         const to = index + 1;
         updatedProviders.splice(
-          to, 
-          0, 
+          to,
+          0,
           updatedProviders.splice(from, 1)[0]
         );
         return updatedProviders;
@@ -633,7 +646,7 @@ export default function CreateSignatureOrderScreen() {
                   <label className="form-label">Document title</label>
                 </div>
                 ) : null}
-              
+
               <div className="form-check mb-2">
                 <input
                   className="form-check-input"
@@ -645,7 +658,7 @@ export default function CreateSignatureOrderScreen() {
                   Remove previous signatures
                 </label>
               </div>
-              
+
               {"pdf" in document && document.pdf ? (
                 <>
                   <div className="form-check mb-2">
@@ -689,7 +702,7 @@ export default function CreateSignatureOrderScreen() {
                         console.error(err);
                       }
                     }} accept=".pdf" />
-                    <div className="row">
+                    <div className="row my-2">
                       {(['x1', 'y1', 'x2', 'y2'] as const).map((coord: keyof PdfBoundingBoxInput) => (
                         <div className="col-3">
                           <div className="form-floating">
@@ -705,10 +718,26 @@ export default function CreateSignatureOrderScreen() {
                         </div>
                       ))}
                     </div>
+                    <div className="row">
+                      {(['expectedColumns', 'expectedRows'] as const).map((exp: keyof PadesDocumentSealsPageTemplateInput) => (
+                        <div className="col-6">
+                          <div className="form-floating">
+                            <input
+                              className="form-control"
+                              type="number"
+                              onChange={(event) => handleChangePdfDocument(document, `sealsPageTemplate.expected.${exp}`, event.target.value ? parseInt(event.target.value, 10) : null)}
+                              value={document.pdf?.sealsPageTemplate?.[exp] as number | undefined}
+                              placeholder={exp}
+                            />
+                            <label className="form-label">{exp}</label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </>
               ) : null}
-              
+
               <button type="button" className="btn btn-secondary btn-small" onClick={() => handleRemoveDocument(document)}>Remove</button>
             </div>
           ))}
@@ -777,7 +806,7 @@ export default function CreateSignatureOrderScreen() {
                 ) : null}
               </div>
             </div>
-          ))}  
+          ))}
         </div>
       ) : null}
       <div className="mb-3">

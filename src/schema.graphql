@@ -718,6 +718,16 @@ input PadesDocumentSealsPageTemplateInput {
 
   """Must be a PDF containing a SINGLE page"""
   blob: Blob!
+
+  """
+  Validate that the defined seal area produces the expected number of columns, will error if expectation is not met
+  """
+  expectedColumns: Int
+
+  """
+  Validate that the defined seal area produces the expected number of rows, will error if expectation is not met
+  """
+  expectedRows: Int
 }
 
 """Information about pagination in a connection."""
