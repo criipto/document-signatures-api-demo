@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ca00a270b638b34e3c7ea64bcff0e847>>
+ * @generated SignedSource<<14a58182eba8a391c13736663d377037>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -50,6 +50,8 @@ export type PadesDocumentFormInput = {
 export type PadesDocumentSealsPageTemplateInput = {
   area: PdfBoundingBoxInput;
   blob: string;
+  expectedColumns?: number | null;
+  expectedRows?: number | null;
 };
 export type PdfBoundingBoxInput = {
   x1: number;
