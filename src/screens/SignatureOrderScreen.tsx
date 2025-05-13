@@ -59,6 +59,7 @@ graphql`
     id
     title
     blob
+    originalBlob
 
     signatures {
       __typename
@@ -273,6 +274,7 @@ export default function SignatureOrdersScreen() {
             <th scope="col">Documents</th>
             <th scope="col">Title</th>
             <th scope="col">Signatures</th>
+            <th scope="col">Original Blob</th>
             <th scope="col">Blob</th>
             <th scope="col">iText</th>
           </tr>
@@ -293,6 +295,11 @@ export default function SignatureOrdersScreen() {
                     </li>
                   ))}
                 </ul>
+              </td>
+              <td>
+                {document.originalBlob && (
+                  <a href={URL.createObjectURL(base64ToBlob(document.originalBlob, document.__typename === 'XmlDocument' ? 'text/xml' : 'application/pdf'))} target='_blank' rel="noreferrer">Download</a>
+                )}
               </td>
               <td>
                 {document.blob && (
