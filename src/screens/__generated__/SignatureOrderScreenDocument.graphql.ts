@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<162f9c4c2d94d8a6a3a47f7ffdf2bd31>>
+ * @generated SignedSource<<df6b02c3bc7ae2d75fbd1f05387c4760>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ export type SignatureOrderScreenDocument$data = {
   readonly __typename: string;
   readonly blob: string | null;
   readonly id: string;
+  readonly originalBlob: string | null;
   readonly signatures: ReadonlyArray<{
     readonly __typename: string;
     readonly image?: string;
@@ -129,6 +130,13 @@ return {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "originalBlob",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": null,
       "kind": "LinkedField",
       "name": "signatures",
@@ -193,6 +201,6 @@ return {
 };
 })();
 
-(node as any).hash = "8bf0480d098b4f6578ca556c8a0829d1";
+(node as any).hash = "a9d57025d7520a1e993674bb59646d55";
 
 export default node;
