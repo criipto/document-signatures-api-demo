@@ -320,6 +320,7 @@ export default function SignatureOrdersScreen() {
           <tr>
             <th scope="col">Evidence Providers</th>
             <th scope="col">Type</th>
+            <th scope="col">ID</th>
             <th scope="col">Configuration</th>
           </tr>
         </thead>
@@ -329,6 +330,9 @@ export default function SignatureOrdersScreen() {
               <th scope="row">#{index + 1}</th>
               <td>
                 {provider.__typename}
+              </td>
+              <td style={{wordBreak: 'break-all'}}>
+                {provider.id}
               </td>
               <td>
                 {provider.__typename === 'OidcJWTSignatureEvidenceProvider' ? (
