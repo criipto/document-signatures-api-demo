@@ -337,7 +337,17 @@ export default function CreateSignatureOrderScreen() {
               providers: evidenceProviders
             }
           }
-        ] : evidenceProviders,
+        ] : evidenceProviders.map(evidenceProvider => {
+          if (evidenceProvider.criiptoVerify) {
+            return {
+              criiptoVerify: {
+                ...evidenceProvider.criiptoVerify,
+                audiences: evidenceProvider.criiptoVerify.audiences?.filter(id => id?.length)
+              }
+            }
+          }
+          return evidenceProvider;
+        }),
         evidenceValidationStages,
         ui: {
           ...ui,
@@ -402,7 +412,8 @@ export default function CreateSignatureOrderScreen() {
           criiptoVerify: {
             acrValues: [],
             alwaysRedirect: false,
-            message: null
+            message: null,
+            audiences: null
           }
         };
         break;

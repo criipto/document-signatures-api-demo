@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e6ca977d9c71f7135faed9468d44f070>>
+ * @generated SignedSource<<6449d435cd8600b874f2563fa056790a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -53,6 +53,7 @@ export type SingleEvidenceProviderInput = {
 export type CriiptoVerifyProviderInput = {
   acrValues?: ReadonlyArray<string> | null;
   alwaysRedirect?: boolean | null;
+  audiences?: ReadonlyArray<string> | null;
   loginHint?: string | null;
   message?: string | null;
   scope?: string | null;

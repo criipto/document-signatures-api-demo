@@ -153,6 +153,16 @@ export default function EvidenceProviderInputComponent(props: {
           />
           <label className="form-label">scope</label>
         </div>
+        <div className="mb-3 form-floating">
+        <input
+          className="form-control"
+          type="text"
+          onChange={(event) => onChange(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, audiences: event.target.value?.length ? event.target.value.split(',').map(i => i.trim()) : null})}
+          value={evidenceProvider.criiptoVerify.audiences?.join(', ') ?? ''}
+          placeholder="Additional audiences"
+        />
+        <label className="form-label">Additional audiences (comma-seperated)</label>
+      </div>
       </React.Fragment>
     )
   }
