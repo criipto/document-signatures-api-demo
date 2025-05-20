@@ -381,6 +381,12 @@ input CriiptoVerifyProviderInput {
   acrValues: [String!]
   alwaysRedirect: Boolean
 
+  """
+  Define additional valid audiences (besides the main client_id) for the Criipto
+  Verify domain/issuer underlying the application.
+  """
+  audiences: [String!]
+
   """Set a custom login_hint for the underlying authentication request."""
   loginHint: String
 
@@ -403,6 +409,8 @@ input CriiptoVerifyProviderInput {
 type CriiptoVerifySignatureEvidenceProvider implements SignatureEvidenceProvider & SingleSignatureEvidenceProvider {
   acrValues: [String!]!
   alwaysRedirect: Boolean!
+  audience: String!
+  audiences: [String!]!
   clientID: String!
   domain: String!
   id: ID!
@@ -1237,6 +1245,12 @@ type ValidateDocumentOutput {
   Whether or not the errors are fixable using 'fixDocumentFormattingErrors'
   """
   fixable: Boolean
+
+  """
+  `true` if the document contains signatures. If value is `null`, we were unable
+  to determine whether the document has been previously signed.
+  """
+  previouslySigned: Boolean
   valid: Boolean!
 }
 

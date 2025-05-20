@@ -150,6 +150,7 @@ const Query = graphql`
           message
           loginHint
           scope
+          audiences
         }
         ... on DrawableSignatureEvidenceProvider {
           id
@@ -341,6 +342,7 @@ export default function SignatureOrdersScreen() {
                   <React.Fragment>
                     Domain: {provider.domain}<br />
                     ClientID: {provider.clientID}<br />
+                    Audiences: {provider.audiences?.join(', ')}<br />
                     Acr values: {provider.acrValues?.join(', ')}<br />
                     Always redirect: {provider.alwaysRedirect ? 'true' : 'false'}<br />
                     Message: {provider.message}<br />
