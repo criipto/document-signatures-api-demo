@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bca2b7147b444d2719c8dbb0d753b4ec>>
+ * @generated SignedSource<<919e1e29d3fc002833e2456828556d21>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,6 +20,7 @@ export type ValidateDocumentScreenMutation$data = {
   readonly validateDocument: {
     readonly errors: ReadonlyArray<string> | null;
     readonly fixable: boolean | null;
+    readonly previouslySigned: boolean | null;
     readonly valid: boolean;
   } | null;
 };
@@ -71,6 +72,13 @@ v1 = [
         "kind": "ScalarField",
         "name": "fixable",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "previouslySigned",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -94,16 +102,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "52a4523395fd843f9c7391fbb90b57c8",
+    "cacheID": "bcdc3d06ff7320da44542f0834bcf37b",
     "id": null,
     "metadata": {},
     "name": "ValidateDocumentScreenMutation",
     "operationKind": "mutation",
-    "text": "mutation ValidateDocumentScreenMutation(\n  $input: ValidateDocumentInput!\n) {\n  validateDocument(input: $input) {\n    valid\n    errors\n    fixable\n  }\n}\n"
+    "text": "mutation ValidateDocumentScreenMutation(\n  $input: ValidateDocumentInput!\n) {\n  validateDocument(input: $input) {\n    valid\n    errors\n    fixable\n    previouslySigned\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3bca2d3e29cb29bfb6109f0dd2032393";
+(node as any).hash = "6a586c684aa65453a5bd7253ba5d465d";
 
 export default node;
