@@ -27,6 +27,7 @@ function App() {
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li><Link to="/signatureorders" className="nav-link px-2 link-dark">Signature orders</Link></li>
           <li><Link to="/validate" className="nav-link px-2 link-dark">Validate document</Link></li>
+          <li><Link to="/jwe/create" className="nav-link px-2 link-dark">Create JWE</Link></li>
         </ul>
 
         <div className="col-md-3 text-end">

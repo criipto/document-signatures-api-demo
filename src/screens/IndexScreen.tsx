@@ -12,6 +12,7 @@ import SignatureOrderScreen from './SignatureOrderScreen';
 import SignatureOrdersWebhookLogsScreen from './SignatureOrdersWebhookLogsScreen';
 import ValidateDocumentScreen from './ValidateDocumentScreen';
 import BatchSignatoryScreen from './BatchSignatoryScreen';
+import CreateJWEScreen from './CreateJWEScreen';
 
 export default function IndexScreen() {
   const data = useLazyLoadQuery<IndexScreenQuery>(
@@ -64,6 +65,9 @@ export default function IndexScreen() {
       </Route>
       <Route path="/validate">
         <ValidateDocumentScreen />
+      </Route>
+      <Route path="/jwe/create">
+        <CreateJWEScreen />
       </Route> 
       <Route>
         <Redirect to="/signatureorders" />
