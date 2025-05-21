@@ -23,9 +23,9 @@ type JWKS = {
 const jwksPromise = fetch(JWKS_URI).then(response => response.json() as Promise<JWKS>)
 
 const encs = [
-  'A128GCM',
-  'A192GCM',
-  'A256GCM',
+  // 'A128GCM',
+  // 'A192GCM',
+  // 'A256GCM',
   'A128CBC-HS256',
   'A192CBC-HS384',
   'A256CBC-HS512'
@@ -35,7 +35,7 @@ type ENC = (typeof encs)[number];
 export default function CreateJWEScreen() {
   const [payload, setPayload] = useState('');
   const [result, setResult] = useState('');
-  const [enc, setEnc] = useState<ENC>('A256GCM');
+  const [enc, setEnc] = useState<ENC>('A128CBC-HS256');
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
