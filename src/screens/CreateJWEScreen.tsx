@@ -44,11 +44,9 @@ export default function CreateJWEScreen() {
     const jwkCandidate = jwks.keys.find(s => s.use === 'enc' && s.kty === 'RSA')!;
     if (!jwkCandidate) throw new Error('No valid JWK');
     const jwk = await jose.importJWK(jwkCandidate, 'RSA-OAEP-256');
-    const jwt = await new jose.EncryptJWT({ 'urn:example:claim': true })
+    const jwt = await new jose.CompactEncrypt(encoder.encode(payload))
       .setProtectedHeader({ typ: 'JWT', alg: 'RSA-OAEP-256', enc, kid: jwkCandidate.kid})
-      .setIssuedAt()
-      .setExpirationTime('5m')
-      .encrypt(encoder.encode(payload));
+      .encrypt(jwk);
 
     setResult(jwt);
   }
