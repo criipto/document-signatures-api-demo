@@ -39,6 +39,7 @@ export default function CreateJWEScreen() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    const encoder = new TextEncoder();
     const jwks = await jwksPromise;
     const jwkCandidate = jwks.keys.find(s => s.use === 'enc' && s.kty === 'RSA')!;
     if (!jwkCandidate) throw new Error('No valid JWK');
@@ -47,7 +48,7 @@ export default function CreateJWEScreen() {
       .setProtectedHeader({ typ: 'JWT', alg: 'RSA-OAEP-256', enc, kid: jwkCandidate.kid})
       .setIssuedAt()
       .setExpirationTime('5m')
-      .encrypt(jwk);
+      .encrypt(encoder.encode(payload));
 
     setResult(jwt);
   }
