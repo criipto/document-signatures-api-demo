@@ -410,7 +410,7 @@ export default function CreateSignatureOrderScreen() {
         provider = {
           enabledByDefault: true,
           criiptoVerify: {
-            acrValues: [],
+            acrValues: null,
             alwaysRedirect: false,
             message: null,
             audiences: null

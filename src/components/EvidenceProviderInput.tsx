@@ -60,7 +60,7 @@ export default function EvidenceProviderInputComponent(props: {
         <input
           className="form-control"
           type="text"
-          onChange={(event) => onChange(evidenceProvider, 'oidc', {...evidenceProvider.oidc, acrValues: event.target.value.split(',')})}
+          onChange={(event) => onChange(evidenceProvider, 'oidc', {...evidenceProvider.oidc, acrValues: event.target.value?.length ? null : event.target.value.split(',')})}
           value={evidenceProvider.oidc.acrValues?.join(',') || ''}
           placeholder="Acr values (comma-seperated)"
         />
