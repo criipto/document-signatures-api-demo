@@ -70,6 +70,10 @@ graphql`
       }
 
       ... on JWTSignature {
+        claims {
+          name
+          value
+        }
         jwt
         jwks
       }
@@ -81,6 +85,10 @@ graphql`
         signatures {
           __typename
           ... on JWTSignature {
+            claims {
+              name
+              value
+            }
             jwt
             jwks
           }

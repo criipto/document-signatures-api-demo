@@ -569,7 +569,13 @@ type ExtendSignatureOrderOutput {
   signatureOrder: SignatureOrder!
 }
 
+type JWTClaim {
+  name: String!
+  value: String!
+}
+
 type JWTSignature implements Signature & SingleSignature {
+  claims: [JWTClaim!]!
   jwks: String!
   jwt: String!
   signatory: Signatory

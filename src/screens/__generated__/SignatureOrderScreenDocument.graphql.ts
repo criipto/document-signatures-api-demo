@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<df6b02c3bc7ae2d75fbd1f05387c4760>>
+ * @generated SignedSource<<5f56bc29a1069e9d8dd41ed21677a280>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,10 @@ export type SignatureOrderScreenDocument$data = {
   readonly originalBlob: string | null;
   readonly signatures: ReadonlyArray<{
     readonly __typename: string;
+    readonly claims?: ReadonlyArray<{
+      readonly name: string;
+      readonly value: string;
+    }>;
     readonly image?: string;
     readonly jwks?: string;
     readonly jwt?: string;
@@ -32,6 +36,10 @@ export type SignatureOrderScreenDocument$data = {
       readonly name: string | null;
     } | {
       readonly __typename: "JWTSignature";
+      readonly claims: ReadonlyArray<{
+        readonly name: string;
+        readonly value: string;
+      }>;
       readonly jwks: string;
       readonly jwt: string;
     } | {
@@ -64,8 +72,34 @@ v1 = {
   "storageKey": null
 },
 v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v3 = {
   "kind": "InlineFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "JWTClaim",
+      "kind": "LinkedField",
+      "name": "claims",
+      "plural": true,
+      "selections": [
+        (v2/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "value",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -84,16 +118,10 @@ v2 = {
   "type": "JWTSignature",
   "abstractKey": null
 },
-v3 = {
+v4 = {
   "kind": "InlineFragment",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -169,8 +197,8 @@ return {
           ],
           "storageKey": null
         },
-        (v2/*: any*/),
         (v3/*: any*/),
+        (v4/*: any*/),
         {
           "kind": "InlineFragment",
           "selections": [
@@ -183,8 +211,8 @@ return {
               "plural": true,
               "selections": [
                 (v0/*: any*/),
-                (v2/*: any*/),
-                (v3/*: any*/)
+                (v3/*: any*/),
+                (v4/*: any*/)
               ],
               "storageKey": null
             }
@@ -201,6 +229,6 @@ return {
 };
 })();
 
-(node as any).hash = "a9d57025d7520a1e993674bb59646d55";
+(node as any).hash = "fb6fd8eeb016ea1b09ea232841c1a254";
 
 export default node;
