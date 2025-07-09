@@ -159,6 +159,7 @@ const Query = graphql`
           loginHint
           scope
           audiences
+          environment
         }
         ... on DrawableSignatureEvidenceProvider {
           id
@@ -360,6 +361,7 @@ export default function SignatureOrdersScreen() {
                     Message: {provider.message}<br />
                     login_hint: {provider.loginHint}<br />
                     scope: {provider.scope}<br />
+                    Environment: {provider.environment ?? 'NOT SET'}<br />
                   </React.Fragment>
                 ) : provider.__typename === 'DrawableSignatureEvidenceProvider' ? (
                   <React.Fragment>

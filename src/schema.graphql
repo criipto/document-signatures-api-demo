@@ -413,6 +413,7 @@ type CriiptoVerifySignatureEvidenceProvider implements SignatureEvidenceProvider
   audiences: [String!]!
   clientID: String!
   domain: String!
+  environment: VerifyApplicationEnvironment
   id: ID!
   loginHint: String
   message: String
