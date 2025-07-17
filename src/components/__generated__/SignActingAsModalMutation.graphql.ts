@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ff29f81178cde29a78e59caa0e602739>>
+ * @generated SignedSource<<bade94a3997fcd9104600b1df5928d1b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -76,8 +76,10 @@ export type SignActingAsModalMutation$data = {
         readonly id: string;
         readonly reference: string | null;
         readonly role: string | null;
+        readonly spanId: string;
         readonly status: SignatoryStatus;
         readonly statusReason: string | null;
+        readonly traceId: string;
       }>;
       readonly " $fragmentSpreads": FragmentRefs<"SignActingAsModal_signatureOrder">;
     };
@@ -156,10 +158,24 @@ v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "traceId",
   "storageKey": null
 },
 v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "spanId",
+  "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -209,6 +225,8 @@ return {
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
+                  (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -235,7 +253,7 @@ return {
                             "plural": false,
                             "selections": [
                               (v2/*: any*/),
-                              (v9/*: any*/)
+                              (v11/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -253,7 +271,7 @@ return {
                     "name": "evidenceProviders",
                     "plural": true,
                     "selections": [
-                      (v10/*: any*/)
+                      (v12/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -302,7 +320,7 @@ return {
                 "name": "evidenceProviders",
                 "plural": true,
                 "selections": [
-                  (v10/*: any*/),
+                  (v12/*: any*/),
                   (v2/*: any*/),
                   {
                     "kind": "InlineFragment",
@@ -336,6 +354,8 @@ return {
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
+                  (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -361,9 +381,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
+                              (v12/*: any*/),
                               (v2/*: any*/),
-                              (v9/*: any*/)
+                              (v11/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -381,7 +401,7 @@ return {
                     "name": "evidenceProviders",
                     "plural": true,
                     "selections": [
-                      (v10/*: any*/),
+                      (v12/*: any*/),
                       (v2/*: any*/)
                     ],
                     "storageKey": null
@@ -398,12 +418,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8f0892f370d568f7be756bfd30097258",
+    "cacheID": "ca9d22d7b5d509636935376d783b7314",
     "id": null,
     "metadata": {},
     "name": "SignActingAsModalMutation",
     "operationKind": "mutation",
-    "text": "mutation SignActingAsModalMutation(\n  $input: SignActingAsInput!\n) {\n  signActingAs(input: $input) {\n    signatureOrder {\n      ...SignActingAsModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment SignActingAsModal_signatureOrder on SignatureOrder {\n  id\n  status\n  evidenceProviders {\n    __typename\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n    }\n    id\n  }\n}\n"
+    "text": "mutation SignActingAsModalMutation(\n  $input: SignActingAsInput!\n) {\n  signActingAs(input: $input) {\n    signatureOrder {\n      ...SignActingAsModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        traceId\n        spanId\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment SignActingAsModal_signatureOrder on SignatureOrder {\n  id\n  status\n  evidenceProviders {\n    __typename\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();

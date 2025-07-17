@@ -96,6 +96,7 @@ type BatchSignatory {
 
   """The authentication token required for performing batch operations."""
   token: String!
+  traceId: String!
   ui: SignatureOrderUI!
 }
 
@@ -198,6 +199,15 @@ input CloseSignatureOrderInput {
 
 type CloseSignatureOrderOutput {
   signatureOrder: SignatureOrder!
+}
+
+input CompleteCriiptoVerifyEvidenceProviderInput {
+  code: String!
+  state: String!
+}
+
+type CompleteCriiptoVerifyEvidenceProviderOutput {
+  jwt: String!
 }
 
 type CompositeSignature implements Signature {
@@ -374,6 +384,11 @@ input CreateSignatureOrderWebhookInput {
   creation will fail.
   """
   validateConnectivity: Boolean
+}
+
+type CriiptoVerifyEvidenceProviderRedirect {
+  redirectUri: String!
+  state: String!
 }
 
 """Criipto Verify based evidence for signatures."""
@@ -618,6 +633,7 @@ type Mutation {
   blobs. Documents are deleted from storage after closing.
   """
   closeSignatureOrder(input: CloseSignatureOrderInput!): CloseSignatureOrderOutput
+  completeCriiptoVerifyEvidenceProvider(input: CompleteCriiptoVerifyEvidenceProviderInput!): CompleteCriiptoVerifyEvidenceProviderOutput
 
   """Creates a signature application for a given tenant."""
   createApplication(input: CreateApplicationInput!): CreateApplicationOutput
@@ -660,6 +676,9 @@ type Mutation {
 
   """Signatory frontend use only."""
   signatoryBeacon(input: SignatoryBeaconInput!): SignatoryBeaconOutput
+
+  """Signatory frontend use only."""
+  startCriiptoVerifyEvidenceProvider(input: StartCriiptoVerifyEvidenceProviderInput!): StartCriiptoVerifyEvidenceProviderOutput
 
   """Signatory frontend use only."""
   trackSignatory(input: TrackSignatoryInput!): TrackSignatoryOutput
@@ -872,6 +891,7 @@ type Signatory {
 
   """Signature order for the signatory."""
   signatureOrder: SignatureOrder!
+  spanId: String!
 
   """The current status of the signatory."""
   status: SignatoryStatus!
@@ -883,6 +903,7 @@ type Signatory {
   The signature frontend authentication token, only required if you need to build a custom url.
   """
   token: String!
+  traceId: String!
   ui: SignatureOrderUI!
 }
 
@@ -1056,6 +1077,7 @@ type SignatureOrder {
   tenant: Tenant
   timezone: String!
   title: String
+  traceId: String!
   ui: SignatureOrderUI!
   webhook: SignatureOrderWebhook
 }
@@ -1194,6 +1216,15 @@ interface SingleSignature {
 interface SingleSignatureEvidenceProvider {
   id: ID!
 }
+
+input StartCriiptoVerifyEvidenceProviderInput {
+  acrValue: String!
+  id: ID!
+  redirectUri: String!
+  stage: EvidenceValidationStage!
+}
+
+union StartCriiptoVerifyEvidenceProviderOutput = CriiptoVerifyEvidenceProviderRedirect
 
 type Tenant {
   applications(domain: String): [Application!]!

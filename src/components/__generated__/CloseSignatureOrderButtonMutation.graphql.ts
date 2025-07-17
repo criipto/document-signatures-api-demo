@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<afec778ba44375fe6c29b53aa329cf1b>>
+ * @generated SignedSource<<ea0c04241cff6b4639e4228a4c1dc566>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -43,8 +43,10 @@ export type CloseSignatureOrderButtonMutation$data = {
         readonly id: string;
         readonly reference: string | null;
         readonly role: string | null;
+        readonly spanId: string;
         readonly status: SignatoryStatus;
         readonly statusReason: string | null;
+        readonly traceId: string;
       }>;
       readonly status: SignatureOrderStatus;
     };
@@ -130,10 +132,24 @@ v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "traceId",
   "storageKey": null
 },
 v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "spanId",
+  "storageKey": null
+},
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -191,6 +207,8 @@ return {
                   (v7/*: any*/),
                   (v8/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -217,7 +235,7 @@ return {
                             "plural": false,
                             "selections": [
                               (v4/*: any*/),
-                              (v10/*: any*/)
+                              (v12/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -235,7 +253,7 @@ return {
                     "name": "evidenceProviders",
                     "plural": true,
                     "selections": [
-                      (v11/*: any*/)
+                      (v13/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -283,7 +301,7 @@ return {
                 "name": "documents",
                 "plural": true,
                 "selections": [
-                  (v11/*: any*/),
+                  (v13/*: any*/),
                   (v3/*: any*/),
                   (v4/*: any*/)
                 ],
@@ -304,6 +322,8 @@ return {
                   (v7/*: any*/),
                   (v8/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -329,9 +349,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v11/*: any*/),
+                              (v13/*: any*/),
                               (v4/*: any*/),
-                              (v10/*: any*/)
+                              (v12/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -349,7 +369,7 @@ return {
                     "name": "evidenceProviders",
                     "plural": true,
                     "selections": [
-                      (v11/*: any*/),
+                      (v13/*: any*/),
                       (v4/*: any*/)
                     ],
                     "storageKey": null
@@ -367,12 +387,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "049079a4bcecba80ea75794dd9875245",
+    "cacheID": "5c673a02f862f694451fec5169df603e",
     "id": null,
     "metadata": {},
     "name": "CloseSignatureOrderButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation CloseSignatureOrderButtonMutation(\n  $input: CloseSignatureOrderInput!\n) {\n  closeSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      documents {\n        __typename\n        blob\n        id\n      }\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "mutation CloseSignatureOrderButtonMutation(\n  $input: CloseSignatureOrderInput!\n) {\n  closeSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      documents {\n        __typename\n        blob\n        id\n      }\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        traceId\n        spanId\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

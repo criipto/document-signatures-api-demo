@@ -37,6 +37,9 @@ graphql`
     reference
     role
 
+    traceId
+    spanId
+
     documents {
       edges {
         status
@@ -113,10 +116,12 @@ const Query = graphql`
       createdAt
       expiresAt
       closedAt
+      traceId
 
       ui {
         signatoryRedirectUri
         stylesheet
+
         language
         logo {
           src
@@ -192,6 +197,7 @@ const Query = graphql`
 `;
 
 const SETTINGS = [
+  'traceId',
   'title',
   'status',
   'maxSignatories',
@@ -393,6 +399,7 @@ export default function SignatureOrdersScreen() {
             <th scope="col">Status</th>
             <th scope="col">Documents</th>
             <th scope="col">Evidence Providers</th>
+            <th scope="col">Span Context</th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
@@ -409,6 +416,9 @@ export default function SignatureOrdersScreen() {
               </td>
               <td>
                 {signatory.evidenceProviders.map(p => <span key={p.__typename}>{p.__typename}<br /></span>)}
+              </td>
+              <td>
+                {signatory.traceId}#{signatory.spanId}
               </td>
               <td>
                 {signatory.downloadHref ? (
