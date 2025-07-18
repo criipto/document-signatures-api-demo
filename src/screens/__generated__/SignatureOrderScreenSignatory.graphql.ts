@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<34b92c5fe59204fb81210bf792c67212>>
+ * @generated SignedSource<<f447dcbb752d459442e59e1de3499598>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -30,8 +30,10 @@ export type SignatureOrderScreenSignatory$data = {
   readonly id: string;
   readonly reference: string | null;
   readonly role: string | null;
+  readonly spanId: string;
   readonly status: SignatoryStatus;
   readonly statusReason: string | null;
+  readonly traceId: string;
   readonly " $fragmentType": "SignatureOrderScreenSignatory";
 };
 export type SignatureOrderScreenSignatory$key = {
@@ -100,6 +102,20 @@ return {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "traceId",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "spanId",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "SignatoryDocumentConnection",
       "kind": "LinkedField",
       "name": "documents",
@@ -163,6 +179,6 @@ return {
 };
 })();
 
-(node as any).hash = "39160d9ea6154a2a25fa2a2db6dabcf8";
+(node as any).hash = "01482bff73d7c069b72d6f6fcfc9950d";
 
 export default node;
