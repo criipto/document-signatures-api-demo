@@ -149,9 +149,9 @@ export default function SignatoryModal(props : Props) {
 
     return evidenceProviders.map(ep => {
       const input = 
-        ep.__typename === 'OidcJWTSignatureEvidenceProvider' ? {oidc: {}} :
-        ep.__typename === 'CriiptoVerifySignatureEvidenceProvider' ? {criiptoVerify: {}} :
-        ep.__typename === 'DrawableSignatureEvidenceProvider' ? {drawable: {}} : 
+        ep.__typename === 'OidcJWTSignatureEvidenceProvider' ? {oidc: {...ep}} :
+        ep.__typename === 'CriiptoVerifySignatureEvidenceProvider' ? {criiptoVerify: {...ep}} :
+        ep.__typename === 'DrawableSignatureEvidenceProvider' ? {drawable: {...ep}} : 
         {};
       return {id: ep.id, enabled: true, input: {id: ep.id, ...input}}
     });
