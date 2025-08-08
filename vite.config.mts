@@ -19,5 +19,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1010
   },
-  base: '/'
+  base: process.env.BASE_URL ?? '/'
 });
