@@ -422,9 +422,9 @@ export default function SignatureOrdersScreen() {
               </td>
               <td>
                 {signatory.downloadHref ? (
-                  <a href={signatory.downloadHref}>Download link (right click and copy link)</a>
+                  <a href={signatoryHref(signatory.downloadHref)}>Download link (right click and copy link)</a>
                 ) : (
-                  <a href={signatory.href}>Sign link (right click and copy link)</a>
+                  <a href={signatoryHref(signatory.href)}>Sign link (right click and copy link)</a>
                 )}
               </td>
               <td style={{display: 'flex', gap: 5, justifyContent: 'flex-end'}}>
@@ -450,6 +450,16 @@ export default function SignatureOrdersScreen() {
       </div>
     </div>
   )
+}
+
+function signatoryHref(input: string) : string {
+  if (input.includes('/signatures/') && import.meta.env.VITE_SIGNATURE_FRONTEND_URI) {
+    const url = new URL(input);
+    url.host = (new URL(import.meta.env.VITE_SIGNATURE_FRONTEND_URI).host);
+    url.pathname = url.pathname.replace('/signatures/', '');
+    return url.href;
+  }
+  return input;
 }
 
 function iTextVersions(input: string) : string[] {

@@ -14,7 +14,7 @@ import 'bootstrap/scss/bootstrap.scss';
 import App from './App';
 
 ReactDOM.render(
-  <Router>
+  <Router basename={import.meta.env.VITE_BASE_URL ?? undefined}>
     <RelayEnvironmentProvider environment={RelayEnvironment}>
       <React.Suspense fallback={'Loading...'}><App /></React.Suspense>
     </RelayEnvironmentProvider>
