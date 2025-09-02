@@ -16,7 +16,6 @@ import SignActingAsButton from '../components/SignActingAsButton';
 import ExtendSignatureOrderButton from '../components/ExtendSignatureOrderButton';
 import CleanupSignatureOrderButton from '../components/CleanupSignatureOrderButton';
 import ChangeSignatureOrderButton from '../components/ChangeSignatureOrderButton';
-import { url } from 'inspector';
 
 function base64ToBlob( base64 : string, type = "application/pdf" ) {
   const binStr = atob( base64 );
