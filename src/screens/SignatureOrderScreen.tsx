@@ -453,7 +453,9 @@ export default function SignatureOrdersScreen() {
 }
 
 function signatoryHref(input: string) : string {
-  if (input.includes('/signatures/') && import.meta.env.VITE_SIGNATURE_FRONTEND_URI) {
+  // when running in a preview instance, replace the signatory href host with the deploy preview
+  // VITE_SIGNATURE_FRONTEND_URI is set in `vite.config.mts`
+  if (input.includes('/signatures/') && import.meta.env.VITE_DETECT_PREVIEW) {
     const url = new URL(input);
     url.host = (new URL(import.meta.env.VITE_SIGNATURE_FRONTEND_URI).host);
     url.pathname = url.pathname.replace('/signatures/', '');
