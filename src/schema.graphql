@@ -40,6 +40,12 @@ input AddSignatoryInput {
   signatureOrderId: ID!
 
   """
+  Defines signing sequence order for sequential signing. If two signatories have
+  the same number they can sign in parallel. Default: 2147483647
+  """
+  signingSequence: Int
+
+  """
   Override UI settings for signatory, defaults to UI settings for signature order
   """
   ui: SignatoryUIInput
@@ -157,6 +163,12 @@ input ChangeSignatoryInput {
   signatureAppearance: SignatureAppearanceInput
 
   """
+  Defines signing sequence order for sequential signing. If two signatories have
+  the same number they can sign in parallel. Default: 2147483647
+  """
+  signingSequence: Int
+
+  """
   Override UI settings for signatory, defaults to UI settings for signature order
   """
   ui: SignatoryUIInput
@@ -173,6 +185,9 @@ input ChangeSignatureOrderInput {
   """
   maxSignatories: Int
   signatureOrderId: ID!
+
+  """Signature order webhook settings"""
+  webhook: CreateSignatureOrderWebhookInput
 }
 
 type ChangeSignatureOrderOutput {
@@ -336,6 +351,12 @@ input CreateSignatureOrderSignatoryInput {
   signatureAppearance: SignatureAppearanceInput
 
   """
+  Defines signing sequence order for sequential signing. If two signatories have
+  the same number they can sign in parallel. Default: 2147483647
+  """
+  signingSequence: Int
+
+  """
   Override UI settings for signatory, defaults to UI settings for signature order
   """
   ui: SignatoryUIInput
@@ -466,6 +487,15 @@ input DeleteSignatoryInput {
 
 type DeleteSignatoryOutput {
   signatureOrder: SignatureOrder!
+}
+
+input DeviceInput {
+  os: DeviceOperatingSystem
+}
+
+enum DeviceOperatingSystem {
+  IOS
+  ANDROID
 }
 
 interface Document {
@@ -865,6 +895,7 @@ type SignActingAsOutput {
 
 input SignAllOfInput {
   criiptoVerify: SignCriiptoVerifyInput
+  criiptoVerifyV2: SignCriiptoVerifyV2Input
   drawable: SignDrawableInput
   noop: Boolean
   oidc: SignOidcInput
@@ -891,6 +922,7 @@ type Signatory {
 
   """Signature order for the signatory."""
   signatureOrder: SignatureOrder!
+  signingSequence: SignatorySigningSequence!
   spanId: String!
 
   """The current status of the signatory."""
@@ -971,6 +1003,10 @@ input SignatoryEvidenceValidationInput {
 enum SignatoryFrontendEvent {
   SIGN_LINK_OPENED
   DOWNLOAD_LINK_OPENED
+}
+
+type SignatorySigningSequence {
+  initialNumber: Int!
 }
 
 enum SignatoryStatus {
@@ -1153,6 +1189,11 @@ input SignCriiptoVerifyInput {
   jwt: String!
 }
 
+input SignCriiptoVerifyV2Input {
+  code: String!
+  state: String!
+}
+
 input SignDocumentFormFieldInput {
   field: String!
   value: String!
@@ -1175,6 +1216,7 @@ input SignDrawableInput {
 input SignInput {
   allOf: SignAllOfInput
   criiptoVerify: SignCriiptoVerifyInput
+  criiptoVerifyV2: SignCriiptoVerifyV2Input
   documents: [SignDocumentInput!]
   drawable: SignDrawableInput
 
@@ -1219,7 +1261,13 @@ interface SingleSignatureEvidenceProvider {
 
 input StartCriiptoVerifyEvidenceProviderInput {
   acrValue: String!
+  device: DeviceInput
   id: ID!
+
+  """
+  Use the id_token of a previous login to infer, for instance, reauthentication or other hints for the next login.
+  """
+  idTokenHint: String
   redirectUri: String!
   stage: EvidenceValidationStage!
 }

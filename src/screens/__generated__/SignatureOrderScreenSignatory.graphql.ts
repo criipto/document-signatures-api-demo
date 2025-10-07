@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f447dcbb752d459442e59e1de3499598>>
+ * @generated SignedSource<<5191249b72fe66bb0443637d191778b2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -30,6 +30,9 @@ export type SignatureOrderScreenSignatory$data = {
   readonly id: string;
   readonly reference: string | null;
   readonly role: string | null;
+  readonly signingSequence: {
+    readonly initialNumber: number;
+  };
   readonly spanId: string;
   readonly status: SignatoryStatus;
   readonly statusReason: string | null;
@@ -172,6 +175,24 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SignatorySigningSequence",
+      "kind": "LinkedField",
+      "name": "signingSequence",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "initialNumber",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Signatory",
@@ -179,6 +200,6 @@ return {
 };
 })();
 
-(node as any).hash = "01482bff73d7c069b72d6f6fcfc9950d";
+(node as any).hash = "90dfc496d71ac182f0fd03ae22c87408";
 
 export default node;

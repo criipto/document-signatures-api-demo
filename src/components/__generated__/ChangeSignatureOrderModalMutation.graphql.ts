@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aa22ad59b042310404244f1b6dcdfbc8>>
+ * @generated SignedSource<<5e4ff4dfda90e8aadeac7cc40147e2c6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,12 @@ import { FragmentRefs } from "relay-runtime";
 export type ChangeSignatureOrderInput = {
   maxSignatories?: number | null;
   signatureOrderId: string;
+  webhook?: CreateSignatureOrderWebhookInput | null;
+};
+export type CreateSignatureOrderWebhookInput = {
+  secret?: string | null;
+  url: string;
+  validateConnectivity?: boolean | null;
 };
 export type ChangeSignatureOrderModalMutation$variables = {
   input: ChangeSignatureOrderInput;

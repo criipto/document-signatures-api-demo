@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0d464dda3434ba9960abfd6bd02a14a0>>
+ * @generated SignedSource<<a773bb502f091eb8ac8d5023c35b78c4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -115,6 +115,7 @@ export type CreateSignatureOrderSignatoryInput = {
   reference?: string | null;
   role?: string | null;
   signatureAppearance?: SignatureAppearanceInput | null;
+  signingSequence?: number | null;
   ui?: SignatoryUIInput | null;
 };
 export type SignatoryDocumentInput = {

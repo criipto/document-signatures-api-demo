@@ -73,6 +73,9 @@ export default function SignatoryModal(props : Props) {
         status
         reference
         role
+        signingSequence {
+          initialNumber
+        }
 
         evidenceProviders {
           __typename
@@ -123,7 +126,7 @@ export default function SignatoryModal(props : Props) {
       }
     `
   , props.signatory || null)
-  
+
   const [signatory, setSignatory] = useState<AddSignatoryInput | ChangeSignatoryInput>({
     reference: existingSignatory?.reference || null,
     signatureOrderId: data.id,
@@ -131,7 +134,7 @@ export default function SignatoryModal(props : Props) {
       existingSignatory ?
         existingSignatory.documents.edges.map(edge => ({id: edge.node.id, preapproved: edge.status === 'PREAPPROVED'})) :
         data.documents.map(d => ({id: d.id})),
-    evidenceProviders: 
+    evidenceProviders:
       existingSignatory ?
         existingSignatory.evidenceProviders.map(d => ({id: (d as any).id})) :
         data.evidenceProviders.map(d => ({id: (d as any).id})),
@@ -142,16 +145,16 @@ export default function SignatoryModal(props : Props) {
   });
 
   const [evidenceProviders, setEvidenceProviders] = useState<{id: string, enabled: boolean, input: SignatoryEvidenceProviderInput}[]>(() => {
-    const evidenceProviders = 
+    const evidenceProviders =
       existingSignatory ?
       existingSignatory.evidenceProviders :
       data.evidenceProviders;
 
     return evidenceProviders.map(ep => {
-      const input = 
+      const input =
         ep.__typename === 'OidcJWTSignatureEvidenceProvider' ? {oidc: {...ep}} :
         ep.__typename === 'CriiptoVerifySignatureEvidenceProvider' ? {criiptoVerify: {...ep}} :
-        ep.__typename === 'DrawableSignatureEvidenceProvider' ? {drawable: {...ep}} : 
+        ep.__typename === 'DrawableSignatureEvidenceProvider' ? {drawable: {...ep}} :
         {};
       return {id: ep.id, enabled: true, input: {id: ep.id, ...input}}
     });
@@ -199,7 +202,7 @@ export default function SignatoryModal(props : Props) {
   if (data.status !== 'OPEN') return null;
 
   const handleSubmit = () => {
-    const variables = 
+    const variables =
       existingSignatory ?
         {
           input: {
@@ -245,7 +248,7 @@ export default function SignatoryModal(props : Props) {
     }));
   }
 
-  
+
   const toggleEvidenceProvider = (provider: any, checked: boolean) => {
     setEvidenceProviders(evidenceProviders => {
       return evidenceProviders.map(evidenceProvider => {
@@ -317,6 +320,24 @@ export default function SignatoryModal(props : Props) {
           />
           <label className="form-label">Signatory role</label>
         </div>
+        <div className="mb-3 form-floating">
+          <input
+            className="form-control"
+            type="text"
+            onChange={(event) => {
+              const value = parseInt(event.target.value, 10);
+              if (isNaN(value)) {
+                setSignatory(signatory => ({...signatory, signingSequence: null}));
+              } else {
+                setSignatory(signatory => ({...signatory, signingSequence: value}));
+              }
+            }}
+            value={signatory.signingSequence?.toString() ?? ''}
+            placeholder="Signing sequence"
+            required
+          />
+          <label className="form-label">Signing sequence</label>
+        </div>
         <div><strong>Documents</strong></div>
         <SignatoryDocumentInputComponent
           id={"addSignatory"}
@@ -342,7 +363,7 @@ export default function SignatoryModal(props : Props) {
                 <label className="form-check-label" htmlFor={`${index}_providers_enabled`}>
                   {evidenceProviderToType(provider.input)}
                 </label>
-                {provider.enabled ? ( 
+                {provider.enabled ? (
                   <EvidenceProviderInputComponent
                     evidenceProvider={provider.input}
                     onChange={(input, key, value) => handleChangeEvidenceProvider(provider, key, value)}
