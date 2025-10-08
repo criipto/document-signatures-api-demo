@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bade94a3997fcd9104600b1df5928d1b>>
+ * @generated SignedSource<<6ce3b240fb38a8aa0f48b365fb5ce9fe>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,7 @@ export type SignActingAsInput = {
 export type SignInput = {
   allOf?: SignAllOfInput | null;
   criiptoVerify?: SignCriiptoVerifyInput | null;
+  criiptoVerifyV2?: SignCriiptoVerifyV2Input | null;
   documents?: ReadonlyArray<SignDocumentInput> | null;
   drawable?: SignDrawableInput | null;
   id: string;
@@ -27,12 +28,17 @@ export type SignInput = {
 };
 export type SignAllOfInput = {
   criiptoVerify?: SignCriiptoVerifyInput | null;
+  criiptoVerifyV2?: SignCriiptoVerifyV2Input | null;
   drawable?: SignDrawableInput | null;
   noop?: boolean | null;
   oidc?: SignOidcInput | null;
 };
 export type SignCriiptoVerifyInput = {
   jwt: string;
+};
+export type SignCriiptoVerifyV2Input = {
+  code: string;
+  state: string;
 };
 export type SignDrawableInput = {
   image: string;
@@ -76,6 +82,9 @@ export type SignActingAsModalMutation$data = {
         readonly id: string;
         readonly reference: string | null;
         readonly role: string | null;
+        readonly signingSequence: {
+          readonly initialNumber: number;
+        };
         readonly spanId: string;
         readonly status: SignatoryStatus;
         readonly statusReason: string | null;
@@ -181,6 +190,24 @@ v12 = {
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "SignatorySigningSequence",
+  "kind": "LinkedField",
+  "name": "signingSequence",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "initialNumber",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -274,7 +301,8 @@ return {
                       (v12/*: any*/)
                     ],
                     "storageKey": null
-                  }
+                  },
+                  (v13/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -405,7 +433,8 @@ return {
                       (v2/*: any*/)
                     ],
                     "storageKey": null
-                  }
+                  },
+                  (v13/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -418,12 +447,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ca9d22d7b5d509636935376d783b7314",
+    "cacheID": "12e90f7238dc7d60a24558b1dca494dd",
     "id": null,
     "metadata": {},
     "name": "SignActingAsModalMutation",
     "operationKind": "mutation",
-    "text": "mutation SignActingAsModalMutation(\n  $input: SignActingAsInput!\n) {\n  signActingAs(input: $input) {\n    signatureOrder {\n      ...SignActingAsModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        traceId\n        spanId\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment SignActingAsModal_signatureOrder on SignatureOrder {\n  id\n  status\n  evidenceProviders {\n    __typename\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n    }\n    id\n  }\n}\n"
+    "text": "mutation SignActingAsModalMutation(\n  $input: SignActingAsInput!\n) {\n  signActingAs(input: $input) {\n    signatureOrder {\n      ...SignActingAsModal_signatureOrder\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        traceId\n        spanId\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n        signingSequence {\n          initialNumber\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment SignActingAsModal_signatureOrder on SignatureOrder {\n  id\n  status\n  evidenceProviders {\n    __typename\n    ... on DrawableSignatureEvidenceProvider {\n      id\n      requireName\n    }\n    ... on OidcJWTSignatureEvidenceProvider {\n      id\n    }\n    ... on CriiptoVerifySignatureEvidenceProvider {\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();

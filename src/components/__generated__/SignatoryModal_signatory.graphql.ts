@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2ff006a736fe79163a61131122446409>>
+ * @generated SignedSource<<1e09ff374ab2e6f8d90533fc74df36fa>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -37,6 +37,9 @@ export type SignatoryModal_signatory$data = {
   readonly id: string;
   readonly reference: string | null;
   readonly role: string | null;
+  readonly signingSequence: {
+    readonly initialNumber: number;
+  };
   readonly status: SignatoryStatus;
   readonly ui: {
     readonly disableRejection: boolean;
@@ -119,6 +122,24 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "role",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SignatorySigningSequence",
+      "kind": "LinkedField",
+      "name": "signingSequence",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "initialNumber",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -309,6 +330,6 @@ return {
 };
 })();
 
-(node as any).hash = "e852a8e105170cc26a8d7d775f43c266";
+(node as any).hash = "97118ab1a7074ba2e039552fb52c5ee5";
 
 export default node;

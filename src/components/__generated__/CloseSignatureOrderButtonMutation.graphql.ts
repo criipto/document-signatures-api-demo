@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ea0c04241cff6b4639e4228a4c1dc566>>
+ * @generated SignedSource<<ad959419a62d2780211f23a28fac433e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -43,6 +43,9 @@ export type CloseSignatureOrderButtonMutation$data = {
         readonly id: string;
         readonly reference: string | null;
         readonly role: string | null;
+        readonly signingSequence: {
+          readonly initialNumber: number;
+        };
         readonly spanId: string;
         readonly status: SignatoryStatus;
         readonly statusReason: string | null;
@@ -155,6 +158,24 @@ v13 = {
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
+},
+v14 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "SignatorySigningSequence",
+  "kind": "LinkedField",
+  "name": "signingSequence",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "initialNumber",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -256,7 +277,8 @@ return {
                       (v13/*: any*/)
                     ],
                     "storageKey": null
-                  }
+                  },
+                  (v14/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -373,7 +395,8 @@ return {
                       (v4/*: any*/)
                     ],
                     "storageKey": null
-                  }
+                  },
+                  (v14/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -387,12 +410,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5c673a02f862f694451fec5169df603e",
+    "cacheID": "babcb7716ca3358a4cafe4072a2bdcee",
     "id": null,
     "metadata": {},
     "name": "CloseSignatureOrderButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation CloseSignatureOrderButtonMutation(\n  $input: CloseSignatureOrderInput!\n) {\n  closeSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      documents {\n        __typename\n        blob\n        id\n      }\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        traceId\n        spanId\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "mutation CloseSignatureOrderButtonMutation(\n  $input: CloseSignatureOrderInput!\n) {\n  closeSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      documents {\n        __typename\n        blob\n        id\n      }\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        traceId\n        spanId\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n        signingSequence {\n          initialNumber\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
