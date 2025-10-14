@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a773bb502f091eb8ac8d5023c35b78c4>>
+ * @generated SignedSource<<6e9cace7c5e2d20240a58928cf297526>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
+export type CriiptoVerifyEvidenceProviderVersion = "V1" | "V2" | "%future added value";
 export type DocumentIDLocation = "BOTTOM" | "LEFT" | "RIGHT" | "TOP" | "%future added value";
 export type DocumentStorageMode = "Temporary" | "%future added value";
 export type EvidenceValidationStage = "SIGN" | "VIEW" | "%future added value";
@@ -90,6 +91,7 @@ export type CriiptoVerifyProviderInput = {
   message?: string | null;
   scope?: string | null;
   uniqueEvidenceKey?: string | null;
+  version?: CriiptoVerifyEvidenceProviderVersion | null;
 };
 export type DrawableEvidenceProviderInput = {
   minimumHeight?: number | null;

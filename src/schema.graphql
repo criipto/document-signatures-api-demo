@@ -412,6 +412,14 @@ type CriiptoVerifyEvidenceProviderRedirect {
   state: String!
 }
 
+enum CriiptoVerifyEvidenceProviderVersion {
+  """Version 1 is the original version. Deprecated in favour of Version 2."""
+  V1
+
+  """Version 2 adds increased observability and newer signing features."""
+  V2
+}
+
 """Criipto Verify based evidence for signatures."""
 input CriiptoVerifyProviderInput {
   acrValues: [String!]
@@ -440,6 +448,7 @@ input CriiptoVerifyProviderInput {
   use `sub` which is a unique pseudonym value present in all e-ID tokens issued.
   """
   uniqueEvidenceKey: String
+  version: CriiptoVerifyEvidenceProviderVersion
 }
 
 type CriiptoVerifySignatureEvidenceProvider implements SignatureEvidenceProvider & SingleSignatureEvidenceProvider {
@@ -455,6 +464,7 @@ type CriiptoVerifySignatureEvidenceProvider implements SignatureEvidenceProvider
   message: String
   name: String!
   scope: String
+  version: CriiptoVerifyEvidenceProviderVersion!
 }
 
 """
