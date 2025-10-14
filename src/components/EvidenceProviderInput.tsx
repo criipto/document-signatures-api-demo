@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type EvidenceProviderInput as SignatureOrderEvidenceProviderInput } from '../screens/__generated__/CreateSignatureOrderScreenMutation.graphql';
+import { type EvidenceProviderInput as SignatureOrderEvidenceProviderInput, CriiptoVerifyEvidenceProviderVersion } from '../screens/__generated__/CreateSignatureOrderScreenMutation.graphql';
 import { SignatoryEvidenceProviderInput } from './__generated__/SignatoryModalAddMutation.graphql';
 
 export type EvidenceProviderType = "oidc" | "criiptoVerify" | "drawable" | "noop" | "allOf";
@@ -15,6 +15,10 @@ export const evidenceProviderToType = (input: EvidenceProviderInput) : EvidenceP
   return null;
 }
 
+const CriiptoVerifyEvidenceProviderVersions = [
+  'V1',
+  'V2'
+] as const;
 
 export default function EvidenceProviderInputComponent(props: {
   evidenceProvider: EvidenceProviderInput
@@ -154,15 +158,28 @@ export default function EvidenceProviderInputComponent(props: {
           <label className="form-label">scope</label>
         </div>
         <div className="mb-3 form-floating">
-        <input
-          className="form-control"
-          type="text"
-          onChange={(event) => onChange(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, audiences: event.target.value?.length ? event.target.value.split(',').map(i => i.trim()) : null})}
-          value={evidenceProvider.criiptoVerify.audiences?.join(', ') ?? ''}
-          placeholder="Additional audiences"
-        />
-        <label className="form-label">Additional audiences (comma-seperated)</label>
-      </div>
+          <input
+            className="form-control"
+            type="text"
+            onChange={(event) => onChange(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, audiences: event.target.value?.length ? event.target.value.split(',').map(i => i.trim()) : null})}
+            value={evidenceProvider.criiptoVerify.audiences?.join(', ') ?? ''}
+            placeholder="Additional audiences"
+          />
+          <label className="form-label">Additional audiences (comma-seperated)</label>
+        </div>
+        <div className="mb-3 form-floating">
+          <select
+            className="form-control"
+            onChange={(event) => onChange(evidenceProvider, 'criiptoVerify', {...evidenceProvider.criiptoVerify, version: event.target.value as CriiptoVerifyEvidenceProviderVersion})}
+            value={evidenceProvider.criiptoVerify.version ?? 'V1'}
+            placeholder="Version"
+          >
+            {CriiptoVerifyEvidenceProviderVersions.map(version => (
+              <option value={version} key={version}>{version}</option>
+            ))}
+          </select>
+          <label className="form-label">Version</label>
+        </div>
       </React.Fragment>
     )
   }

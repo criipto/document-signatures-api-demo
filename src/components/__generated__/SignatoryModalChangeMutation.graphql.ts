@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8c343f2346e45720ec723c439168b5cc>>
+ * @generated SignedSource<<b85e0bf705195512ab403df9b776ff46>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,6 +10,7 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type CriiptoVerifyEvidenceProviderVersion = "V1" | "V2" | "%future added value";
 export type Language = "DA_DK" | "EN_US" | "NB_NO" | "SV_SE" | "%future added value";
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
@@ -59,6 +60,7 @@ export type CriiptoVerifyProviderInput = {
   message?: string | null;
   scope?: string | null;
   uniqueEvidenceKey?: string | null;
+  version?: CriiptoVerifyEvidenceProviderVersion | null;
 };
 export type DrawableEvidenceProviderInput = {
   minimumHeight?: number | null;
