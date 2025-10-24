@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<13bb53d05b929cd735f8300db3b41610>>
+ * @generated SignedSource<<9f2eccd74112a924da1fba836d950726>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -28,6 +28,7 @@ export type AddSignatoryInput = {
 export type SignatoryDocumentInput = {
   id: string;
   pdfSealPosition?: PdfSealPosition | null;
+  pdfSealPositions?: ReadonlyArray<PdfSealPosition> | null;
   preapproved?: boolean | null;
 };
 export type PdfSealPosition = {
