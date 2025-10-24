@@ -59,19 +59,30 @@ export default function SignatoryDocumentInputComponent<T extends HasSignatoryDo
     )
   }
 
-  const handleSealPosition = useCallback((document: SignatoryDocumentInput, pdfSealPosition: SignatoryDocumentInput["pdfSealPosition"]) => {
-    onChange(
-      documents!.map(search => {
-        if (search.id === document.id) {
-          return {
-            ...document,
-            pdfSealPosition
+  const handleSealPositions = useCallback(
+    (
+      document: SignatoryDocumentInput,
+      pdfSealPositions: SignatoryDocumentInput["pdfSealPositions"]
+    ) => {
+      onChange(
+        documents!.map((search) => {
+          if (search.id === document.id) {
+            // API treats empty arrays as error - should be undefined/null instead
+            const sealPositions =
+              pdfSealPositions?.length
+              ? pdfSealPositions
+              : undefined
+            return {
+              ...document,
+              pdfSealPositions: sealPositions,
+            };
           }
-        }
-        return search;
-      })
-    );
-  }, [onChange, documents]);
+          return search;
+        })
+      );
+    },
+    [onChange, documents]
+  );
 
   return (
     <ul className="signatory-input-document">
@@ -102,9 +113,12 @@ export default function SignatoryDocumentInputComponent<T extends HasSignatoryDo
               Preapprove
             </label>
           </div>
-          <SealPosition
-            pdfSealPosition={documents.find(s => s.id === document.id)?.pdfSealPosition ?? null}
-            onChange={pos => handleSealPosition(document, pos)}
+          <SealPositions
+            pdfSealPositions={
+              documents.find((s) => s.id === document.id)?.pdfSealPositions ??
+              null
+            }
+            onChange={(pos) => handleSealPositions(document, pos)}
           />
         </li>
       ))}
@@ -112,58 +126,126 @@ export default function SignatoryDocumentInputComponent<T extends HasSignatoryDo
   )
 }
 
-type SealPositionProps = {
-  pdfSealPosition: SignatoryDocumentInput["pdfSealPosition"],
-  onChange: (pdfSealPosition: SignatoryDocumentInput["pdfSealPosition"]) => void
-}
-function SealPosition(props: SealPositionProps) {
-  const {onChange, pdfSealPosition} = props;
-  const [input, setInput] = useState<Partial<NonNullable<SignatoryDocumentInput["pdfSealPosition"]>>>({
-    page: pdfSealPosition?.page ?? undefined,
-    x: pdfSealPosition?.x ?? undefined,
-    y: pdfSealPosition?.y ?? undefined
-  });
+type PdfSealPosition = {
+  page?: number;
+  x?: number;
+  y?: number;
+};
 
-  const handleChange = (key: keyof NonNullable<SignatoryDocumentInput["pdfSealPosition"]>, value: number | undefined) => {
-    let inputChange = {
-      ...input,
-      [key]: value
-    };
+type SealPositionsProps = {
+  pdfSealPositions?: SignatoryDocumentInput["pdfSealPositions"] | null;
+  onChange: (
+    list: NonNullable<SignatoryDocumentInput["pdfSealPositions"]>
+  ) => void;
+};
 
-    setInput(inputChange);
-    if (inputChange.page !== undefined && inputChange.x !== undefined && inputChange.y !== undefined) {
-      onChange(inputChange as NonNullable<SignatoryDocumentInput["pdfSealPosition"]>);
-    } else {
-      onChange(null);
-    }
-  }
+function SealPositions(props: SealPositionsProps) {
+  const list = props.pdfSealPositions || [];
+
+  const handleChange = (
+    pos: PdfSealPosition,
+    key: keyof NonNullable<PdfSealPosition>,
+    value: number | undefined
+  ) => {
+    props.onChange(
+      list.map((p) => {
+        if (p === pos) {
+          return {
+            ...p,
+            [key]: value,
+          };
+        }
+        return p;
+      })
+    );
+  };
+
+  const handleAdd = () => {
+    props.onChange(list.concat([{ page: 0, x: 0, y: 0 }]));
+  };
+
+  const handleRemove = (pos: PdfSealPosition) => {
+    props.onChange(list.filter((p) => p !== pos));
+  };
 
   return (
-    <div className="d-flex">
-      <input
-        className="form-control"
-        type="number"
-        onChange={(event) => handleChange('page', event.target.value ? parseInt(event.target.value, 10) : undefined)}
-        value={input.page ?? ""}
-        placeholder="Page"
-        style={{width: '75px', padding: '2px 4px'}}
-      />
-      <input
-        className="form-control"
-        type="number"
-        onChange={(event) => handleChange('x', event.target.value ? parseInt(event.target.value, 10) : undefined)}
-        value={input.x ?? ""}
-        placeholder="X"
-        style={{width: '50px', padding: '2px 4px'}}
-      />
-      <input
-        className="form-control"
-        type="number"
-        onChange={(event) => handleChange('y', event.target.value ? parseInt(event.target.value, 10) : undefined)}
-        value={input.y ?? ""}
-        placeholder="Y"
-        style={{width: '50px', padding: '2px 4px'}}
-      />
-    </div>
+    <React.Fragment>
+      {list.map((pos, index) => (
+        <div className="row" key={index}>
+          <div className="col-3">
+            <div className="mb-3 form-floating">
+              <input
+                className="form-control"
+                type="number"
+                onChange={(event) =>
+                  handleChange(
+                    pos,
+                    "page",
+                    event.target.value
+                      ? parseInt(event.target.value, 10)
+                      : undefined
+                  )
+                }
+                value={pos.page || undefined}
+                placeholder="Page"
+              />
+              <label className="form-label">Page</label>
+            </div>
+          </div>
+          <div className="col-3">
+            <div className="mb-3 form-floating">
+              <input
+                className="form-control"
+                type="number"
+                onChange={(event) =>
+                  handleChange(
+                    pos,
+                    "x",
+                    event.target.value
+                      ? parseInt(event.target.value, 10)
+                      : undefined
+                  )
+                }
+                value={pos.x || undefined}
+                placeholder="X"
+              />
+              <label className="form-label">X</label>
+            </div>
+          </div>
+          <div className="col-3">
+            <div className="mb-3 form-floating">
+              <input
+                className="form-control"
+                type="number"
+                onChange={(event) =>
+                  handleChange(
+                    pos,
+                    "y",
+                    event.target.value
+                      ? parseInt(event.target.value, 10)
+                      : undefined
+                  )
+                }
+                value={pos.y || undefined}
+                placeholder="Y"
+              />
+              <label className="form-label">Y</label>
+            </div>
+          </div>
+          <div className="col-2">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={() => handleRemove(pos)}
+            >
+              X
+            </button>
+          </div>
+        </div>
+      ))}
+      <button type="button" className="btn btn-secondary" onClick={handleAdd}>
+        Add custom seal position
+      </button>
+    </React.Fragment>
   );
 }
