@@ -33,11 +33,17 @@ input AddSignatoryInput {
   reference: String
 
   """
-  Define a role for the signatory, i.e. 'Chairman'. Will be visible in the document output.
+  Deprecated in favor of 'signingAs'. Define a role for the signatory, i.e.
+  'Chairman'. Will be visible in the document output.
   """
   role: String
   signatureAppearance: SignatureAppearanceInput
   signatureOrderId: ID!
+
+  """
+  Define the who signatory is signing as, i.e., 'Chairman'. Will be visible in the document output.
+  """
+  signingAs: String
 
   """
   Defines signing sequence order for sequential signing. If two signatories have
@@ -156,11 +162,17 @@ input ChangeSignatoryInput {
   reference: String
 
   """
-  Define a role for the signatory, i.e. 'Chairman'. Will be visible in the document output.
+  Deprecated in favor of 'signingAs'. Define a role for the signatory, i.e.
+  'Chairman'. Will be visible in the document output.
   """
   role: String
   signatoryId: ID!
   signatureAppearance: SignatureAppearanceInput
+
+  """
+  Define the who signatory is signing as, i.e., 'Chairman'. Will be visible in the document output.
+  """
+  signingAs: String
 
   """
   Defines signing sequence order for sequential signing. If two signatories have
@@ -345,10 +357,16 @@ input CreateSignatureOrderSignatoryInput {
   reference: String
 
   """
-  Define a role for the signatory, i.e. 'Chairman'. Will be visible in the document output.
+  Deprecated in favor of 'signingAs'. Define a role for the signatory, i.e.
+  'Chairman'. Will be visible in the document output.
   """
   role: String
   signatureAppearance: SignatureAppearanceInput
+
+  """
+  Define the who signatory is signing as, i.e., 'Chairman'. Will be visible in the document output.
+  """
+  signingAs: String
 
   """
   Defines signing sequence order for sequential signing. If two signatories have
@@ -928,10 +946,11 @@ type Signatory {
   href: String!
   id: ID!
   reference: String
-  role: String
+  role: String @deprecated(reason: "Deprecated in favor of signingAs")
 
   """Signature order for the signatory."""
   signatureOrder: SignatureOrder!
+  signingAs: String
   signingSequence: SignatorySigningSequence!
   spanId: String!
 

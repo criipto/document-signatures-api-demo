@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5191249b72fe66bb0443637d191778b2>>
+ * @generated SignedSource<<1b6c9ac19e23229b73e403e459f98c7a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,7 +29,7 @@ export type SignatureOrderScreenSignatory$data = {
   readonly href: string;
   readonly id: string;
   readonly reference: string | null;
-  readonly role: string | null;
+  readonly signingAs: string | null;
   readonly signingSequence: {
     readonly initialNumber: number;
   };
@@ -99,7 +99,7 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "role",
+      "name": "signingAs",
       "storageKey": null
     },
     {
@@ -200,6 +200,6 @@ return {
 };
 })();
 
-(node as any).hash = "90dfc496d71ac182f0fd03ae22c87408";
+(node as any).hash = "018442805c1513aff713122587b8f31f";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5f56bc29a1069e9d8dd41ed21677a280>>
+ * @generated SignedSource<<6456710293dc82e9d1b3bbf72df1bdee>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -28,7 +28,7 @@ export type SignatureOrderScreenDocument$data = {
     readonly signatory: {
       readonly id: string;
       readonly reference: string | null;
-      readonly role: string | null;
+      readonly signingAs: string | null;
     } | null;
     readonly signatures?: ReadonlyArray<{
       readonly __typename: "DrawableSignature";
@@ -191,7 +191,7 @@ return {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "role",
+              "name": "signingAs",
               "storageKey": null
             }
           ],
@@ -229,6 +229,6 @@ return {
 };
 })();
 
-(node as any).hash = "fb6fd8eeb016ea1b09ea232841c1a254";
+(node as any).hash = "b44a0be6a3c691eb35099bc05f64c663";
 
 export default node;

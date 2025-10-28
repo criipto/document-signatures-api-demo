@@ -72,7 +72,7 @@ export default function SignatoryModal(props : Props) {
         id
         status
         reference
-        role
+        signingAs
         signingSequence {
           initialNumber
         }
@@ -313,12 +313,12 @@ export default function SignatoryModal(props : Props) {
           <input
             className="form-control"
             type="text"
-            onChange={(event) => setSignatory(signatory => ({...signatory, role: event.target.value}))}
-            value={signatory.role ?? ''}
-            placeholder="signatory role"
+            onChange={(event) => setSignatory(signatory => ({...signatory, signingAs: event.target.value}))}
+            value={signatory.signingAs ?? ''}
+            placeholder="signing as"
             required
           />
-          <label className="form-label">Signatory role</label>
+          <label className="form-label">Signing as</label>
         </div>
         <div className="mb-3 form-floating">
           <input
