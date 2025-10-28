@@ -35,7 +35,7 @@ graphql`
     href
     downloadHref
     reference
-    role
+    signingAs
 
     traceId
     spanId
@@ -73,7 +73,7 @@ graphql`
       signatory {
         id
         reference
-        role
+        signingAs
       }
 
       ... on JWTSignature {
@@ -401,7 +401,7 @@ export default function SignatureOrdersScreen() {
           <tr>
             <th scope="col">Signatories</th>
             <th scope="col">Reference</th>
-            <th scope="col">Role</th>
+            <th scope="col">Signing As</th>
             <th scope="col">Signing sequence</th>
             <th scope="col">Status</th>
             <th scope="col">Documents</th>
@@ -416,7 +416,7 @@ export default function SignatureOrdersScreen() {
             <tr key={signatory.id}>
               <th scope="row" >#{index + 1}</th>
               <td>{signatory.reference}</td>
-              <td>{signatory.role}</td>
+              <td>{signatory.signingAs}</td>
               <td>{signatory.signingSequence.initialNumber}</td>
               <td>{signatory.status}{signatory.statusReason ? ` (${signatory.statusReason})` : null}</td>
               <td>

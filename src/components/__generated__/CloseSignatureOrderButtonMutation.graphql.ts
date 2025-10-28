@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ad959419a62d2780211f23a28fac433e>>
+ * @generated SignedSource<<21d694e5b7ce8f39e6ec68ccf9bc7e89>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -42,7 +42,7 @@ export type CloseSignatureOrderButtonMutation$data = {
         readonly href: string;
         readonly id: string;
         readonly reference: string | null;
-        readonly role: string | null;
+        readonly signingAs: string | null;
         readonly signingSequence: {
           readonly initialNumber: number;
         };
@@ -128,7 +128,7 @@ v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "role",
+  "name": "signingAs",
   "storageKey": null
 },
 v10 = {
@@ -410,12 +410,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "babcb7716ca3358a4cafe4072a2bdcee",
+    "cacheID": "0acda2031b1f7f2f9e26a3d465891dcc",
     "id": null,
     "metadata": {},
     "name": "CloseSignatureOrderButtonMutation",
     "operationKind": "mutation",
-    "text": "mutation CloseSignatureOrderButtonMutation(\n  $input: CloseSignatureOrderInput!\n) {\n  closeSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      documents {\n        __typename\n        blob\n        id\n      }\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        role\n        traceId\n        spanId\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n        signingSequence {\n          initialNumber\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "mutation CloseSignatureOrderButtonMutation(\n  $input: CloseSignatureOrderInput!\n) {\n  closeSignatureOrder(input: $input) {\n    signatureOrder {\n      status\n      documents {\n        __typename\n        blob\n        id\n      }\n      signatories {\n        id\n        status\n        statusReason\n        href\n        downloadHref\n        reference\n        signingAs\n        traceId\n        spanId\n        documents {\n          edges {\n            status\n            node {\n              __typename\n              id\n              title\n            }\n          }\n        }\n        evidenceProviders {\n          __typename\n          id\n        }\n        signingSequence {\n          initialNumber\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
