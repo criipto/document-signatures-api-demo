@@ -48,7 +48,7 @@ export default function ChangeSignatoryButton(props : Props) {
       <button className="btn btn-secondary btn-sm" onClick={handleShow}>
         Change signatory
       </button>
-      <SignatoryModal show={show} signatureOrder={signatureOrder} signatory={signatory} onHide={handleClose} />
+      <SignatoryModal kind={'Change'} show={show} signatureOrder={signatureOrder} signatory={signatory} onHide={handleClose} />
     </React.Fragment>
   )
 }

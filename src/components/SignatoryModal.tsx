@@ -21,7 +21,8 @@ interface Props {
   signatureOrder: SignatoryModal_signatureOrder$key,
   signatory?: SignatoryModal_signatory$key,
   onHide: () => void,
-  show: boolean
+  show: boolean,
+  kind: 'Add' | 'Change'
 }
 
 export default function SignatoryModal(props : Props) {
@@ -295,7 +296,7 @@ export default function SignatoryModal(props : Props) {
       onHide={props.onHide}
     >
       <Modal.Header closeButton>
-        <Modal.Title>Add signatory</Modal.Title>
+        <Modal.Title>{props.kind} signatory</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="mb-3 form-floating">
