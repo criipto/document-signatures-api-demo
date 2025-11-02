@@ -26,7 +26,7 @@
   },
   "scripts": {
     "schema": "curl -s https://signatures-api-test.criipto.com/v1/graphql > src/schema.json && npx graphql-json-to-sdl ./src/schema.json ./src/schema.graphql",
-    "schema:local": "curl -s http://localhost:7071/v1/graphql > src/schema.json && npx graphql-json-to-sdl ./src/schema.json ./src/schema.graphql",
+    "schema:local": "curl -s http://localhost:5039/v1/graphql > src/schema.json && npx graphql-json-to-sdl ./src/schema.json ./src/schema.graphql",
     "relay": "relay-compiler",
     "start": "vite",
     "build": "vite build"

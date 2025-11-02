@@ -36,6 +36,7 @@ graphql`
     downloadHref
     reference
     signingAs
+    signatoryRole
 
     traceId
     spanId
@@ -401,6 +402,7 @@ export default function SignatureOrdersScreen() {
           <tr>
             <th scope="col">Signatories</th>
             <th scope="col">Reference</th>
+            <th scope="col">Signatory Role</th>
             <th scope="col">Signing As</th>
             <th scope="col">Signing sequence</th>
             <th scope="col">Status</th>
@@ -416,6 +418,7 @@ export default function SignatureOrdersScreen() {
             <tr key={signatory.id}>
               <th scope="row" >#{index + 1}</th>
               <td>{signatory.reference}</td>
+              <td>{signatory.signatoryRole}</td>
               <td>{signatory.signingAs}</td>
               <td>{signatory.signingSequence.initialNumber}</td>
               <td>{signatory.status}{signatory.statusReason ? ` (${signatory.statusReason})` : null}</td>
