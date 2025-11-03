@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1b6c9ac19e23229b73e403e459f98c7a>>
+ * @generated SignedSource<<7d595f02a30a4fc4301f9750d08c0d4b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,6 +10,7 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SignatoryDocumentStatus = "APPROVED" | "OPENED" | "PREAPPROVED" | "REJECTED" | "SIGNED" | "%future added value";
+export type SignatoryRole = "SIGNER" | "VIEWER" | "%future added value";
 export type SignatoryStatus = "DELETED" | "ERROR" | "OPEN" | "REJECTED" | "SIGNED" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type SignatureOrderScreenSignatory$data = {
@@ -29,6 +30,7 @@ export type SignatureOrderScreenSignatory$data = {
   readonly href: string;
   readonly id: string;
   readonly reference: string | null;
+  readonly signatoryRole: SignatoryRole;
   readonly signingAs: string | null;
   readonly signingSequence: {
     readonly initialNumber: number;
@@ -100,6 +102,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "signingAs",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "signatoryRole",
       "storageKey": null
     },
     {
@@ -200,6 +209,6 @@ return {
 };
 })();
 
-(node as any).hash = "018442805c1513aff713122587b8f31f";
+(node as any).hash = "3d80c428699f4cec4d4d992ba027e22a";
 
 export default node;

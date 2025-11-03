@@ -7,7 +7,7 @@ import { Modal } from 'react-bootstrap';
 
 import {SignatoryModal_signatureOrder$key} from './__generated__/SignatoryModal_signatureOrder.graphql';
 import {SignatoryModal_signatory$key} from './__generated__/SignatoryModal_signatory.graphql';
-import {SignatoryModalAddMutation, AddSignatoryInput, SignatoryDocumentInput, SignatoryEvidenceValidationInput, SignatureAppearanceInput as SignatureAppearanceInputType, SignatoryEvidenceProviderInput} from './__generated__/SignatoryModalAddMutation.graphql';
+import {SignatoryModalAddMutation, AddSignatoryInput, SignatoryDocumentInput, SignatoryEvidenceValidationInput, SignatureAppearanceInput as SignatureAppearanceInputType, SignatoryEvidenceProviderInput, SignatoryRole} from './__generated__/SignatoryModalAddMutation.graphql';
 import {SignatoryModalChangeMutation, ChangeSignatoryInput} from './__generated__/SignatoryModalChangeMutation.graphql';
 
 import EvidenceValidationInput, { filterEvidenceValidation } from './EvidenceValidationInput';
@@ -21,7 +21,8 @@ interface Props {
   signatureOrder: SignatoryModal_signatureOrder$key,
   signatory?: SignatoryModal_signatory$key,
   onHide: () => void,
-  show: boolean
+  show: boolean,
+  kind: 'Add' | 'Change'
 }
 
 export default function SignatoryModal(props : Props) {
@@ -76,6 +77,7 @@ export default function SignatoryModal(props : Props) {
         signingSequence {
           initialNumber
         }
+        signatoryRole
 
         evidenceProviders {
           __typename
@@ -295,7 +297,7 @@ export default function SignatoryModal(props : Props) {
       onHide={props.onHide}
     >
       <Modal.Header closeButton>
-        <Modal.Title>Add signatory</Modal.Title>
+        <Modal.Title>{props.kind} signatory</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="mb-3 form-floating">
@@ -338,6 +340,24 @@ export default function SignatoryModal(props : Props) {
           />
           <label className="form-label">Signing sequence</label>
         </div>
+        {props.kind === 'Add' ?
+          <div className="mb-3 form-floating">
+            <select
+              className="form-control"
+              onChange={(event) =>
+                setSignatory(({...signatory, signatoryRole: event.target.value === 'SIGNER' || event.target.value === 'VIEWER' ? event.target.value : null }))
+
+              }
+              value={'signatoryRole' in signatory ? signatory.signatoryRole?.toString() : undefined}
+              placeholder="SignatoryRole"
+            >
+              <option value={undefined}></option> {/* unset to support older signature orders */}
+              <option value="SIGNER">SIGNER</option>
+              <option value="VIEWER">VIEWER</option>
+            </select>
+            <label className="form-label">SignatoryRole</label>
+          </div>
+          : null }
         <div><strong>Documents</strong></div>
         <SignatoryDocumentInputComponent
           id={"addSignatory"}

@@ -34,7 +34,7 @@ export default function AddSignatoryButton(props : Props) {
       <button className="btn btn-secondary" onClick={handleShow}>
         Add signatory
       </button>
-      <SignatoryModal show={show} signatureOrder={data} onHide={handleClose} />
+      <SignatoryModal kind={'Add'} show={show} signatureOrder={data} onHide={handleClose} />
     </React.Fragment>
   )
 }

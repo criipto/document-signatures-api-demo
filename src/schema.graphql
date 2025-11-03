@@ -37,6 +37,9 @@ input AddSignatoryInput {
   'Chairman'. Will be visible in the document output.
   """
   role: String
+
+  """Denotes the signatory role, e.g. SIGNER or VIEWER. Defaults to SIGNER."""
+  signatoryRole: SignatoryRole
   signatureAppearance: SignatureAppearanceInput
   signatureOrderId: ID!
 
@@ -361,6 +364,9 @@ input CreateSignatureOrderSignatoryInput {
   'Chairman'. Will be visible in the document output.
   """
   role: String
+
+  """Denotes the signatory role, e.g. SIGNER or VIEWER. Defaults to SIGNER."""
+  signatoryRole: SignatoryRole
   signatureAppearance: SignatureAppearanceInput
 
   """
@@ -947,6 +953,7 @@ type Signatory {
   id: ID!
   reference: String
   role: String @deprecated(reason: "Deprecated in favor of signingAs")
+  signatoryRole: SignatoryRole!
 
   """Signature order for the signatory."""
   signatureOrder: SignatureOrder!
@@ -1041,6 +1048,11 @@ enum SignatoryFrontendEvent {
   DOWNLOAD_LINK_OPENED
 }
 
+enum SignatoryRole {
+  SIGNER
+  VIEWER
+}
+
 type SignatorySigningSequence {
   initialNumber: Int!
 }
@@ -1083,6 +1095,7 @@ type SignatoryViewer implements Viewer {
   download(verification: DownloadVerificationInput): SignatoryViewerDownload
   evidenceProviders: [SignatureEvidenceProvider!]!
   id: ID!
+  role: SignatoryRole!
   signatoryId: ID!
   signatureOrderStatus: SignatureOrderStatus!
   signer: Boolean!

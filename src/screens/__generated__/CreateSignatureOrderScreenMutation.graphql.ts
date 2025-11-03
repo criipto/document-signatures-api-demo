@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bb0314c1209c2b2c706a23043d5fe03c>>
+ * @generated SignedSource<<24b7483c76467a889cb3f5867535fbdb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ export type DocumentIDLocation = "BOTTOM" | "LEFT" | "RIGHT" | "TOP" | "%future 
 export type DocumentStorageMode = "Temporary" | "%future added value";
 export type EvidenceValidationStage = "SIGN" | "VIEW" | "%future added value";
 export type Language = "DA_DK" | "EN_US" | "NB_NO" | "SV_SE" | "%future added value";
+export type SignatoryRole = "SIGNER" | "VIEWER" | "%future added value";
 export type SignatureOrderStatus = "CANCELLED" | "CLOSED" | "EXPIRED" | "OPEN" | "%future added value";
 export type CreateSignatureOrderInput = {
   disableVerifyEvidenceProvider?: boolean | null;
@@ -116,6 +117,7 @@ export type CreateSignatureOrderSignatoryInput = {
   evidenceValidation?: ReadonlyArray<SignatoryEvidenceValidationInput> | null;
   reference?: string | null;
   role?: string | null;
+  signatoryRole?: SignatoryRole | null;
   signatureAppearance?: SignatureAppearanceInput | null;
   signingAs?: string | null;
   signingSequence?: number | null;
